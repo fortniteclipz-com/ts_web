@@ -7,7 +7,7 @@ import './styles.css'
 
 class Create extends Component {
     constructor(props, state) {
-        super()
+        super(props)
         autoBind(this)
     }
 
