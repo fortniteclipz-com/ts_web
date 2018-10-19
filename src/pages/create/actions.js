@@ -1,11 +1,27 @@
-export const STREAM_NEW = 'create::streamNew'
-export const STREAM_UPDATE = 'create::streamUpdate'
+export const createTypes = {
+    STREAM_NEW: 'create::streamNew',
+    STREAM_UPDATE: 'create::streamUpdate',
+};
 
-export function streamUpdate(stream) {
+const createActions = {};
+
+createActions.streamNew = function(stream_id) {
     return {
-        type: STREAM_UPDATE,
+        type: createTypes.STREAM_NEW,
+        payload: {
+            stream_id: stream_id,
+        },
+    }
+};
+
+
+createActions.streamUpdate = function(stream) {
+    return {
+        type: createTypes.STREAM_UPDATE,
         payload: {
             stream: stream,
         },
     }
 };
+
+export default createActions;
