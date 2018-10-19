@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Create from './components/create'
-// import View from './components/view/view'
-
-import './app.css';
+import Create from './pages/create'
 
 const App = function () {
     return (

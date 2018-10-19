@@ -4,7 +4,7 @@ import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from './app';
-import createReducer from './components/create/reducer'
+import * as createReducer from './pages/create/reducer'
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';

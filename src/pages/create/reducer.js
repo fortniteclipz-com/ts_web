@@ -1,6 +1,6 @@
 import { UPDATE_STREAM } from './actions';
 
-const createReducer = function (state = {}, { type, payload }) {
+export default function (state = {}, { type, payload }) {
     console.log("createReducer update", state, type, payload);
     switch (type) {
         case UPDATE_STREAM:
@@ -9,6 +9,4 @@ const createReducer = function (state = {}, { type, payload }) {
         default:
             return state;
     }
-}
-
-export default createReducer;
+};

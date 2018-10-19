@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
+
 import { updateStream } from './actions';
+import SelectStream from '../../components/create/select_stream';
 
 import './styles.css'
 
@@ -12,9 +14,12 @@ class Create extends Component {
     }
 
     render() {
+        console.log("render props", this.props);
+        console.log("render state", this.state);
+        const view = <SelectStream></SelectStream>
         return (
             <div className="create">
-                <p className="create__title">Create</p>
+                {view}
             </div>
         );
     }
