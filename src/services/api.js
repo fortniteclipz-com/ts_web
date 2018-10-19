@@ -21,17 +21,16 @@ const api = {};
 api.getStream = function(stream_id, callback) {
     const url = `${TS_URL}/stream/${stream_id}`
     fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-            "Content-Type": "application/json",
-            "x-api-key": TS_API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': TS_API_KEY,
         },
     })
     .then(response => response.json())
     .then(body => {
-        console.log("getStream body", body)
         const stream = body.stream;
-        stream.moments = body.stream_moments;
+        // stream.moments = body.stream_moments;
         callback(stream);
     })
 };

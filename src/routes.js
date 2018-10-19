@@ -7,8 +7,8 @@ export default function App() {
     return (
         <BrowserRouter>
           <Switch>
-              <Route path="/create" component={Create} />
-              <Redirect to="/create" />
+              <Route path='/create' component={Create} />
+              <Redirect to='/create' />
           </Switch>
         </BrowserRouter>
     );

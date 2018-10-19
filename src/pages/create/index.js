@@ -43,7 +43,7 @@ class Create extends Component {
         }
 
         return (
-            <div className="create">
+            <div className='create'>
                 {view}
             </div>
         );
