@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Create from './pages/create'
 
-const App = function () {
+export default function App() {
     return (
         <BrowserRouter>
           <Switch>
@@ -13,5 +13,3 @@ const App = function () {
         </BrowserRouter>
     );
 };
-
-export default App;

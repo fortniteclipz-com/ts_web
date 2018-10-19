@@ -3,16 +3,25 @@ import ReactDOM from 'react-dom';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import App from './app';
-import * as createReducer from './pages/create/reducer'
+import { TS_API_KEY, TS_LIMIT, TS_URL } from './config';
+import Routes from './routes';
+import createReducer from './pages/create/reducer';
+
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 
 const reducers = combineReducers({
+    config: (state = {}) => state,
     create: createReducer,
 });
-const state = {};
+const state = {
+    config: {
+        TS_API_KEY: TS_API_KEY,
+        TS_LIMIT: TS_LIMIT,
+        TS_URL: TS_URL,
+    }
+};
 const store = createStore(
     reducers,
     state,
@@ -22,7 +31,7 @@ const store = createStore(
 ReactDOM.render(
     (
         <Provider store={store}>
-            <App />
+            <Routes />
         </Provider>
     ),
     document.getElementById('root'),

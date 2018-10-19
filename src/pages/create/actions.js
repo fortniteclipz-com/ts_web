@@ -1,8 +1,9 @@
-export const UPDATE_STREAM = 'create::updateStream'
+export const STREAM_NEW = 'create::streamNew'
+export const STREAM_UPDATE = 'create::streamUpdate'
 
-export function updateStream(stream) {
+export function streamUpdate(stream) {
     return {
-        type: UPDATE_STREAM,
+        type: STREAM_UPDATE,
         payload: {
             stream: stream,
         },
