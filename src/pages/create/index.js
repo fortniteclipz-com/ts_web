@@ -57,12 +57,6 @@ class Create extends Component {
 };
 
 const mapState = function (state) {
-    console.log("Create mapState", state);
-    console.log("Create what", {
-        config: state.config,
-        ...state.create,
-    });
-
     return {
         config: state.config,
         ...state.create,
