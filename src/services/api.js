@@ -1,3 +1,5 @@
+// 310285421
+// 323596438
 const getCookie = function(name) {
     const value = "; " + document.cookie
     const parts = value.split("; " + name + "=")
@@ -17,10 +19,21 @@ console.log("TS_LIMIT", TS_LIMIT)
 const api = {};
 
 api.getStream = function(stream_id, callback) {
-    console.log("getStream");
-    callback({
-        stream_id: stream_id,
-    });
+    const url = `${TS_URL}/stream/${stream_id}`
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": TS_API_KEY,
+        },
+    })
+    .then(response => response.json())
+    .then(body => {
+        console.log("getStream body", body)
+        const stream = body.stream;
+        stream.moments = body.stream_moments;
+        callback(stream);
+    })
 };
 
 export default api;

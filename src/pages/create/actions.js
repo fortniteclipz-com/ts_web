@@ -14,7 +14,6 @@ createActions.streamNew = function(stream_id) {
     }
 };
 
-
 createActions.streamUpdate = function(stream) {
     return {
         type: createTypes.STREAM_UPDATE,
