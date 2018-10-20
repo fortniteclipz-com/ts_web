@@ -24,6 +24,8 @@ class Create extends Component {
         api.getStream(stream_id, (stream) => {
             this.props.streamUpdate(stream);
         });
+
+
     }
 
     render() {

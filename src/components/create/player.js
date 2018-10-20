@@ -9,8 +9,42 @@ class Player extends Component {
         this.state = {}
     }
 
+    handleKeyup(event) {
+        const handleSpace = () => {
+            console.log("handleSpace");
+            // if (TS_PLAYER.isPaused()) {
+            //     TS_PLAYER.play();
+            // } else {
+            //     TS_PLAYER.pause();
+            // }
+        };
+        const handleLeft = () => {
+            console.log("handleLeft");
+            // const timeModifier = TS_PLAYER.isPaused() ? 1 : 5;
+            // TS_PLAYER.seek(Math.round(TS_PLAYER.getCurrentTime() - timeModifier));
+        };
+        const handleRight = () => {
+            console.log("handleRight");
+            // const timeModifier = TS_PLAYER.isPaused() ? 1 : 5;
+            // TS_PLAYER.seek(Math.round(TS_PLAYER.getCurrentTime() + timeModifier));
+        };
+
+        const key = event.keyCode ? event.keyCode : event.which
+        if (key === 32) { handleSpace() } // space bar
+        if (key === 37) { handleLeft() } // left arrow
+        if (key === 39) { handleRight() } // right arrow
+    }
+
+    componentDidMount() {
+        window.addEventListener("keyup", this.handleKeyup);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("keyup", this.handleKeyup);
+    }
+
     render() {
-        const twitchUrl = 'https://www.twitch.tv/videos/311038404';
+        const twitchUrl = `https://www.twitch.tv/videos/${this.props.stream_id}`;
         return (
             <div className='player'>
                 <div className='player__wrapper'>
