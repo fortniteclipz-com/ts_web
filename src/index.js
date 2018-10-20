@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import createReducer from './pages/create/reducer';
 
-import Routes from './routes';
+import App from './app';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
@@ -23,7 +23,7 @@ const store = createStore(
 ReactDOM.render(
     (
         <Provider store={store}>
-            <Routes />
+            <App />
         </Provider>
     ),
     document.getElementById('root'),

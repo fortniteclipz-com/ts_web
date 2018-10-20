@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import createActions from './actions';
 import api from '../../services/api';
-import FindStream from '../../components/create/find_stream';
-import ShowStream from '../../components/create/show_stream';
+import SelectStream from '../../components/create/select_stream';
+import Player from '../../components/create/player';
 
 import './styles.css'
 
@@ -24,29 +24,32 @@ class Create extends Component {
         api.getStream(stream_id, (stream) => {
             this.props.streamUpdate(stream);
         });
-
-
     }
 
     render() {
-        let view = (
-            <FindStream
-                onStreamNew={this.onStreamNew}
-            ></FindStream>
-        );
+        let findStream = null;
+        let player = null;
+
+        if (!this.props.stream_id) {
+            findStream = (
+                <SelectStream
+                    onStreamNew={this.onStreamNew}
+                ></SelectStream>
+            );
+        }
 
         if (this.props.stream_id) {
-            view = (
-                <ShowStream
+            player = (
+                <Player
                     stream_id={this.props.stream_id}
-                    stream={this.props.stream}
-                ></ShowStream>
-            );
+                ></Player>
+            )
         }
 
         return (
             <div className='create'>
-                {view}
+                {player}
+                {findStream}
             </div>
         );
     }
