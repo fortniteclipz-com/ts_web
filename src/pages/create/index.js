@@ -1,55 +1,55 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import createActions from './actions';
-import api from '../../services/api';
-import SelectStream from '../../components/create/select_stream';
 import Player from '../../components/create/player';
+import api from '../../services/api';
+import helper from '../../services/helper';
 
 import './styles.css'
 
 class Create extends Component {
 
     constructor(props, state) {
-        super(props)
-        autoBind(this)
-        this.state = {}
+        super(props);
+        autoBind(this);
     }
 
-    onStreamNew(event) {
-        event.preventDefault();
-        const stream_id = event.target.querySelector("input[data-stream-id]").value
-        this.props.streamNew(stream_id);
+    componentDidMount() {
+        const stream_id = this.props.match.params.stream_id;
+        console.log("stream_id", stream_id);
         api.getStream(stream_id, (stream) => {
             this.props.streamUpdate(stream);
         });
     }
 
     render() {
-        let findStream = null;
-        let player = null;
+        let analyzeButton = null;
+        let clips = null;
+        let montageButton = null;
 
-        if (!this.props.stream_id) {
-            findStream = (
-                <SelectStream
-                    onStreamNew={this.onStreamNew}
-                ></SelectStream>
-            );
-        }
-
-        if (this.props.stream_id) {
-            player = (
-                <Player
-                    stream_id={this.props.stream_id}
-                ></Player>
-            )
+        if (this.props.stream) {
+            if (this.props.stream._status_analyze === 2) {
+                helper.getClipsFromMoments(this.props.stream);
+                clips = <h3>Clips</h3>
+                montageButton = <h3>Montage Button</h3>
+            }
+            else if (this.props.stream._status_analyze === 1) {
+                analyzeButton = <h3>Analyzing</h3>
+            }
+            else {
+                analyzeButton = <h3>Analyze</h3>
+            }
         }
 
         return (
             <div className='create'>
-                {player}
-                {findStream}
+                <Player stream_id={this.props.match.params.stream_id}></Player>
+                {analyzeButton}
+                {clips}
+                {montageButton}
             </div>
         );
     }
@@ -67,4 +67,4 @@ const mapActions = {
     streamUpdate: createActions.streamUpdate,
 };
 
-export default connect(mapState, mapActions)(Create);
+export default withRouter(connect(mapState, mapActions)(Create));

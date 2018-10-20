@@ -7,7 +7,7 @@ export default function App() {
     return (
         <BrowserRouter>
           <Switch>
-              <Route path='/create' component={Create} />
+              <Route path='/create/:stream_id' component={Create} />
               <Redirect to='/create' />
           </Switch>
         </BrowserRouter>
