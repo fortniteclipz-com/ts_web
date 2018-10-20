@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import createActions from './actions';
 import Player from '../../components/create/player';
+import Clips from '../../components/create/clips';
 import api from '../../services/api';
 import helper from '../../services/helper';
 
@@ -15,13 +13,18 @@ class Create extends Component {
     constructor(props, state) {
         super(props);
         autoBind(this);
+        this.state = {};
     }
 
     componentDidMount() {
         const stream_id = this.props.match.params.stream_id;
         console.log("stream_id", stream_id);
         api.getStream(stream_id, (stream) => {
-            this.props.streamUpdate(stream);
+            const clips = helper.getClipsFromMoments(stream);
+            this.setState({
+                stream: stream,
+                clips: clips,
+            });
         });
     }
 
@@ -29,14 +32,14 @@ class Create extends Component {
         let analyzeButton = null;
         let clips = null;
         let montageButton = null;
-
-        if (this.props.stream) {
-            if (this.props.stream._status_analyze === 2) {
-                helper.getClipsFromMoments(this.props.stream);
-                clips = <h3>Clips</h3>
+        if (this.state.stream) {
+            if (this.state.stream._status_analyze === 2) {
+                clips = (
+                    <Clips clips={this.state.clips} />
+                );
                 montageButton = <h3>Montage Button</h3>
             }
-            else if (this.props.stream._status_analyze === 1) {
+            else if (this.state.stream._status_analyze === 1) {
                 analyzeButton = <h3>Analyzing</h3>
             }
             else {
@@ -46,7 +49,7 @@ class Create extends Component {
 
         return (
             <div className='create'>
-                <Player stream_id={this.props.match.params.stream_id}></Player>
+                <Player stream_id={this.props.match.params.stream_id} />
                 {analyzeButton}
                 {clips}
                 {montageButton}
@@ -55,16 +58,4 @@ class Create extends Component {
     }
 };
 
-const mapState = function(state) {
-    return {
-        config: state.config,
-        ...state.create,
-    };
-};
-
-const mapActions = {
-    streamNew: createActions.streamNew,
-    streamUpdate: createActions.streamUpdate,
-};
-
-export default withRouter(connect(mapState, mapActions)(Create));
+export default Create;
