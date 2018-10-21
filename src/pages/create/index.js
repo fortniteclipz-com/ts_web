@@ -18,7 +18,6 @@ class Create extends Component {
 
     componentDidMount() {
         const stream_id = this.props.match.params.stream_id;
-        console.log("stream_id", stream_id);
         api.getStream(stream_id, (stream) => {
             const clips = helper.getClipsFromMoments(stream);
             this.setState({
@@ -107,8 +106,6 @@ class Create extends Component {
                             width={'100%'}
                             height={'100%'}
                             controls={true}
-                            autoPlay={true}
-                            playing={true}
                             ref={player => this.player = player}
                         />
                     </div>

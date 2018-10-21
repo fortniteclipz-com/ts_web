@@ -15,11 +15,11 @@ helper.getClipsFromMoments = function(stream, stream_moments) {
             if (time_out > stream.duration) {
                 time_out = stream.duration;
             }
-            let time_min = clip_moments[0].time - 30;
+            let time_min = clip_moments[0].time - 10;
             if (time_min < 0) {
                 time_min = 0;
             }
-            let time_max = clip_moments[clip_moments.length - 1].time + 30;
+            let time_max = clip_moments[clip_moments.length - 1].time + 10;
             if (time_max > stream.duration) {
                 time_max = stream.duration;
             }

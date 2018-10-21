@@ -1,16 +1,21 @@
-.create__title {
-    font-size: 20px;
+.create {
+    text-align: center;
+}
+
+.player {
+    margin: 0 auto;
+    max-width: 700px;
 }
 
 .player__wrapper {
+    padding-top: 56.25%;
     position: relative;
-    padding-top: 56.25%
 }
 
 .player__twitch-player {
     position: absolute;
-    top: 0;
     left: 0;
+    top: 0;
 }
 
 .clips {
@@ -20,7 +25,7 @@
     justify-content: center;
 }
 
-.clips__clip {
+.clip {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -30,14 +35,12 @@
     width: 100%;
 }
 
-.clips__clip__select {
-
+.clip .cell {
+    flex: 0 1 100px;
+    text-align: center;
 }
 
-.clips__clip__timein {
-
-}
-
-.clips__clip__timeout {
-
+.clip .cell-range {
+    flex: 1 1 100px;
+    text-align: center;
 }
