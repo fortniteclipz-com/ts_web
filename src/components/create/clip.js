@@ -1,6 +1,5 @@
-import React from 'react';
-import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
+import React from 'react';
 
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
@@ -25,16 +24,18 @@ export default function Clip(props) {
     return (
         <div className='clip'>
             <div className='cell cell-select'>
-                <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)}/>
+                <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
-            <div className='cell cell-timein'>{parseInt(props.clip.time_in)} / {parseInt(props.clip.time_min)}</div>
-            <div className='cell cell-timeout'>{parseInt(props.clip.time_out)} / {parseInt(props.clip.time_max)}</div>
+            <div className='cell cell-timein'>{props.clip.time_in} / {props.clip.time_min}</div>
+            <div className='cell cell-timeout'>{props.clip.time_out} / {props.clip.time_max}</div>
             <div className='cell cell-range'>
                 <Range
                     min={props.clip.time_min}
                     max={props.clip.time_max}
                     defaultValue={[props.clip.time_in, props.clip.time_out]}
                     tipFormatter={toHHMMSS}
+                    onChange={(value) => props.onChange(value, props.clip)}
+                    onAfterChange={(value) => props.onAfterChange(value, props.clip)}
                 />
             </div>
             <div className='cell cell-play'>

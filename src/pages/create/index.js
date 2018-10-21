@@ -43,6 +43,26 @@ class Create extends Component {
         });
     }
 
+    clipOnChange(value, clip) {
+        console.log("clipOnChange", value, clip);
+        let seekTo = value[0]
+        if (clip.time_in === value[0]) {
+            seekTo = value[1]
+        }
+        const player = this.player.getInternalPlayer();
+        player.pause();
+        player.seek(seekTo);
+    }
+
+    clipOnAfterChange(value, clip) {
+        console.log("clipOnAfterChange", value, clip);
+        clip.time_in = value[0]
+        clip.time_out = value[1]
+        this.setState({
+            clips: this.state.clips,
+        });
+    }
+
     clipOnPlay(clip) {
         clearInterval(this.clipOnPlayInterval)
         const player = this.player.getInternalPlayer();
@@ -81,7 +101,14 @@ class Create extends Component {
                         montageDuration += clip.time_out - clip.time_in
                     }
                     return (
-                        <Clip key={i} clip={clip} onPlay={this.clipOnPlay} onInclude={this.clipOnInclude} />
+                        <Clip
+                            key={i}
+                            clip={clip}
+                            onPlay={this.clipOnPlay}
+                            onInclude={this.clipOnInclude}
+                            onChange={this.clipOnChange}
+                            onAfterChange={this.clipOnAfterChange}
+                        />
                     );
                 });
                 montage = (

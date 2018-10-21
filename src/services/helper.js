@@ -26,10 +26,10 @@ helper.getClipsFromMoments = function(stream, stream_moments) {
 
             clips.push({
                 include: true,
-                time_in: time_in,
-                time_out: time_out,
-                time_min: time_min,
-                time_max: time_max,
+                time_in: parseInt(time_in),
+                time_out: parseInt(time_out),
+                time_min: parseInt(time_min),
+                time_max: parseInt(time_max),
                 moments: clip_moments,
             });
             clip_moments = [];
