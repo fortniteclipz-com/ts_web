@@ -3,15 +3,15 @@ const helper = {};
 helper.getClipsFromMoments = function(stream, stream_moments) {
     const clips = [];
     let clip_moments = [];
-    stream.moments.forEach(function(sm, index) {
-        if (!clip_moments.length || sm.time - clip_moments[clip_moments.length - 1].time <= 5) {
-            clip_moments.push(sm);
+    stream.moments.forEach(function(stream_moment) {
+        if (!clip_moments.length || stream_moment.time - clip_moments[clip_moments.length - 1].time <= 5) {
+            clip_moments.push(stream_moment);
         } else {
-            let time_in = clip_moments[0].time - 5;
+            let time_in = clip_moments[0].time - 4;
             if (time_in < 0) {
                 time_in = 0;
             }
-            let time_out = clip_moments[clip_moments.length - 1].time + 2;
+            let time_out = clip_moments[clip_moments.length - 1].time + 1;
             if (time_out > stream.duration) {
                 time_out = stream.duration;
             }

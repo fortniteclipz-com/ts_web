@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import TwitchPlayer from 'react-player/lib/players/Twitch'
 
-import Player from '../../components/create/player';
-import Clips from '../../components/create/clips';
+import Clip from '../../components/create/clip';
 import api from '../../services/api';
 import helper from '../../services/helper';
 
@@ -13,7 +13,9 @@ class Create extends Component {
     constructor(props, state) {
         super(props);
         autoBind(this);
-        this.state = {};
+        this.state = {
+            playingClip: null,
+        };
     }
 
     componentDidMount() {
@@ -28,31 +30,90 @@ class Create extends Component {
         });
     }
 
+    clipInclude(clip) {
+        clip.include = !clip.include;
+        this.setState({
+            clips: this.state.clips,
+        });
+    }
+
+    clipPlay(clip) {
+        clearInterval(this.clipPlayInterval)
+        const player = this.player.getInternalPlayer();
+        player.pause();
+        player.seek(clip.time_in);
+
+        setTimeout(() => {
+            player.play();
+            this.setState({
+                playingClip: clip,
+            }, () => {
+                this.clipPlayInterval = setInterval(() => {
+                    console.log("getCurrentTime", this.player.getCurrentTime());
+                    const timeInDiff = clip.time_in - this.player.getCurrentTime();
+                    const timeOutDiff = this.player.getCurrentTime() - clip.time_out;
+                    if (timeInDiff > 0 || timeOutDiff > 0) {
+                        if (timeOutDiff > 0 && timeOutDiff < 1) {
+                            this.player.getInternalPlayer().pause();
+                        }
+                        clearInterval(this.clipPlayInterval)
+                    }
+                }, 500);
+            });
+        }, 1000)
+    }
+
     render() {
-        let analyzeButton = null;
+        const twitchUrl = `https://www.twitch.tv/videos/${this.props.match.params.stream_id}`;
+
+        let analyze = null;
         let clips = null;
-        let montageButton = null;
+        let montage = null;
+
         if (this.state.stream) {
             if (this.state.stream._status_analyze === 2) {
-                clips = (
-                    <Clips clips={this.state.clips} />
-                );
-                montageButton = <h3>Montage Button</h3>
+                let includedClips = 0;
+                clips = this.state.clips.map((clip, i) => {
+                    if (clip.include) {
+                        includedClips += 1;
+                    }
+                    return (
+                        <Clip key={i} clip={clip} play={this.clipPlay} include={this.clipInclude} />
+                    );
+                });
+                montage = (
+                    <button>Create Montage ({includedClips} Clips)</button>
+                )
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyzeButton = <h3>Analyzing</h3>
+                analyze = <button>Analyzing</button>
             }
             else {
-                analyzeButton = <h3>Analyze</h3>
+                analyze = <button>Analyze</button>
             }
         }
 
         return (
             <div className='create'>
-                <Player stream_id={this.props.match.params.stream_id} />
-                {analyzeButton}
-                {clips}
-                {montageButton}
+                <div className='player'>
+                    <div className='player__wrapper'>
+                        <TwitchPlayer
+                            className='player__twitch-player'
+                            url={twitchUrl}
+                            width={'100%'}
+                            height={'100%'}
+                            controls={true}
+                            autoPlay={true}
+                            playing={true}
+                            ref={player => this.player = player}
+                        />
+                    </div>
+                </div>
+                {analyze}
+                <div className='clips'>
+                    {clips}
+                </div>
+                {montage}
             </div>
         );
     }

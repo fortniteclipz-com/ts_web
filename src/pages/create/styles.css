@@ -3,12 +3,41 @@
 }
 
 .player__wrapper {
-  position: relative;
-  padding-top: 56.25%
+    position: relative;
+    padding-top: 56.25%
 }
 
 .player__twitch-player {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.clips {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.clips__clip {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    margin: 5px 0;
+    width: 100%;
+}
+
+.clips__clip__select {
+
+}
+
+.clips__clip__timein {
+
+}
+
+.clips__clip__timeout {
+
 }
