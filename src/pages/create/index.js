@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 import Clip from '../../components/create/clip';
 import api from '../../services/api';
@@ -13,7 +14,11 @@ class Create extends Component {
     constructor(props, state) {
         super(props);
         autoBind(this);
-        this.state = {};
+        this.state = {
+            stream: null,
+            clips: null,
+            playingClip: null,
+        };
     }
 
     componentDidMount() {
@@ -44,7 +49,6 @@ class Create extends Component {
     }
 
     clipOnChange(value, clip) {
-        console.log("clipOnChange", value, clip);
         let seekTo = value[0]
         if (clip.time_in === value[0]) {
             seekTo = value[1]
@@ -57,28 +61,46 @@ class Create extends Component {
         clip.time_out = value[1]
         this.setState({
             clips: this.state.clips,
+            playingClip: clip,
         });
     }
 
     clipOnPlay(clip) {
-        clearInterval(this.clipOnPlayInterval)
-        const player = this.player.getInternalPlayer();
-        player.pause();
-        player.seek(clip.time_in);
-        setTimeout(() => {
+        this.setState({
+            playingClip: null,
+        }, () => {
+            const player = this.player.getInternalPlayer();
+            player.seek(clip.time_in);
             player.play();
-            this.clipOnPlayInterval = setInterval(() => {
-                console.log("getCurrentTime", this.player.getCurrentTime());
-                const timeInDiff = clip.time_in - this.player.getCurrentTime();
-                const timeOutDiff = this.player.getCurrentTime() - clip.time_out;
-                if (timeInDiff > 0 || timeOutDiff > 0) {
-                    if (timeOutDiff > 0 && timeOutDiff < 1) {
-                        this.player.getInternalPlayer().pause();
-                    }
-                    clearInterval(this.clipOnPlayInterval)
+            player.pause();
+            setTimeout(() => {
+                this.setState({
+                    playingClip: clip,
+                }, () => {
+                    player.play();
+                });
+            }, 1000);
+        });
+
+    }
+
+    playerOnPlay() {
+        clearInterval(this.playerInterval)
+        this.playerInterval = setInterval(() => {
+            if (this.state.playingClip) {
+                const timeOutDiff = this.player.getCurrentTime() - this.state.playingClip.time_out;
+                if (timeOutDiff > 0) {
+                    this.player.getInternalPlayer().pause();
+                    this.setState({
+                        playingClip: null,
+                    });
                 }
-            }, 500);
-        }, 1000)
+            }
+        }, 500);
+    }
+
+    playerOnPause() {
+        clearInterval(this.playerInterval)
     }
 
     render() {
@@ -92,24 +114,30 @@ class Create extends Component {
             if (this.state.stream._status_analyze === 2) {
                 let montageClipCount = 0;
                 let montageDuration = 0;
-                clips = this.state.clips.map((clip, i) => {
-                    if (clip.include) {
-                        montageClipCount += 1;
-                        montageDuration += clip.time_out - clip.time_in
+                clips = (
+                    <div className='clips'>
+                    {
+                        this.state.clips.map((clip, i) => {
+                            if (clip.include) {
+                                montageClipCount += 1;
+                                montageDuration += clip.time_out - clip.time_in
+                            }
+                            return (
+                                <Clip
+                                    key={i}
+                                    clip={clip}
+                                    onPlay={this.clipOnPlay}
+                                    onInclude={this.clipOnInclude}
+                                    onChange={this.clipOnChange}
+                                />
+                            );
+                        })
                     }
-                    return (
-                        <Clip
-                            key={i}
-                            clip={clip}
-                            onPlay={this.clipOnPlay}
-                            onInclude={this.clipOnInclude}
-                            onChange={this.clipOnChange}
-                        />
-                    );
-                });
-                montage = (
-                    <button>Create Montage ({montageClipCount} clips) ({montageDuration} seconds)</button>
+                    </div>
                 )
+                montage = (
+                    <button class="create__montage">Create Montage ({montageClipCount} clips) ({montageDuration} seconds)</button>
+                );
             }
             else if (this.state.stream._status_analyze === 1) {
                 analyze = <button disabled>Analyzing</button>
@@ -129,14 +157,14 @@ class Create extends Component {
                             width={'100%'}
                             height={'100%'}
                             controls={true}
+                            onPlay={this.playerOnPlay}
+                            onPause={this.playerOnPause}
                             ref={player => this.player = player}
                         />
                     </div>
                 </div>
                 {analyze}
-                <div className='clips'>
-                    {clips}
-                </div>
+                {clips}
                 {montage}
             </div>
         );
