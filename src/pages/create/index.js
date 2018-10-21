@@ -30,15 +30,24 @@ class Create extends Component {
         });
     }
 
-    clipInclude(clip) {
+    onAnalyze() {
+        const stream_id = this.props.match.params.stream_id;
+        api.analyzeStream(stream_id, (stream) => {
+            this.setState({
+                stream: stream,
+            });
+        });
+    }
+
+    clipOnInclude(clip) {
         clip.include = !clip.include;
         this.setState({
             clips: this.state.clips,
         });
     }
 
-    clipPlay(clip) {
-        clearInterval(this.clipPlayInterval)
+    clipOnPlay(clip) {
+        clearInterval(this.clipOnPlayInterval)
         const player = this.player.getInternalPlayer();
         player.pause();
         player.seek(clip.time_in);
@@ -48,7 +57,7 @@ class Create extends Component {
             this.setState({
                 playingClip: clip,
             }, () => {
-                this.clipPlayInterval = setInterval(() => {
+                this.clipOnPlayInterval = setInterval(() => {
                     console.log("getCurrentTime", this.player.getCurrentTime());
                     const timeInDiff = clip.time_in - this.player.getCurrentTime();
                     const timeOutDiff = this.player.getCurrentTime() - clip.time_out;
@@ -56,7 +65,7 @@ class Create extends Component {
                         if (timeOutDiff > 0 && timeOutDiff < 1) {
                             this.player.getInternalPlayer().pause();
                         }
-                        clearInterval(this.clipPlayInterval)
+                        clearInterval(this.clipOnPlayInterval)
                     }
                 }, 500);
             });
@@ -78,7 +87,7 @@ class Create extends Component {
                         includedClips += 1;
                     }
                     return (
-                        <Clip key={i} clip={clip} play={this.clipPlay} include={this.clipInclude} />
+                        <Clip key={i} clip={clip} onPlay={this.clipOnPlay} onInclude={this.clipOnInclude} />
                     );
                 });
                 montage = (
@@ -86,10 +95,10 @@ class Create extends Component {
                 )
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyze = <button>Analyzing</button>
+                analyze = <button disabled>Analyzing</button>
             }
             else {
-                analyze = <button>Analyze</button>
+                analyze = <button onClick={this.onAnalyze}>Analyze</button>
             }
         }
 

@@ -30,6 +30,7 @@ api.getStream = function(stream_id, callback) {
     .then(response => response.json())
     .then(body => {
         let stream = {};
+        stream.moments = [];
         if (body.stream) {
             stream = body.stream;
             stream.moments = body.stream_moments;
@@ -37,5 +38,25 @@ api.getStream = function(stream_id, callback) {
         callback(stream);
     })
 };
+
+api.analyzeStream = function (stream_id, callback) {
+    const url = `${TS_URL}/stream/${stream_id}/moments`
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": TS_API_KEY,
+        },
+        body: JSON.stringify({}),
+    })
+    .then(response => response.json())
+    .then(body => {
+        let stream = {};
+        if (body.stream) {
+            stream = body.stream;
+        }
+        callback(stream);
+    });
+}
 
 export default api;
