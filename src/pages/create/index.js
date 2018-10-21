@@ -78,8 +78,8 @@ class Create extends Component {
                 let montageDuration = 0;
                 clips = this.state.clips.map((clip, i) => {
                     if (clip.include) {
-                        montageDuration += clip.time_out - clip.time_in
                         montageClipCount += 1;
+                        montageDuration += clip.time_out - clip.time_in
                     }
                     return (
                         <Clip key={i} clip={clip} onPlay={this.clipOnPlay} onInclude={this.clipOnInclude} />
