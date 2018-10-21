@@ -4,6 +4,9 @@ import React from 'react';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+
 const toHHMMSS = function (value) {
     const sec_num = parseInt(value, 10);
     let hours   = Math.floor(sec_num / 3600);
@@ -16,11 +19,7 @@ const toHHMMSS = function (value) {
     return `${hours}:${minutes}:${seconds}`;
 }
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
-
 export default function Clip(props) {
-
     return (
         <div className='clip'>
             <div className='cell cell-select'>

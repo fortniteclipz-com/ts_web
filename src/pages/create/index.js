@@ -15,18 +15,20 @@ class Create extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            stream: null,
-            clips: null,
+            stream: {},
+            stream_moments: [],
+            clips: [],
             playingClip: null,
         };
     }
 
     componentDidMount() {
         const stream_id = this.props.match.params.stream_id;
-        api.getStream(stream_id, (stream) => {
-            const clips = helper.getClipsFromMoments(stream);
+        api.getStream(stream_id, (stream, stream_moments) => {
+            const clips = helper.createClips(stream, stream_moments);
             this.setState({
                 stream: stream,
+                stream_moments: stream_moments,
                 clips: clips,
             });
         });
@@ -49,16 +51,30 @@ class Create extends Component {
     }
 
     clipOnChange(value, clip) {
-        let seekTo = value[0]
+        let seekTo = value[0];
         if (clip.time_in === value[0]) {
-            seekTo = value[1]
+            seekTo = value[1];
         }
         const player = this.player.getInternalPlayer();
         player.pause();
         player.seek(seekTo);
 
-        clip.time_in = value[0]
-        clip.time_out = value[1]
+        clip.time_in = value[0];
+        clip.time_out = value[1];
+        this.setState({
+            clips: this.state.clips,
+            playingClip: clip,
+        });
+    }
+
+    clipOnAfterChange(value, clip) {
+        const seekTo = value[0];
+        const player = this.player.getInternalPlayer();
+        player.pause();
+        player.seek(seekTo);
+
+        clip.time_in = value[0];
+        clip.time_out = value[1];
         this.setState({
             clips: this.state.clips,
             playingClip: clip,
@@ -82,6 +98,12 @@ class Create extends Component {
             }, 1000);
         });
 
+    }
+
+    playerOnReady() {
+        const player = this.player.getInternalPlayer();
+        player.play();
+        player.pause();
     }
 
     playerOnPlay() {
@@ -110,7 +132,7 @@ class Create extends Component {
         let clips = null;
         let montage = null;
 
-        if (this.state.stream) {
+        if (this.state.stream.stream_id) {
             if (this.state.stream._status_analyze === 2) {
                 let montageClipCount = 0;
                 let montageDuration = 0;
@@ -157,6 +179,7 @@ class Create extends Component {
                             width={'100%'}
                             height={'100%'}
                             controls={true}
+                            onReady={this.playerOnReady}
                             onPlay={this.playerOnPlay}
                             onPause={this.playerOnPause}
                             ref={player => this.player = player}

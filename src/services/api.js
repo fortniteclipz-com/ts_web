@@ -30,12 +30,12 @@ api.getStream = function(stream_id, callback) {
     .then(response => response.json())
     .then(body => {
         let stream = {};
-        stream.moments = [];
+        let stream_moments = [];
         if (body.stream) {
             stream = body.stream;
-            stream.moments = body.stream_moments;
+            stream_moments = body.stream_moments;
         }
-        callback(stream);
+        callback(stream, stream_moments);
     })
 };
 

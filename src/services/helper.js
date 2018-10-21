@@ -1,9 +1,9 @@
 const helper = {};
 
-helper.getClipsFromMoments = function(stream, stream_moments) {
+helper.createClips = function(stream, stream_moments) {
     const clips = [];
     let clip_moments = [];
-    stream.moments.forEach(function(stream_moment) {
+    stream_moments.forEach(function(stream_moment) {
         if (!clip_moments.length || stream_moment.time - clip_moments[clip_moments.length - 1].time <= 5) {
             clip_moments.push(stream_moment);
         } else {
