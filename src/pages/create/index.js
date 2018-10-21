@@ -13,9 +13,7 @@ class Create extends Component {
     constructor(props, state) {
         super(props);
         autoBind(this);
-        this.state = {
-            playingClip: null,
-        };
+        this.state = {};
     }
 
     componentDidMount() {
@@ -51,24 +49,19 @@ class Create extends Component {
         const player = this.player.getInternalPlayer();
         player.pause();
         player.seek(clip.time_in);
-
         setTimeout(() => {
             player.play();
-            this.setState({
-                playingClip: clip,
-            }, () => {
-                this.clipOnPlayInterval = setInterval(() => {
-                    console.log("getCurrentTime", this.player.getCurrentTime());
-                    const timeInDiff = clip.time_in - this.player.getCurrentTime();
-                    const timeOutDiff = this.player.getCurrentTime() - clip.time_out;
-                    if (timeInDiff > 0 || timeOutDiff > 0) {
-                        if (timeOutDiff > 0 && timeOutDiff < 1) {
-                            this.player.getInternalPlayer().pause();
-                        }
-                        clearInterval(this.clipOnPlayInterval)
+            this.clipOnPlayInterval = setInterval(() => {
+                console.log("getCurrentTime", this.player.getCurrentTime());
+                const timeInDiff = clip.time_in - this.player.getCurrentTime();
+                const timeOutDiff = this.player.getCurrentTime() - clip.time_out;
+                if (timeInDiff > 0 || timeOutDiff > 0) {
+                    if (timeOutDiff > 0 && timeOutDiff < 1) {
+                        this.player.getInternalPlayer().pause();
                     }
-                }, 500);
-            });
+                    clearInterval(this.clipOnPlayInterval)
+                }
+            }, 500);
         }, 1000)
     }
 
@@ -81,17 +74,19 @@ class Create extends Component {
 
         if (this.state.stream) {
             if (this.state.stream._status_analyze === 2) {
-                let includedClips = 0;
+                let montageClipCount = 0;
+                let montageDuration = 0;
                 clips = this.state.clips.map((clip, i) => {
                     if (clip.include) {
-                        includedClips += 1;
+                        montageDuration += clip.time_out - clip.time_in
+                        montageClipCount += 1;
                     }
                     return (
                         <Clip key={i} clip={clip} onPlay={this.clipOnPlay} onInclude={this.clipOnInclude} />
                     );
                 });
                 montage = (
-                    <button>Create Montage ({includedClips} Clips)</button>
+                    <button>Create Montage ({montageClipCount} clips) ({montageDuration} seconds)</button>
                 )
             }
             else if (this.state.stream._status_analyze === 1) {
