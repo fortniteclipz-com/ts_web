@@ -52,10 +52,7 @@ class Create extends Component {
         const player = this.player.getInternalPlayer();
         player.pause();
         player.seek(seekTo);
-    }
 
-    clipOnAfterChange(value, clip) {
-        console.log("clipOnAfterChange", value, clip);
         clip.time_in = value[0]
         clip.time_out = value[1]
         this.setState({
@@ -107,7 +104,6 @@ class Create extends Component {
                             onPlay={this.clipOnPlay}
                             onInclude={this.clipOnInclude}
                             onChange={this.clipOnChange}
-                            onAfterChange={this.clipOnAfterChange}
                         />
                     );
                 });
