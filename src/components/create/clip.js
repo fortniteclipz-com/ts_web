@@ -1,11 +1,21 @@
 import Slider from 'rc-slider';
 import React from 'react';
+import { FaBars } from 'react-icons/fa';
+import { SortableHandle } from 'react-sortable-hoc';
+
 
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
+const DragHandle = SortableHandle(() => {
+    return (
+        <div style={{cursor: 'pointer', display: 'inline-block'}}>
+            <FaBars />
+        </div>
+    );
+});
 
 const toHHMMSS = function (value) {
     const sec_num = parseInt(value, 10);
@@ -17,7 +27,7 @@ const toHHMMSS = function (value) {
     if (minutes < 10) {minutes = `0${minutes}`}
     if (seconds < 10) {seconds = `0${seconds}`}
     return `${hours}:${minutes}:${seconds}`;
-}
+};
 
 export default function Clip(props) {
     return (
@@ -30,14 +40,18 @@ export default function Clip(props) {
                 <Range
                     min={props.clip.time_min}
                     max={props.clip.time_max}
-                    defaultValue={[props.clip.time_in, props.clip.time_out]}
+                    value={[props.clip.time_in, props.clip.time_out]}
                     tipFormatter={toHHMMSS}
                     onChange={(value) => props.onChange(value, props.clip)}
+                    onAfterChange={(value) => props.onAfterChange(value, props.clip)}
                 />
             </div>
             <div className='cell cell-timeout'>{toHHMMSS(props.clip.time_out)}</div>
             <div className='cell cell-play'>
                 <button onClick={(e) => props.onPlay(props.clip)}>Play</button>
+            </div>
+            <div className='cell cell-draghandle'>
+                <DragHandle />
             </div>
         </div>
     );

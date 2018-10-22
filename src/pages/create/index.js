@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import { arrayMove } from 'react-sortable-hoc';
 
-import Clip from '../../components/create/clip';
+import Clips from '../../components/create/clips';
 import api from '../../services/api';
 import helper from '../../services/helper';
 
 import './styles.css'
 
-class Create extends Component {
+export default class Create extends Component {
 
     constructor(props, state) {
         super(props);
@@ -35,6 +35,7 @@ class Create extends Component {
     }
 
     onAnalyze() {
+        console.log("onAnalyze");
         const stream_id = this.props.match.params.stream_id;
         api.analyzeStream(stream_id, (stream) => {
             this.setState({
@@ -44,6 +45,7 @@ class Create extends Component {
     }
 
     clipOnInclude(clip) {
+        console.log("clipOnInclude");
         clip.include = !clip.include;
         this.setState({
             clips: this.state.clips,
@@ -51,13 +53,15 @@ class Create extends Component {
     }
 
     clipOnChange(value, clip) {
+        console.log("clipOnChange");
         let seekTo = value[0];
         if (clip.time_in === value[0]) {
             seekTo = value[1];
         }
         const player = this.player.getInternalPlayer();
-        player.pause();
         player.seek(seekTo);
+        player.play();
+        player.pause();
 
         clip.time_in = value[0];
         clip.time_out = value[1];
@@ -68,10 +72,12 @@ class Create extends Component {
     }
 
     clipOnAfterChange(value, clip) {
+        console.log("clipOnAfterChange");
         const seekTo = value[0];
         const player = this.player.getInternalPlayer();
-        player.pause();
         player.seek(seekTo);
+        player.play();
+        player.pause();
 
         clip.time_in = value[0];
         clip.time_out = value[1];
@@ -82,6 +88,7 @@ class Create extends Component {
     }
 
     clipOnPlay(clip) {
+        console.log("clipOnPlay");
         this.setState({
             playingClip: null,
         }, () => {
@@ -95,18 +102,27 @@ class Create extends Component {
                 }, () => {
                     player.play();
                 });
-            }, 1000);
+            }, 500);
         });
 
     }
 
+    clipsOnSortEnd({ oldIndex, newIndex }) {
+        console.log("clipsOnSortEnd");
+        this.setState({
+          clips: arrayMove(this.state.clips, oldIndex, newIndex),
+        });
+    }
+
     playerOnReady() {
+        console.log("playerOnReady");
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
     }
 
     playerOnPlay() {
+        console.log("playerOnPlay");
         clearInterval(this.playerInterval)
         this.playerInterval = setInterval(() => {
             if (this.state.playingClip) {
@@ -122,50 +138,50 @@ class Create extends Component {
     }
 
     playerOnPause() {
+        console.log("playerOnPause");
         clearInterval(this.playerInterval)
     }
 
     render() {
         const twitchUrl = `https://www.twitch.tv/videos/${this.props.match.params.stream_id}`;
 
-        let analyze = null;
-        let clips = null;
-        let montage = null;
+        let analyzeHTML = null;
+        let clipsHTML = null;
+        let montageHTML = null;
 
         if (this.state.stream.stream_id) {
             if (this.state.stream._status_analyze === 2) {
-                let montageClipCount = 0;
-                let montageDuration = 0;
-                clips = (
-                    <div className='clips'>
-                    {
-                        this.state.clips.map((clip, i) => {
-                            if (clip.include) {
-                                montageClipCount += 1;
-                                montageDuration += clip.time_out - clip.time_in
-                            }
-                            return (
-                                <Clip
-                                    key={i}
-                                    clip={clip}
-                                    onPlay={this.clipOnPlay}
-                                    onInclude={this.clipOnInclude}
-                                    onChange={this.clipOnChange}
-                                />
-                            );
-                        })
+                console.log("-----------");
+                const montageInfo = this.state.clips.reduce(function (acc, clip) {
+                    console.log("clip", clip.time_in, clip.time_out);
+                    if (clip.include) {
+                        acc.clipCount += 1;
+                        acc.duration += clip.time_out - clip.time_in;
                     }
-                    </div>
-                )
-                montage = (
-                    <button class="create__montage">Create Montage ({montageClipCount} clips) ({montageDuration} seconds)</button>
+                    return acc;
+                }, {
+                    clipCount: 0,
+                    duration: 0,
+                });
+
+                clipsHTML = (
+                    <Clips
+                        onSortEnd={this.clipsOnSortEnd}
+                        useDragHandle={true}
+                        clips={this.state.clips}
+                        clipOnPlay={this.clipOnPlay}
+                        clipOnInclude={this.clipOnInclude}
+                        clipOnChange={this.clipOnChange}
+                        clipOnAfterChange={this.clipOnAfterChange}
+                    />
                 );
+                montageHTML = (<button className="create__montage">Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyze = <button disabled>Analyzing</button>
+                analyzeHTML = (<button disabled>Analyzing</button>);
             }
             else {
-                analyze = <button onClick={this.onAnalyze}>Analyze</button>
+                analyzeHTML = (<button onClick={this.onAnalyze}>Analyze</button>);
             }
         }
 
@@ -186,12 +202,11 @@ class Create extends Component {
                         />
                     </div>
                 </div>
-                {analyze}
-                {clips}
-                {montage}
+
+                {analyzeHTML}
+                {clipsHTML}
+                {montageHTML}
             </div>
         );
     }
 };
-
-export default Create;

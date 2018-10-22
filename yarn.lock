@@ -7852,6 +7852,11 @@ react-error-overlay@^5.0.5:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.0.5.tgz#716ff1a92fda76bb89a39adf9ce046a5d740e71a"
   integrity sha512-ab0HWBgxdIsngHtMGU8+8gYFdTBXpUGd4AE4lN2VZvOIlBmWx9dtaWEViihuGSIGosCKPeHCnzFoRWB42UtnLg==
 
+react-icons@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.2.1.tgz#6f7f9ccbeec05ff7076df070703e03238903ac30"
+  integrity sha512-NQhnh7G5hWCAK7pXPeeI944RkeZ85mtvFATx3wfcVQRTW4ejaQgriemYF72gQIFIyoApMXLTdb01BKp8PaXlrg==
+
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"

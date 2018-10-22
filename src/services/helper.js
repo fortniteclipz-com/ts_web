@@ -1,3 +1,5 @@
+import uuidv4 from 'uuid/v4'
+
 const helper = {};
 
 helper.createClips = function(stream, stream_moments) {
@@ -25,6 +27,7 @@ helper.createClips = function(stream, stream_moments) {
             }
 
             clips.push({
+                uuid: uuidv4(),
                 include: true,
                 time_in: parseInt(time_in),
                 time_out: parseInt(time_out),
