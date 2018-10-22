@@ -11,7 +11,7 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 const DragHandle = SortableHandle(() => {
     return (
-        <div style={{cursor: 'pointer', display: 'inline-block'}}>
+        <div style={{cursor: 'grab', display: 'inline-block'}}>
             <FaBars />
         </div>
     );
