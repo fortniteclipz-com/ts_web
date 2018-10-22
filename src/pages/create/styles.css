@@ -2,23 +2,23 @@
     text-align: center;
 }
 
-.player {
+.create .player {
     margin: 0 auto;
     max-width: 700px;
 }
 
-.player__wrapper {
+.create .player__wrapper {
     padding-top: 56.25%;
     position: relative;
 }
 
-.player__twitch-player {
+.create .player__twitch-player {
     position: absolute;
     left: 0;
     top: 0;
 }
 
-.clips {
+.create .clips {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -32,22 +32,45 @@
     justify-content: space-evenly;
 
     margin: 5px 0;
-    max-width: 750px;
-    padding: 0 25px;
+    max-width: 700px;
     width: 100%;
 }
 
-.clip .cell {
+.clip__cell {
     flex: 0 1 auto;
-    padding: 0 10px;
+    padding: 0 5px;
     text-align: center;
 }
 
-.clip .cell-range {
+.clip__cell--select {
+    padding-left: 0;
+}
+
+.clip__cell--range {
     flex: 1 1 100px;
-    text-align: center;
 }
 
-.create__montage {
+.clip__cell--sort {
+    padding-right: 0;
+}
+
+@media (max-width: 700px) {
+    .clip {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .clip {
+        flex-wrap: wrap;
+        padding: 0 10px;
+    }
+    .clip__cell--range {
+        flex: 0 0 100%;
+        order: 100;
+    }
+}
+
+.create .create__montage {
     margin: 25px 0;
 }

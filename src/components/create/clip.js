@@ -1,6 +1,7 @@
 import Slider from 'rc-slider';
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
 import { SortableHandle } from 'react-sortable-hoc';
 
 import 'rc-slider/assets/index.css';
@@ -29,15 +30,16 @@ const toHHMMSS = function (value) {
 };
 
 export default function Clip(props) {
+    console.log("window.innerWidth", window.innerWidth);
     return (
         <div className='clip'>
-            <div className='cell cell-select'>
+            <div className='clip__cell clip__cell--select'>
                 <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
-            <div className='cell cell-order'>{props.clip.order}</div>
-            <div className='cell cell-duration'>{toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
-            <div className='cell cell-timein'>{toHHMMSS(props.clip.time_in)}</div>
-            <div className='cell cell-range'>
+            <div className='clip__cell clip__cell--order'>{props.clip.order}</div>
+            <div className='clip__cell clip__cell--duration'>{toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
+            <div className='clip__cell clip__cell--timein'>{toHHMMSS(props.clip.time_in)}</div>
+            <div className='clip__cell clip__cell--range'>
                 <Range
                     min={props.clip.time_min}
                     max={props.clip.time_max}
@@ -48,11 +50,11 @@ export default function Clip(props) {
                     onAfterChange={(value) => props.onAfterChange(value, props.clip)}
                 />
             </div>
-            <div className='cell cell-timeout'>{toHHMMSS(props.clip.time_out)}</div>
-            <div className='cell cell-play'>
-                <button class='btn btn-success' onClick={(e) => props.onPlay(props.clip)}>Play</button>
+            <div className='clip__cell clip__cell--timeout'>{toHHMMSS(props.clip.time_out)}</div>
+            <div className='clip__cell clip__cell--play'>
+                <Button bsStyle='success' onClick={(e) => props.onPlay(props.clip)}>Play</Button>
             </div>
-            <div className='cell cell-draghandle'>
+            <div className='clip__cell clip__cell--sort'>
                 <DragHandle />
             </div>
         </div>
