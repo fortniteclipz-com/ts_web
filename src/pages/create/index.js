@@ -151,7 +151,6 @@ export default class Create extends Component {
 
         if (this.state.stream.stream_id) {
             if (this.state.stream._status_analyze === 2) {
-                console.log("-----------");
                 let clipOrder = 0;
                 const montageInfo = this.state.clips.reduce(function (acc, clip) {
                     clip.order = null;
@@ -177,7 +176,7 @@ export default class Create extends Component {
                         clipOnAfterChange={this.clipOnAfterChange}
                     />
                 );
-                montageHTML = (<button className="create__montage">Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
+                montageHTML = (<button className="btn btn-primary create__montage">Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
             }
             else if (this.state.stream._status_analyze === 1) {
                 analyzeHTML = (<button disabled>Analyzing</button>);

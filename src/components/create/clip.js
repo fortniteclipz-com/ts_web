@@ -3,9 +3,8 @@ import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { SortableHandle } from 'react-sortable-hoc';
 
-
 import 'rc-slider/assets/index.css';
-import 'rc-tooltip/assets/bootstrap.css';
+// import 'rc-tooltip/assets/bootstrap.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -36,12 +35,14 @@ export default function Clip(props) {
                 <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
             <div className='cell cell-order'>{props.clip.order}</div>
+            <div className='cell cell-duration'>{toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
             <div className='cell cell-timein'>{toHHMMSS(props.clip.time_in)}</div>
             <div className='cell cell-range'>
                 <Range
                     min={props.clip.time_min}
                     max={props.clip.time_max}
                     value={[props.clip.time_in, props.clip.time_out]}
+                    pushable={1}
                     tipFormatter={toHHMMSS}
                     onChange={(value) => props.onChange(value, props.clip)}
                     onAfterChange={(value) => props.onAfterChange(value, props.clip)}
@@ -49,7 +50,7 @@ export default function Clip(props) {
             </div>
             <div className='cell cell-timeout'>{toHHMMSS(props.clip.time_out)}</div>
             <div className='cell cell-play'>
-                <button onClick={(e) => props.onPlay(props.clip)}>Play</button>
+                <button class='btn btn-success' onClick={(e) => props.onPlay(props.clip)}>Play</button>
             </div>
             <div className='cell cell-draghandle'>
                 <DragHandle />
