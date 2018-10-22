@@ -6,6 +6,7 @@
     "rc-slider": "^8.6.3",
     "react": "^16.5.2",
     "react-autobind": "^1.0.6",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
     "react-icons": "^3.2.1",
     "react-player": "^1.6.6",

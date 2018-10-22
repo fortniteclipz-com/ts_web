@@ -35,6 +35,7 @@ export default function Clip(props) {
             <div className='cell cell-select'>
                 <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
+            <div className='cell cell-order'>{props.clip.order}</div>
             <div className='cell cell-timein'>{toHHMMSS(props.clip.time_in)}</div>
             <div className='cell cell-range'>
                 <Range

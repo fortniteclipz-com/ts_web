@@ -152,9 +152,11 @@ export default class Create extends Component {
         if (this.state.stream.stream_id) {
             if (this.state.stream._status_analyze === 2) {
                 console.log("-----------");
+                let clipOrder = 0;
                 const montageInfo = this.state.clips.reduce(function (acc, clip) {
-                    console.log("clip", clip.time_in, clip.time_out);
+                    clip.order = null;
                     if (clip.include) {
+                        clip.order = ++clipOrder;
                         acc.clipCount += 1;
                         acc.duration += clip.time_out - clip.time_in;
                     }
