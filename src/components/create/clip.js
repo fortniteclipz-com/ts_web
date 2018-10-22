@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import { SortableHandle } from 'react-sortable-hoc';
 
 import 'rc-slider/assets/index.css';
-// import 'rc-tooltip/assets/bootstrap.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -30,13 +29,12 @@ const toHHMMSS = function (value) {
 };
 
 export default function Clip(props) {
-    console.log("window.innerWidth", window.innerWidth);
     return (
         <div className='clip'>
             <div className='clip__cell clip__cell--select'>
                 <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
-            <div className='clip__cell clip__cell--order'>{props.clip.order}</div>
+            <div className='clip__cell clip__cell--order'>{props.clip.order || 'N/A'}</div>
             <div className='clip__cell clip__cell--duration'>{toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
             <div className='clip__cell clip__cell--timein'>{toHHMMSS(props.clip.time_in)}</div>
             <div className='clip__cell clip__cell--range'>

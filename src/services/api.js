@@ -57,6 +57,37 @@ api.analyzeStream = function (stream_id, callback) {
         }
         callback(stream);
     });
-}
+};
+
+api.createMontage = function (stream_id, clips, callback) {
+    console.log("clips", clips);
+    const url = `${TS_URL}/montage`
+    const _clips = clips.map(function (clip_id) {
+        return {
+            stream_id: parseInt(stream_id),
+            time_in: clip_id.time_in,
+            time_out: clip_id.time_out,
+        };
+    })
+    const data = {
+        clips: _clips,
+    }
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": TS_API_KEY,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(body => {
+        let montage = {};
+        if (body.montage) {
+            montage = body.montage;
+        }
+        callback(montage);
+    });
+};
 
 export default api;

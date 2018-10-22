@@ -44,6 +44,15 @@ export default class Create extends Component {
         });
     }
 
+    onMontage() {
+        console.log("onMontage");
+        const stream_id = this.props.match.params.stream_id;
+        api.createMontage(stream_id, this.state.clips, (montage) => {
+            this.props.history.push('/export')
+        });
+
+    }
+
     clipOnInclude(clip) {
         console.log("clipOnInclude");
         clip.include = !clip.include;
@@ -176,7 +185,7 @@ export default class Create extends Component {
                         clipOnAfterChange={this.clipOnAfterChange}
                     />
                 );
-                montageHTML = (<button className="btn btn-primary create__montage">Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
+                montageHTML = (<button className="btn btn-primary create__montage" onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
             }
             else if (this.state.stream._status_analyze === 1) {
                 analyzeHTML = (<button disabled>Analyzing</button>);
