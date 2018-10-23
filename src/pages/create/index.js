@@ -186,8 +186,8 @@ export default class Create extends Component {
                     />
                 );
                 montageHTML = (
-                    <div class='create__montage'>
-                        <Button bsStyle='primary' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
+                    <div className='create__montage'>
+                        <Button className='create__montage-button' bsStyle='primary' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
                     </div>
                 );
             }
