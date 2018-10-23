@@ -20,6 +20,7 @@ export default class Create extends Component {
             stream_moments: null,
             clips: null,
             playingClip: null,
+            showMontage: true,
         };
     }
 
@@ -48,8 +49,13 @@ export default class Create extends Component {
     onMontage() {
         // console.log("onMontage");
         const stream_id = this.props.match.params.stream_id;
-        api.createMontage(stream_id, this.state.clips, (montage) => {
-            this.props.history.push('/export')
+        this.setState({
+            showMontage: false,
+        }, () => {
+            api.createMontage(stream_id, this.state.clips, (montage) => {
+                alert(`Montage Created!\n\nMontageID:\n${montage.montage_id}`);
+                this.props.history.push('/export')
+            });
         });
 
     }
@@ -193,11 +199,13 @@ export default class Create extends Component {
                         clipOnAfterChange={this.clipOnAfterChange}
                     />
                 );
-                montageHTML = (
-                    <div className='create__montage'>
-                        <Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
-                    </div>
-                );
+                if (this.state.showMontage === true) {
+                    montageHTML = (
+                        <div className='create__montage'>
+                            <Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
+                        </div>
+                    );
+                }
             }
             else if (this.state.stream._status_analyze === 1) {
                 analyzeHTML = (<Button bsStyle='primary' className='create__analyze create__analyze--analyzing' onClick={this.onAnalyze} disabled>Analyzing</Button>);
@@ -217,6 +225,7 @@ export default class Create extends Component {
                             width={'100%'}
                             height={'100%'}
                             controls={true}
+                            playsinline={true}
                             onReady={this.playerOnReady}
                             onPlay={this.playerOnPlay}
                             onPause={this.playerOnPause}

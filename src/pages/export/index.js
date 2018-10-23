@@ -60,14 +60,16 @@ export default class Export extends Component {
 
         if (this.state.montages) {
             const montages = this.state.montages.map((montage) => {
+                let button = (<Button bsStyle='default' onClick={(e) => this.montageOnPlay(montage)} disabled>Processing</Button>);
+                if (montage._status === 2) {
+                    button = (<Button bsStyle='primary' onClick={(e) => this.montageOnPlay(montage)}>Play</Button>);
+                }
                 return (
                     <div key={montage.montage_id} className='montage'>
                         <div className='montage__cell montage__cell--montageid'>{montage.montage_id}</div>
                         <div className='montage__cell montage__cell--duration'>{helper.toHHMMSS(montage.duration)}</div>
                         <div className='montage__cell montage__cell--clips'>{montage.clip_ids.length}</div>
-                        <div className='montage__cell montage__cell--play'>
-                            <Button bsStyle='primary' onClick={(e) => this.montageOnPlay(montage)}>Play</Button>
-                        </div>
+                        <div className='montage__cell montage__cell--play'>{button}</div>
                     </div>
                 );
             });
