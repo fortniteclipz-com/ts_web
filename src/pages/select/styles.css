@@ -1,0 +1,26 @@
+.select {
+    height: calc(100vh - 50px);
+    padding-top: 100px;
+    text-align: center;
+}
+
+.select__text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.select__form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.select__input {
+    max-width: 250px;
+    text-align: center;
+}
+
+.select__button {
+    margin-top: 25px;
+}

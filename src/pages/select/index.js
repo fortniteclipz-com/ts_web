@@ -1,4 +1,7 @@
 import React from 'react';
+import { Button, FormControl} from 'react-bootstrap';
+
+import './styles.css'
 
 export default function Select(props) {
     const onSubmit = function (event) {
@@ -7,9 +10,18 @@ export default function Select(props) {
         props.history.push(`/create/${stream_id}`)
     };
     return (
-        <form onSubmit={onSubmit}>
-            <input placeholder='Twitch VideoID' defaultValue='310285421' data-stream-id />
-            <button type='submit'>Go</button>
-        </form>
+        <div className='select'>
+            <div className='select__text'>Enter Twitch VideoID</div>
+            <form className='select__form' onSubmit={onSubmit}>
+              <FormControl
+                type='text'
+                className='select__input'
+                defaultValue='310285421'
+                placeholder='Twitch VideoID'
+                data-stream-id
+              />
+                <Button type='submit' bsStyle='primary' className='select__button'>View Stream</Button>
+            </form>
+        </div>
     );
 };
