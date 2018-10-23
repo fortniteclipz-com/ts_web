@@ -17,8 +17,8 @@ export default class Create extends Component {
         autoBind(this);
         this.state = {
             stream: null,
-            stream_moments: [],
-            clips: [],
+            stream_moments: null,
+            clips: null,
             playingClip: null,
         };
     }
@@ -36,7 +36,7 @@ export default class Create extends Component {
     }
 
     onAnalyze() {
-        console.log("onAnalyze");
+        // console.log("onAnalyze");
         const stream_id = this.props.match.params.stream_id;
         api.analyzeStream(stream_id, (stream) => {
             this.setState({
@@ -46,7 +46,7 @@ export default class Create extends Component {
     }
 
     onMontage() {
-        console.log("onMontage");
+        // console.log("onMontage");
         const stream_id = this.props.match.params.stream_id;
         api.createMontage(stream_id, this.state.clips, (montage) => {
             this.props.history.push('/export')
@@ -55,7 +55,7 @@ export default class Create extends Component {
     }
 
     clipOnInclude(clip) {
-        console.log("clipOnInclude");
+        // console.log("clipOnInclude");
         clip.include = !clip.include;
         this.setState({
             clips: this.state.clips,
@@ -63,7 +63,7 @@ export default class Create extends Component {
     }
 
     clipOnChange(value, clip) {
-        console.log("clipOnChange");
+        // console.log("clipOnChange");
         let seekTo = value[0];
         if (clip.time_in === value[0]) {
             seekTo = value[1];
@@ -81,7 +81,7 @@ export default class Create extends Component {
     }
 
     clipOnAfterChange(value, clip) {
-        console.log("clipOnAfterChange");
+        // console.log("clipOnAfterChange");
         const seekTo = value[0];
         const player = this.player.getInternalPlayer();
         player.seek(seekTo);
@@ -97,7 +97,7 @@ export default class Create extends Component {
     }
 
     clipOnPlay(clip) {
-        console.log("clipOnPlay");
+        // console.log("clipOnPlay");
         this.setState({
             playingClip: null,
         }, () => {
@@ -117,21 +117,21 @@ export default class Create extends Component {
     }
 
     clipsOnSortEnd({ oldIndex, newIndex }) {
-        console.log("clipsOnSortEnd");
+        // console.log("clipsOnSortEnd");
         this.setState({
           clips: arrayMove(this.state.clips, oldIndex, newIndex),
         });
     }
 
     playerOnReady() {
-        console.log("playerOnReady");
+        // console.log("playerOnReady");
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
     }
 
     playerOnPlay() {
-        console.log("playerOnPlay");
+        // console.log("playerOnPlay");
         clearInterval(this.playerInterval)
         this.playerInterval = setInterval(() => {
             if (this.state.playingClip) {
@@ -147,7 +147,7 @@ export default class Create extends Component {
     }
 
     playerOnPause() {
-        console.log("playerOnPause");
+        // console.log("playerOnPause");
         clearInterval(this.playerInterval)
     }
 
@@ -161,7 +161,7 @@ export default class Create extends Component {
         if (this.state.stream) {
             if (this.state.stream._status_analyze === 2) {
                 let clipOrder = 0;
-                const montageInfo = this.state.clips.reduce(function (acc, clip) {
+                const montageInfo = this.state.clips.reduce(function(acc, clip) {
                     clip.order = null;
                     if (clip.include) {
                         clip.order = ++clipOrder;
@@ -187,7 +187,7 @@ export default class Create extends Component {
                 );
                 montageHTML = (
                     <div className='create__montage'>
-                        <Button className='create__montage-button' bsStyle='primary' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
+                        <Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
                     </div>
                 );
             }

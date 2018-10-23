@@ -4,7 +4,7 @@ import { Button, FormControl} from 'react-bootstrap';
 import './styles.css'
 
 export default function Select(props) {
-    const onSubmit = function (event) {
+    const onSubmit = function(event) {
         event.preventDefault();
         const stream_id = event.target.querySelector('input[data-stream-id]').value;
         props.history.push(`/create/${stream_id}`)

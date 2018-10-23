@@ -1,20 +1,24 @@
 // 310285421
 // 323596438
-const getCookie = function(name) {
-    const value = "; " + document.cookie
-    const parts = value.split("; " + name + "=")
-    if (parts.length === 2) return parts.pop().split(";").shift()
-}
+// const getCookie = function(name) {
+//     const value = "; " + document.cookie
+//     const parts = value.split("; " + name + "=")
+//     if (parts.length === 2) return parts.pop().split(";").shift()
+// };
+// const TS_URL_ID = getCookie('ts_url_id')
+// const TS_API_KEY = getCookie('ts_api_key')
+// const TS_LIMIT = getCookie('ts_limit') || 10
+// const TS_URL = `https://${TS_URL_ID}.execute-api.us-west-1.amazonaws.com/dev`
 
-const TS_URL_ID = getCookie('ts_url_id')
-const TS_API_KEY = getCookie('ts_api_key')
-const TS_LIMIT = getCookie('ts_limit') || 10
-const TS_URL = `https://${TS_URL_ID}.execute-api.us-west-1.amazonaws.com/dev`
+const TS_URL_ID = "3c9a9sv1pk";
+const TS_API_KEY = "cXJiI7anNL5aMwFbv4He2ZFrhmd0oRKaG7h2wBAh";
+const TS_LIMIT = 100;
+const TS_URL = `https://${TS_URL_ID}.execute-api.us-west-1.amazonaws.com/dev`;
 
-console.log("TS_URL_ID", TS_URL_ID)
-console.log("TS_URL", TS_URL)
-console.log("TS_API_KEY", TS_API_KEY)
-console.log("TS_LIMIT", TS_LIMIT)
+console.log("TS_URL_ID", TS_URL_ID);
+console.log("TS_URL", TS_URL);
+console.log("TS_API_KEY", TS_API_KEY);
+console.log("TS_LIMIT", TS_LIMIT);
 
 const api = {};
 
@@ -39,7 +43,7 @@ api.getStream = function(stream_id, callback) {
     })
 };
 
-api.analyzeStream = function (stream_id, callback) {
+api.analyzeStream = function(stream_id, callback) {
     const url = `${TS_URL}/stream/${stream_id}/moments`
     fetch(url, {
         method: "POST",
@@ -59,10 +63,9 @@ api.analyzeStream = function (stream_id, callback) {
     });
 };
 
-api.createMontage = function (stream_id, clips, callback) {
-    console.log("clips", clips);
+api.createMontage = function(stream_id, clips, callback) {
     const url = `${TS_URL}/montage`
-    const _clips = clips.map(function (clip_id) {
+    const _clips = clips.map(function(clip_id) {
         return {
             stream_id: parseInt(stream_id),
             time_in: clip_id.time_in,
@@ -87,6 +90,25 @@ api.createMontage = function (stream_id, clips, callback) {
             montage = body.montage;
         }
         callback(montage);
+    });
+};
+
+api.getMontages = function(callback) {
+    const url = `${TS_URL}/montages?limit=${TS_LIMIT}`
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": TS_API_KEY,
+        },
+    })
+    .then(response => response.json())
+    .then(body => {
+        let montages = [];
+        if (body.montages) {
+            montages = body.montages;
+        }
+        callback(montages);
     });
 };
 
