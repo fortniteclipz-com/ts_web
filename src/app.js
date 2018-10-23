@@ -13,7 +13,7 @@ export default function App() {
                 <Navbar />
                 <div className="app-container">
                     <Switch>
-                        <Route path='/create/:stream_id' component={Create} />
+                        <Route path='/create/:streamId' component={Create} />
                         <Route path='/create' component={Select} />
                         <Route path='/export' component={Export} />
                         <Redirect to='/create' />

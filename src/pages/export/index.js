@@ -25,6 +25,15 @@ export default class Export extends Component {
         api.getMontages((montages) => {
             this.setState({
                 montages: montages,
+            }, () => {
+                const params = new URLSearchParams(this.props.location.search);
+                const montageId = params.get('montageId');
+                const montage = this.state.montages.find(function(montage) {
+                    return montage.montage_id === montageId;
+                });
+                if (montage._status === 2) {
+                    this.montageOnPlay(montage);
+                }
             });
         });
     }
@@ -33,10 +42,14 @@ export default class Export extends Component {
         // console.log("montageOnPlay");
         const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
         this.setState({
-            playerUrl: playerUrl,
+            playerUrl: null,
         }, () => {
-            const player = this.player.getInternalPlayer();
-            player.play();
+            this.setState({
+                playerUrl: playerUrl,
+            }, () => {
+                const player = this.player.getInternalPlayer();
+                player.play();
+            });
         });
     }
 

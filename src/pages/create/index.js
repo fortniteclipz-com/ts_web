@@ -17,20 +17,18 @@ export default class Create extends Component {
         autoBind(this);
         this.state = {
             stream: null,
-            stream_moments: null,
             clips: null,
             playingClip: null,
-            showMontage: true,
+            disableMontage: false,
         };
     }
 
     componentDidMount() {
-        const stream_id = this.props.match.params.stream_id;
-        api.getStream(stream_id, (stream, stream_moments) => {
-            const clips = helper.createClips(stream, stream_moments);
+        const stream_id = this.props.match.params.streamId;
+        api.getStream(stream_id, (stream, streamMoments) => {
+            const clips = helper.createClips(stream, streamMoments);
             this.setState({
                 stream: stream,
-                stream_moments: stream_moments,
                 clips: clips,
             });
         });
@@ -38,7 +36,7 @@ export default class Create extends Component {
 
     onAnalyze() {
         // console.log("onAnalyze");
-        const stream_id = this.props.match.params.stream_id;
+        const stream_id = this.props.match.params.streamId;
         api.analyzeStream(stream_id, (stream) => {
             this.setState({
                 stream: stream,
@@ -48,13 +46,13 @@ export default class Create extends Component {
 
     onMontage() {
         // console.log("onMontage");
-        const stream_id = this.props.match.params.stream_id;
+        const stream_id = this.props.match.params.streamId;
         this.setState({
-            showMontage: false,
+            disableMontage: true,
         }, () => {
             api.createMontage(stream_id, this.state.clips, (montage) => {
                 alert(`Montage Created!\n\nMontageID:\n${montage.montage_id}`);
-                this.props.history.push('/export')
+                this.props.history.push(`/export?montageId=${montage.montage_id}`)
             });
         });
 
@@ -166,8 +164,7 @@ export default class Create extends Component {
     }
 
     render() {
-        const twitchUrl = `https://www.twitch.tv/videos/${this.props.match.params.stream_id}`;
-
+        const twitchUrl = `https://www.twitch.tv/videos/${this.props.match.params.streamId}`;
         let analyzeHTML = null;
         let clipsHTML = null;
         let montageHTML = null;
@@ -187,7 +184,6 @@ export default class Create extends Component {
                     clipCount: 0,
                     duration: 0,
                 });
-
                 clipsHTML = (
                     <Clips
                         onSortEnd={this.clipsOnSortEnd}
@@ -199,7 +195,13 @@ export default class Create extends Component {
                         clipOnAfterChange={this.clipOnAfterChange}
                     />
                 );
-                if (this.state.showMontage === true) {
+                if (this.state.disableMontage === true) {
+                    montageHTML = (
+                        <div className='create__montage'>
+                            <Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>
+                        </div>
+                    );
+                } else {
                     montageHTML = (
                         <div className='create__montage'>
                             <Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
@@ -208,10 +210,10 @@ export default class Create extends Component {
                 }
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyzeHTML = (<Button bsStyle='primary' className='create__analyze create__analyze--analyzing' onClick={this.onAnalyze} disabled>Analyzing</Button>);
+                analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing</Button>);
             }
             else {
-                analyzeHTML = (<Button bsStyle='primary' className='create__analyze create__analyze--analyze' onClick={this.onAnalyze}>Analyze</Button>);
+                analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
             }
         }
 
