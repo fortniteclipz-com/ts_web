@@ -53,6 +53,7 @@ export default class Export extends Component {
                     width={'100%'}
                     height={'100%'}
                     controls={true}
+                    playsinline={true}
                     ref={player => this.player = player}
                 />
             );

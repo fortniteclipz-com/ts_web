@@ -71,7 +71,6 @@
     text-align: center;
 }
 
-
 .export .montage__cell--montageid {
     flex: 1 1 auto;
     overflow: hidden;
@@ -82,7 +81,6 @@
 
 .export .montage__cell--duration {
     flex: 0 0 100px;
-
 }
 
 .export .montage__cell--clips {
@@ -91,4 +89,10 @@
 
 .export .montage__cell--play {
     flex: 0 0 125px;
+}
+
+@media (max-width: 700px) {
+    .export .montage {
+        padding: 10px 10px;
+    }
 }
