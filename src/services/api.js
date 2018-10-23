@@ -1,19 +1,4 @@
-// 310285421
-// 323596438
-// const getCookie = function(name) {
-//     const value = "; " + document.cookie
-//     const parts = value.split("; " + name + "=")
-//     if (parts.length === 2) return parts.pop().split(";").shift()
-// };
-// const TS_URL_ID = getCookie('ts_url_id')
-// const TS_API_KEY = getCookie('ts_api_key')
-// const TS_LIMIT = getCookie('ts_limit') || 10
-// const TS_URL = `https://${TS_URL_ID}.execute-api.us-west-1.amazonaws.com/dev`
-
-const TS_URL_ID = "3c9a9sv1pk";
-const TS_API_KEY = "cXJiI7anNL5aMwFbv4He2ZFrhmd0oRKaG7h2wBAh";
-const TS_LIMIT = 100;
-const TS_URL = `https://${TS_URL_ID}.execute-api.us-west-1.amazonaws.com/dev`;
+import { TS_URL_ID, TS_URL, TS_API_KEY, TS_LIMIT } from './config';
 
 console.log("TS_URL_ID", TS_URL_ID);
 console.log("TS_URL", TS_URL);
