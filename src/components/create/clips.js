@@ -31,7 +31,11 @@ const Clips = SortableContainer(function(props) {
                 <div className='clip__cell clip__cell--play'>Play</div>
                 <div className='clip__cell clip__cell--sort'>Sort</div>
             </div>
-            {clips}
+            <div className='clips__overflow'>
+                <div className='clips__list'>
+                    {clips}
+                </div>
+            </div>
         </div>
 
     );
