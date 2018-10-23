@@ -50,16 +50,20 @@ api.analyzeStream = function(stream_id, callback) {
 
 api.createMontage = function(stream_id, clips, callback) {
     const url = `${TS_URL}/montage`
-    const _clips = clips.map(function(clip_id) {
-        return {
-            stream_id: parseInt(stream_id),
-            time_in: clip_id.time_in,
-            time_out: clip_id.time_out,
-        };
-    })
+    const _clips = clips
+        .filter(function(clip) {
+            return clip.include;
+        })
+        .map(function(clip) {
+            return {
+                stream_id: parseInt(stream_id),
+                time_in: clip.time_in,
+                time_out: clip.time_out,
+            };
+        })
     const data = {
         clips: _clips,
-    }
+    };
     fetch(url, {
         method: "POST",
         headers: {

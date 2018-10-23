@@ -41,8 +41,8 @@ helper.createClips = function(stream, streamMoments) {
             }
 
             let include = false;
-            if (includedClipCount < 50) {
-                include= true;
+            if (includedClipCount < 100) {
+                include = true;
                 includedClipCount += 1;
             }
 

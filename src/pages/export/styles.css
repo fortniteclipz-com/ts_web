@@ -92,6 +92,9 @@
 }
 
 @media (max-width: 700px) {
+    .export {
+        padding-top: 0;
+    }
     .export .montage {
         padding: 10px 10px;
     }

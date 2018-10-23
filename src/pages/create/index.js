@@ -66,7 +66,7 @@ export default class Create extends Component {
             const clipCount = this.state.clips.reduce(function(acc, clip) {
                 return clip.include ? ++acc : acc;
             }, 0);
-            if (clipCount >= 50) {
+            if (clipCount >= 100) {
                 return
             }
         }
