@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { Button } from 'react-bootstrap';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
 import { arrayMove } from 'react-sortable-hoc';
 
@@ -15,7 +16,7 @@ export default class Create extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            stream: {},
+            stream: null,
             stream_moments: [],
             clips: [],
             playingClip: null,
@@ -69,7 +70,6 @@ export default class Create extends Component {
         }
         const player = this.player.getInternalPlayer();
         player.seek(seekTo);
-        player.play();
         player.pause();
 
         clip.time_in = value[0];
@@ -158,7 +158,7 @@ export default class Create extends Component {
         let clipsHTML = null;
         let montageHTML = null;
 
-        if (this.state.stream.stream_id) {
+        if (this.state.stream) {
             if (this.state.stream._status_analyze === 2) {
                 let clipOrder = 0;
                 const montageInfo = this.state.clips.reduce(function (acc, clip) {
@@ -185,13 +185,17 @@ export default class Create extends Component {
                         clipOnAfterChange={this.clipOnAfterChange}
                     />
                 );
-                montageHTML = (<button className="btn btn-primary create__montage" onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</button>);
+                montageHTML = (
+                    <div class='create__montage'>
+                        <Button bsStyle='primary' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
+                    </div>
+                );
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyzeHTML = (<button disabled>Analyzing</button>);
+                analyzeHTML = (<Button bsStyle='primary' className='create__analyze create__analyze--analyzing' onClick={this.onAnalyze} disabled>Analyzing</Button>);
             }
             else {
-                analyzeHTML = (<button onClick={this.onAnalyze}>Analyze</button>);
+                analyzeHTML = (<Button bsStyle='primary' className='create__analyze create__analyze--analyze' onClick={this.onAnalyze}>Analyze</Button>);
             }
         }
 
@@ -212,7 +216,6 @@ export default class Create extends Component {
                         />
                     </div>
                 </div>
-
                 {analyzeHTML}
                 {clipsHTML}
                 {montageHTML}

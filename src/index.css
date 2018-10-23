@@ -14,5 +14,7 @@ code {
 }
 
 .app-container {
-    padding-top: 60px;
+    padding-top: 50px;
+    margin: 0 auto;
+    max-width: 700px;
 }

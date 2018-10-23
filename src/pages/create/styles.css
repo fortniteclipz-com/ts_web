@@ -1,10 +1,12 @@
 .create {
+    height: calc(100vh - 50px);
+    min-height: 400px;
+    padding-top: 10px;
     text-align: center;
 }
 
 .create .player {
     margin: 0 auto;
-    max-width: 700px;
 }
 
 .create .player__wrapper {
@@ -16,6 +18,21 @@
     position: absolute;
     left: 0;
     top: 0;
+}
+
+.create .create__analyze {
+    margin-top: 50px;
+}
+
+.create .create__montage {
+    bottom: 10px;
+    left: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.create .create__montage button {
+    margin: 0 auto;
 }
 
 .create .clips {
@@ -32,8 +49,11 @@
     justify-content: space-evenly;
 
     margin: 5px 0;
-    max-width: 700px;
     width: 100%;
+}
+
+.clip--header {
+    font-weight: bold;
 }
 
 .clip__cell {
@@ -42,15 +62,37 @@
     text-align: center;
 }
 
-.clip__cell--select {
-    padding-left: 0;
-}
-
 .clip__cell--range {
     flex: 1 1 100px;
 }
 
+.clip__cell--select {
+    flex: 0 0 50px;
+    padding-left: 0;
+}
+
+.clip__cell--order {
+    flex: 0 0 50px;
+}
+
+.clip__cell--duration {
+    flex: 0 0 75px;
+}
+
+.clip__cell--timein {
+    flex: 0 0 75px;
+}
+
+.clip__cell--timeout {
+    flex: 0 0 75px;
+}
+
+.clip__cell--play {
+    flex: 0 0 75px;
+}
+
 .clip__cell--sort {
+    flex: 0 0 50px;
     padding-right: 0;
 }
 
@@ -63,14 +105,12 @@
 @media (max-width: 576px) {
     .clip {
         flex-wrap: wrap;
-        padding: 0 10px;
     }
     .clip__cell--range {
         flex: 0 0 100%;
         order: 100;
     }
-}
-
-.create .create__montage {
-    margin: 25px 0;
+    .clip--header .clip__cell--range {
+        display: none;
+    }
 }

@@ -21,6 +21,16 @@ const Clips = SortableContainer(function(props) {
 
     return (
         <div className='clips'>
+            <div className='clip clip--header'>
+                <div className='clip__cell clip__cell--select'>Select</div>
+                <div className='clip__cell clip__cell--order'>Order</div>
+                <div className='clip__cell clip__cell--duration'>Duration</div>
+                <div className='clip__cell clip__cell--timein'>Time In</div>
+                <div className='clip__cell clip__cell--range'>Edit</div>
+                <div className='clip__cell clip__cell--timeout'>Time Out</div>
+                <div className='clip__cell clip__cell--play'>Play</div>
+                <div className='clip__cell clip__cell--sort'>Sort</div>
+            </div>
             {clips}
         </div>
 
