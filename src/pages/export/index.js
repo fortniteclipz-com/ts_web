@@ -21,7 +21,7 @@ export default class Export extends Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
+        // console.log("componentDidMount");
         api.getMontages((montages) => {
             this.setState({
                 montages: montages,
@@ -30,7 +30,7 @@ export default class Export extends Component {
     }
 
     montageOnPlay(montage) {
-        console.log("montageOnPlay");
+        // console.log("montageOnPlay");
         const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
         this.setState({
             playerUrl: playerUrl,

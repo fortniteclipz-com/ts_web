@@ -56,6 +56,14 @@ export default class Create extends Component {
 
     clipOnInclude(clip) {
         // console.log("clipOnInclude");
+        if (!clip.include === true) {
+            const clipCount = this.state.clips.reduce(function(acc, clip) {
+                return clip.include ? ++acc : acc;
+            }, 0);
+            if (clipCount >= 50) {
+                return
+            }
+        }
         clip.include = !clip.include;
         this.setState({
             clips: this.state.clips,
