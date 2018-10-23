@@ -51,7 +51,7 @@ export default class Create extends Component {
             disableMontage: true,
         }, () => {
             api.createMontage(stream_id, this.state.clips, (montage) => {
-                alert(`Montage Created!\n\nMontageID:\n${montage.montage_id}`);
+                alert(`Montage created!\n\nMontageID:\n${montage.montage_id}`);
                 this.props.history.push(`/export?montageId=${montage.montage_id}`)
             });
         });
@@ -64,7 +64,7 @@ export default class Create extends Component {
             const clipCount = this.state.clips.reduce(function(acc, clip) {
                 return clip.include ? ++acc : acc;
             }, 0);
-            if (clipCount >= 100) {
+            if (clipCount >= 50) {
                 return
             }
         }
