@@ -83,6 +83,10 @@
     white-space: nowrap;
 }
 
+.export .montage__cell--streamid {
+    flex: 0 0 100px;
+}
+
 .export .montage__cell--duration {
     flex: 0 0 100px;
 }

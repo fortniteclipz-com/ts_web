@@ -83,6 +83,7 @@ export default class Export extends Component {
                 return (
                     <div key={montage.montage_id} className='montage'>
                         <div className='montage__cell montage__cell--montageid'>{montage.montage_id}</div>
+                        <div className='montage__cell montage__cell--streamid'>{montage.stream_id}</div>
                         <div className='montage__cell montage__cell--duration'>{helper.toHHMMSS(montage.duration)}</div>
                         <div className='montage__cell montage__cell--clips'>{montage.clip_ids.length}</div>
                         <div className='montage__cell montage__cell--play'>{button}</div>
@@ -94,6 +95,7 @@ export default class Export extends Component {
                 <div className='montages'>
                     <div className='montage montage--header'>
                         <div className='montage__cell montage__cell--montageid'>MontageID</div>
+                        <div className='montage__cell montage__cell--streamid'>StreamID</div>
                         <div className='montage__cell montage__cell--duration'>Duration</div>
                         <div className='montage__cell montage__cell--clips'>Clips</div>
                         <div className='montage__cell montage__cell--play'>Play</div>
