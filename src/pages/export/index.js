@@ -31,7 +31,7 @@ export default class Export extends Component {
                 const montage = this.state.montages.find(function(montage) {
                     return montage.montage_id === montageId;
                 });
-                if (montage._status === 2) {
+                if (montage && montage._status === 2) {
                     this.montageOnPlay(montage);
                 }
             });
