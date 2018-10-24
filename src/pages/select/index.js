@@ -47,7 +47,7 @@ export default class Select extends Component {
         event.preventDefault();
         const stream_id = event.target.querySelector('input[data-stream-id]').value;
         this.props.history.push(`/create/${stream_id}`)
-    };
+    }
 
     render() {
         const streamsHTML = this.state.streams.map(function(stream) {
