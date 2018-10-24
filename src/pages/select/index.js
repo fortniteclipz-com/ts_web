@@ -51,34 +51,35 @@ export default class Select extends Component {
 
     render() {
         const streamsHTML = this.state.streams.map(function (stream) {
-                let bsStyle = 'default';
-                if (stream._status_analyze === 2) {
-                    bsStyle = 'success';
-                } else if (stream._status_analyze === 1) {
-                    bsStyle = 'danger';
-                }
-                    return (
-                        <Button
-                            key={stream.stream_id}
-                            bsStyle={bsStyle}
-                            componentClass={Link}
-                            to={`/create/${stream.stream_id}`}
-                        >
-                            {stream.user}—{stream.stream_id}
-                        </Button>
-                    );
-            });
+            let bsStyle = 'default';
+            if (stream._status_analyze === 2) {
+                bsStyle = 'success';
+            } else if (stream._status_analyze === 1) {
+                bsStyle = 'danger';
+            }
+
+            return (
+                <Button
+                    key={stream.stream_id}
+                    bsStyle={bsStyle}
+                    componentClass={Link}
+                    to={`/create/${stream.stream_id}`}
+                >
+                    {stream.stream_id} ({stream.user})
+                </Button>
+            );
+        });
 
         return (
             <div className='select'>
                 <div className='select__text'>Enter Twitch VideoID:</div>
                 <form className='select__form' onSubmit={this.onSubmit}>
-                  <FormControl
-                    type='text'
-                    className='select__input'
-                    placeholder='Twitch VideoID'
-                    data-stream-id
-                  />
+                    <FormControl
+                        type='text'
+                        className='select__input'
+                        placeholder='Twitch VideoID'
+                        data-stream-id
+                    />
                     <Button type='submit' bsStyle='primary' className='select__button'>View Stream</Button>
                 </form>
                 <div className='select__streams'>
