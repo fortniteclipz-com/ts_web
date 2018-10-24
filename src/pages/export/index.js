@@ -24,9 +24,6 @@ export default class Export extends Component {
     componentDidMount() {
         // console.log("componentDidMount");
         api.getMontages((montages) => {
-            while (montages.length < 25) {
-                montages = montages.concat(montages)
-            }
             this.setState({
                 montages: montages,
             }, () => {
