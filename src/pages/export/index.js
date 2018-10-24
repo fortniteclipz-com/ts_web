@@ -24,6 +24,13 @@ export default class Export extends Component {
     componentDidMount() {
         // console.log("componentDidMount");
         api.getMontages((montages) => {
+            montages = montages.sort(function(a, b) {
+                if (a.stream_id > b.stream_id) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
             this.setState({
                 montages: montages,
             }, () => {
