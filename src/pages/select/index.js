@@ -51,15 +51,22 @@ export default class Select extends Component {
 
     render() {
         const streamsHTML = this.state.streams.map(function (stream) {
+                let bsStyle = 'default';
                 if (stream._status_analyze === 2) {
-                    return (
-                        <Link key={stream.stream_id} to={`/create/${stream.stream_id}`}>[{stream.user}—{stream.stream_id}]</Link>
-                    );
-                } else {
-                    return (
-                        <div key={stream.stream_id}>[{stream.user}—{stream.stream_id}]</div>
-                    );
+                    bsStyle = 'success';
+                } else if (stream._status_analyze === 1) {
+                    bsStyle = 'danger';
                 }
+                    return (
+                        <Button
+                            key={stream.stream_id}
+                            bsStyle={bsStyle}
+                            componentClass={Link}
+                            to={`/create/${stream.stream_id}`}
+                        >
+                            {stream.user}—{stream.stream_id}
+                        </Button>
+                    );
             });
 
         return (
