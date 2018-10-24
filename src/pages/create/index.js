@@ -210,7 +210,7 @@ export default class Create extends Component {
                 }
             }
             else if (this.state.stream._status_analyze === 1) {
-                analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing</Button>);
+                analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
             }
             else {
                 analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
