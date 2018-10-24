@@ -54,6 +54,7 @@
 
 .create .clips__overflow {
     overflow: scroll;
+    scroll-behavior: smooth;
     width: 100%;
 }
 
@@ -70,6 +71,7 @@
     align-items: center;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     padding: 10px 0;
@@ -78,6 +80,7 @@
 
 .clip--header {
     margin: 10px 0 10px;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -88,7 +91,8 @@
 }
 
 .clip__cell--range {
-    flex: 1 1 100px;
+    flex: 0 0 100%;
+    padding: 25px 50px;
 }
 
 .clip__cell--select {
@@ -97,22 +101,23 @@
 }
 
 .clip__cell--order {
-    flex: 0 0 50px;
+    flex: 0 0 30px;
+}
+
+.clip__cell--time {
+    flex: 0 0 75px;
+}
+
+.clip__cell--time hr {
+    border-color: #000000;
+    margin: 5px 0;
 }
 
 .clip__cell--duration {
     flex: 0 0 75px;
 }
 
-.clip__cell--timein {
-    flex: 0 0 75px;
-}
-
-.clip__cell--timeout {
-    flex: 0 0 75px;
-}
-
-.clip__cell--play {
+.clip__cell--buttons {
     flex: 0 0 75px;
 }
 
@@ -134,24 +139,7 @@
     .clip {
         flex-wrap: wrap;
     }
-    .clip__cell--range {
-        flex: 0 0 100%;
-        margin-top: 10px;
-        order: 100;
-    }
-    .clip__cell--timein {
-        order: 101;
-    }
-    .clip__cell--timeout {
-        order: 102;
-    }
-    .clip--header .clip__cell--range {
-        display: none;
-    }
-    .clip--header .clip__cell--timein {
-        display: none;
-    }
-    .clip--header .clip__cell--timeout {
+    .clip__cell--duration {
         display: none;
     }
 }

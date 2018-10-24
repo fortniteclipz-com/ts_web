@@ -83,13 +83,6 @@ export default class Create extends Component {
         const player = this.player.getInternalPlayer();
         player.seek(seekTo);
         player.pause();
-
-        clip.time_in = value[0];
-        clip.time_out = value[1];
-        this.setState({
-            clips: this.state.clips,
-            playingClip: clip,
-        });
     }
 
     clipOnAfterChange(value, clip) {
@@ -126,6 +119,18 @@ export default class Create extends Component {
             }, 500);
         });
 
+    }
+
+    clipOnEdit(clip) {
+        // console.log("clipOnEdit");
+        const edit = !clip.edit
+        this.state.clips.forEach((clip) => {
+            clip.edit = false;
+        });
+        clip.edit = edit;
+        this.setState({
+            clips: this.state.clips,
+        });
     }
 
     clipsOnSortEnd({ oldIndex, newIndex }) {
@@ -189,8 +194,9 @@ export default class Create extends Component {
                         onSortEnd={this.clipsOnSortEnd}
                         useDragHandle={true}
                         clips={this.state.clips}
-                        clipOnPlay={this.clipOnPlay}
                         clipOnInclude={this.clipOnInclude}
+                        clipOnPlay={this.clipOnPlay}
+                        clipOnEdit={this.clipOnEdit}
                         clipOnChange={this.clipOnChange}
                         clipOnAfterChange={this.clipOnAfterChange}
                     />

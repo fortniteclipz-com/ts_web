@@ -11,8 +11,9 @@ const Clips = SortableContainer(function(props) {
                 key={clip.uuid}
                 index={i}
                 clip={clip}
-                onPlay={props.clipOnPlay}
                 onInclude={props.clipOnInclude}
+                onEdit={props.clipOnEdit}
+                onPlay={props.clipOnPlay}
                 onChange={props.clipOnChange}
                 onAfterChange={props.clipOnAfterChange}
             />
@@ -22,13 +23,12 @@ const Clips = SortableContainer(function(props) {
     return (
         <div className='clips'>
             <div className='clip clip--header'>
-                <div className='clip__cell clip__cell--select'>Select</div>
-                <div className='clip__cell clip__cell--order'>Order</div>
+                <div className='clip__cell clip__cell--select'> &#10004;</div>
+                <div className='clip__cell clip__cell--order'>#</div>
+                <div className='clip__cell clip__cell--time'>Time In/Out</div>
                 <div className='clip__cell clip__cell--duration'>Duration</div>
-                <div className='clip__cell clip__cell--timein'>Time In</div>
-                <div className='clip__cell clip__cell--range'>Edit</div>
-                <div className='clip__cell clip__cell--timeout'>Time Out</div>
-                <div className='clip__cell clip__cell--play'>Play</div>
+                <div className='clip__cell clip__cell--buttons'>Edit</div>
+                <div className='clip__cell clip__cell--buttons'>Play</div>
                 <div className='clip__cell clip__cell--sort'>Sort</div>
             </div>
             <div className='clips__overflow'>
