@@ -1,7 +1,12 @@
 import React from 'react';
+import Scrollbar from 'react-smooth-scrollbar';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import SmoothScrollbar from 'smooth-scrollbar';
+import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
 
 import Clip from './clip';
+
+SmoothScrollbar.use(OverscrollPlugin);
 
 const SortableClip = SortableElement(Clip);
 const Clips = SortableContainer(function(props) {
@@ -31,11 +36,13 @@ const Clips = SortableContainer(function(props) {
                 <div className='clip__cell clip__cell--buttons'>Play</div>
                 <div className='clip__cell clip__cell--sort'>Sort</div>
             </div>
-            <div className='clips__overflow'>
-                <div className='clips__list'>
-                    {clips}
+            <Scrollbar>
+                <div className='clips__overflow'>
+                    <div className='clips__list'>
+                        {clips}
+                    </div>
                 </div>
-            </div>
+            </Scrollbar>
         </div>
 
     );

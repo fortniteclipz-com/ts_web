@@ -46,7 +46,7 @@
     width: 100%;
 }
 
-.export .montages__list .montage:nth-child(even) {
+.export .montages__list .montage:nth-child(odd) {
     background-color: #F5F5F5;
 }
 

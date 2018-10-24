@@ -52,6 +52,10 @@
     width: 100%;
 }
 
+.create *[data-scrollbar] {
+    width: 100%;
+}
+
 .create .clips__overflow {
     overflow: scroll;
     scroll-behavior: smooth;
@@ -63,7 +67,7 @@
     width: 100%;
 }
 
-.create .clips__list .clip:nth-child(even) {
+.create .clips__list .clip:nth-child(odd) {
     background-color: #F5F5F5;
 }
 
@@ -122,7 +126,7 @@
 }
 
 .clip__cell--sort {
-    flex: 0 0 50px;
+    flex: 0 0 75px;
     padding-right: 0;
 }
 
