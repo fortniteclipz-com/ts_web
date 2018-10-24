@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
 import FilePlayer from 'react-player/lib/players/FilePlayer'
+import Scrollbar from 'react-smooth-scrollbar';
 
 import api from '../../services/api';
 import helper from '../../services/helper';
@@ -23,6 +24,9 @@ export default class Export extends Component {
     componentDidMount() {
         // console.log("componentDidMount");
         api.getMontages((montages) => {
+            while (montages.length < 25) {
+                montages = montages.concat(montages)
+            }
             this.setState({
                 montages: montages,
             }, () => {
@@ -97,11 +101,13 @@ export default class Export extends Component {
                         <div className='montage__cell montage__cell--clips'>Clips</div>
                         <div className='montage__cell montage__cell--play'>Play</div>
                     </div>
-                    <div className='montages__overflow'>
-                        <div className='montages__list'>
-                            {montages}
+                    <Scrollbar>
+                        <div className='montages__overflow'>
+                            <div className='montages__list'>
+                                {montages}
+                            </div>
                         </div>
-                    </div>
+                    </Scrollbar>
                 </div>
             );
         }

@@ -1,12 +1,8 @@
 import React from 'react';
 import Scrollbar from 'react-smooth-scrollbar';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import SmoothScrollbar from 'smooth-scrollbar';
-import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
 
 import Clip from './clip';
-
-SmoothScrollbar.use(OverscrollPlugin);
 
 const SortableClip = SortableElement(Clip);
 const Clips = SortableContainer(function(props) {
