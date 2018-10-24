@@ -17,7 +17,6 @@ helper.toHHMMSS = function(value) {
 helper.createClips = function(stream, streamMoments) {
     const clips = [];
     let clipMoments = [];
-    let includedClipCount = 0;
 
     streamMoments.forEach(function(stream_moment) {
         if (!clipMoments.length || stream_moment.time - clipMoments[clipMoments.length - 1].time <= 5) {
@@ -40,15 +39,9 @@ helper.createClips = function(stream, streamMoments) {
                 time_max = stream.duration;
             }
 
-            let include = false;
-            if (includedClipCount < 50) {
-                include = true;
-                includedClipCount += 1;
-            }
-
             clips.push({
                 uuid: uuidv4(),
-                include: include,
+                include: false,
                 time_in: parseInt(time_in),
                 time_out: parseInt(time_out),
                 time_min: parseInt(time_min),
