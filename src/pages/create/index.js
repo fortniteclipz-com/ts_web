@@ -35,7 +35,7 @@ export default class Create extends Component {
     }
 
     onAnalyze() {
-        // console.log("onAnalyze");
+        // console.log("Create | onAnalyze");
         const stream_id = this.props.match.params.streamId;
         api.analyzeStream(stream_id, (stream) => {
             this.setState({
@@ -45,7 +45,7 @@ export default class Create extends Component {
     }
 
     onMontage() {
-        // console.log("onMontage");
+        // console.log("Create | onMontage");
         const stream_id = this.props.match.params.streamId;
         this.setState({
             disableMontage: true,
@@ -60,7 +60,7 @@ export default class Create extends Component {
     }
 
     clipOnInclude(clip) {
-        // console.log("clipOnInclude");
+        // console.log("Create | clipOnInclude");
         if (!clip.include === true) {
             const clipCount = this.state.clips.reduce(function(acc, clip) {
                 return clip.include ? ++acc : acc;
@@ -76,7 +76,7 @@ export default class Create extends Component {
     }
 
     clipOnChange(value, clip) {
-        // console.log("clipOnChange");
+        // console.log("Create | clipOnChange");
         let seekTo = value[0];
         if (clip.time_in === value[0]) {
             seekTo = value[1];
@@ -87,7 +87,7 @@ export default class Create extends Component {
     }
 
     clipOnAfterChange(value, clip) {
-        // console.log("clipOnAfterChange");
+        // console.log("Create | clipOnAfterChange");
         const seekTo = value[0];
         const player = this.player.getInternalPlayer();
         player.seek(seekTo);
@@ -103,7 +103,7 @@ export default class Create extends Component {
     }
 
     clipOnPlay(clip) {
-        // console.log("clipOnPlay");
+        // console.log("Create | clipOnPlay");
         this.setState({
             playingClip: null,
         }, () => {
@@ -123,7 +123,7 @@ export default class Create extends Component {
     }
 
     clipOnEdit(clip) {
-        // console.log("clipOnEdit");
+        // console.log("Create | clipOnEdit");
         const edit = !clip.edit
         this.state.clips.forEach((clip) => {
             clip.edit = false;
@@ -134,22 +134,32 @@ export default class Create extends Component {
         });
     }
 
+    clipsOnIncludeAll() {
+        // console.log("Create | clipsOnIncludeAll");
+        this.state.clips.forEach((clip) => {
+            clip.include = false;
+        });
+        this.setState({
+            clips: this.state.clips,
+        });
+    }
+
     clipsOnSortEnd({ oldIndex, newIndex }) {
-        // console.log("clipsOnSortEnd");
+        // console.log("Create | clipsOnSortEnd");
         this.setState({
           clips: arrayMove(this.state.clips, oldIndex, newIndex),
         });
     }
 
     playerOnReady() {
-        // console.log("playerOnReady");
+        // console.log("Create | playerOnReady");
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
     }
 
     playerOnPlay() {
-        // console.log("playerOnPlay");
+        // console.log("Create | playerOnPlay");
         clearInterval(this.playerInterval)
         this.playerInterval = setInterval(() => {
             if (this.state.playingClip) {
@@ -165,7 +175,7 @@ export default class Create extends Component {
     }
 
     playerOnPause() {
-        // console.log("playerOnPause");
+        // console.log("Create | playerOnPause");
         clearInterval(this.playerInterval)
     }
 
@@ -195,6 +205,7 @@ export default class Create extends Component {
                         onSortEnd={this.clipsOnSortEnd}
                         useDragHandle={true}
                         clips={this.state.clips}
+                        clipsOnIncludeAll={this.clipsOnIncludeAll}
                         clipOnInclude={this.clipOnInclude}
                         clipOnPlay={this.clipOnPlay}
                         clipOnEdit={this.clipOnEdit}

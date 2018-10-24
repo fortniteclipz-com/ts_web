@@ -88,6 +88,10 @@
     font-weight: bold;
 }
 
+.clip--header .clip__cell--select {
+    cursor: pointer;
+}
+
 .clip__cell {
     flex: 0 1 auto;
     padding: 0 5px;
@@ -102,6 +106,10 @@
 .clip__cell--select {
     flex: 0 0 50px;
     padding-left: 0;
+}
+
+.clip__cell--select input {
+    cursor: pointer;
 }
 
 .clip__cell--order {
