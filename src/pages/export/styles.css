@@ -1,14 +1,14 @@
 .export {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-
     height: calc(100vh - 50px);
     min-height: 400px;
     padding-top: 10px;
     text-align: center;
     width: 100%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .export .player {
@@ -29,12 +29,12 @@
 }
 
 .export .montages {
+    width: 100%;
+
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
-    width: 100%;
 }
 
 .export *[data-scrollbar] {
@@ -56,13 +56,13 @@
 }
 
 .export .montage {
+    padding: 10px 0;
+    width: 100%;
+
     align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-    padding: 10px 0;
-    width: 100%;
 }
 
 .export .montage--header {
@@ -73,27 +73,28 @@
 .export .montage__cell {
     flex: 0 1 auto;
     padding: 0 5px;
-    text-align: center;
-}
-
-.export .montage__cell--montageid {
-    flex: 1 1 auto;
-    overflow: hidden;
     text-align: left;
+
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+.export .montage__cell--montageid {
+    flex: 0 1 250px;
+}
+
 .export .montage__cell--streamer {
-    flex: 0 0 150px;
+    flex: 1 0 150px;
 }
 
 .export .montage__cell--duration {
-    flex: 0 0 125px;
+    flex: 0 0 100px;
 }
 
 .export .montage__cell--play {
-    flex: 0 0 125px;
+    flex: 0 0 100px;
+    text-align: center;
 }
 
 @media (max-width: 700px) {

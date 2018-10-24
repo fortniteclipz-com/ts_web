@@ -1,14 +1,14 @@
 .create {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-
     height: calc(100vh - 50px);
     min-height: 400px;
     padding-top: 10px;
     text-align: center;
     width: 100%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .create .player {
@@ -44,12 +44,12 @@
 }
 
 .create .clips {
+    width: 100%;
+
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
-    width: 100%;
 }
 
 .create *[data-scrollbar] {
@@ -72,14 +72,14 @@
 }
 
 .clip {
+    padding: 10px 0;
+    width: 100%;
+
     align-items: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    padding: 10px 0;
-    width: 100%;
 }
 
 .clip--header {
