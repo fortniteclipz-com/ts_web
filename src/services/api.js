@@ -28,6 +28,25 @@ api.getStream = function(stream_id, callback) {
     })
 };
 
+api.getStreams = function(callback) {
+    const url = `${TS_URL}/streams?limit=${TS_LIMIT}`
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": TS_API_KEY,
+        },
+    })
+    .then(response => response.json())
+    .then(body => {
+        let streams = [];
+        if (body.streams) {
+            streams = body.streams;
+        }
+        callback(streams);
+    });
+};
+
 api.analyzeStream = function(stream_id, callback) {
     const url = `${TS_URL}/stream/${stream_id}/moments`
     fetch(url, {
