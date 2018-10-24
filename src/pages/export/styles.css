@@ -42,7 +42,8 @@
 }
 
 .export .montages__overflow {
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: scroll;
     width: 100%;
 }
 
@@ -83,16 +84,12 @@
     white-space: nowrap;
 }
 
-.export .montage__cell--streamid {
-    flex: 0 0 100px;
+.export .montage__cell--streamer {
+    flex: 0 0 150px;
 }
 
 .export .montage__cell--duration {
-    flex: 0 0 100px;
-}
-
-.export .montage__cell--clips {
-    flex: 0 0 50px;
+    flex: 0 0 125px;
 }
 
 .export .montage__cell--play {
@@ -100,10 +97,16 @@
 }
 
 @media (max-width: 700px) {
+    .export .montage {
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 576px) {
     .export {
         padding-top: 0;
     }
-    .export .montage {
-        padding: 10px 10px;
+    .montage__cell--montageid {
+        display: none;
     }
 }

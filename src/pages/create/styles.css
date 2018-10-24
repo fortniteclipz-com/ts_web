@@ -57,8 +57,8 @@
 }
 
 .create .clips__overflow {
-    overflow: scroll;
-    scroll-behavior: smooth;
+    overflow: hidden;
+    overflow-y: scroll;
     width: 100%;
 }
 
@@ -139,9 +139,6 @@
 @media (max-width: 576px) {
     .create {
         padding-top: 0;
-    }
-    .clip {
-        flex-wrap: wrap;
     }
     .clip__cell--duration {
         display: none;
