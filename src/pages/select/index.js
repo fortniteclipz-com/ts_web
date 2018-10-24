@@ -21,7 +21,7 @@ export default class Select extends Component {
         // console.log("componentDidMount");
         api.getStreams((streams) => {
             streams = streams
-                .map(function (stream) {
+                .map(function(stream) {
                     let user = "unknown";
                     if (stream.playlist_url) {
                         user = (stream.playlist_url.split("/")[3]).split("_")[1];
@@ -29,7 +29,7 @@ export default class Select extends Component {
                     stream.user = user;
                     return stream;
                 })
-                .sort(function (a, b) {
+                .sort(function(a, b) {
                     if (a.user > b.user) {
                         return 1;
                     } else {
@@ -50,7 +50,7 @@ export default class Select extends Component {
     };
 
     render() {
-        const streamsHTML = this.state.streams.map(function (stream) {
+        const streamsHTML = this.state.streams.map(function(stream) {
             let bsStyle = 'default';
             if (stream._status_analyze === 2) {
                 bsStyle = 'success';
