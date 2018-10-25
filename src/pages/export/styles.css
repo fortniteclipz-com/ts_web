@@ -84,7 +84,7 @@
     flex: 0 1 250px;
 }
 
-.export .montage__cell--streamer {
+.export .montage__cell--stream {
     flex: 1 0 150px;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .export .montage__cell--play {
-    flex: 0 0 100px;
+    flex: 0 0 150px;
     text-align: center;
 }
 

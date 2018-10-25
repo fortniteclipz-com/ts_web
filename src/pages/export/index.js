@@ -25,10 +25,10 @@ export default class Export extends Component {
         // console.log("componentDidMount");
         api.getMontages((montages) => {
             montages = montages.sort(function(a, b) {
-                if (a.stream_id > b.stream_id) {
-                    return -1;
-                } else {
+                if (a.stream_user > b.stream_user) {
                     return 1;
+                } else {
+                    return -1;
                 }
             });
             this.setState({
@@ -89,7 +89,7 @@ export default class Export extends Component {
                 }
                 return (
                     <div key={montage.montage_id} className='montage'>
-                        <div className='montage__cell montage__cell--streamer'>
+                        <div className='montage__cell montage__cell--stream'>
                             <div>{montage.stream_user}</div>
                             <div>{montage.stream_id}</div>
                         </div>
@@ -106,7 +106,7 @@ export default class Export extends Component {
             montagesHTML = (
                 <div className='montages'>
                     <div className='montage montage--header'>
-                        <div className='montage__cell montage__cell--streamer'>Streamer</div>
+                        <div className='montage__cell montage__cell--stream'>Stream</div>
                         <div className='montage__cell montage__cell--montageid'>MontageID</div>
                         <div className='montage__cell montage__cell--duration'>Duration</div>
                         <div className='montage__cell montage__cell--play'>Play</div>

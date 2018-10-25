@@ -25,13 +25,15 @@ export default function Clip(props) {
         sliderHTML = (
             <div className='clip__cell clip__cell--range'>
                 <Range
-                   min={props.clip.time_min}
-                   max={props.clip.time_max}
-                   defaultValue={[props.clip.time_in, props.clip.time_out]}
-                   pushable={1}
-                   tipFormatter={helper.toHHMMSS}
-                   onChange={(value) => props.onChange(value, props.clip)}
-                   onAfterChange={(value) => props.onAfterChange(value, props.clip)}
+                    min={props.clip.time_min}
+                    max={props.clip.time_max}
+                    defaultValue={[props.clip.time_in, props.clip.time_out]}
+                    pushable={1}
+                    tipFormatter={helper.toHHMMSS}
+                    onChange={(value) => props.onChange(value, props.clip)}
+                    onAfterChange={(value) => props.onAfterChange(value, props.clip)}
+                    trackStyle={[{backgroundColor: '#222222'}]}
+                    handleStyle={[{borderColor: '#222222'}]}
                />
             </div>
         );
