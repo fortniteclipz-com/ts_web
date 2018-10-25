@@ -24,6 +24,7 @@ export default class Create extends Component {
     }
 
     componentDidMount() {
+        // console.log("Create | componentDidMount");
         const stream_id = this.props.match.params.streamId;
         api.getStream(stream_id, (stream, streamMoments) => {
             const clips = helper.createClips(stream, streamMoments);
@@ -32,6 +33,11 @@ export default class Create extends Component {
                 clips: clips,
             });
         });
+    }
+
+    componentWillUnmount() {
+        // console.log("Create | componentWillUnmount");
+        clearInterval(this.playerInterval)
     }
 
     onAnalyze() {

@@ -69,15 +69,19 @@ export default class Export extends Component {
 
         if (this.state.playerUrl) {
             playerHTML = (
-                <FilePlayer
-                    className='player__player'
-                    url={this.state.playerUrl}
-                    width={'100%'}
-                    height={'100%'}
-                    controls={true}
-                    playsinline={true}
-                    ref={player => this.player = player}
-                />
+                <div className='player'>
+                    <div className='player__wrapper'>
+                        <FilePlayer
+                            className='player__player'
+                            url={this.state.playerUrl}
+                            width={'100%'}
+                            height={'100%'}
+                            controls={true}
+                            playsinline={true}
+                            ref={player => this.player = player}
+                        />
+                    </div>
+                </div>
             );
         }
 
@@ -124,11 +128,7 @@ export default class Export extends Component {
 
         return (
             <div className='export'>
-                <div className='player'>
-                    <div className='player__wrapper'>
-                        {playerHTML}
-                    </div>
-                </div>
+                {playerHTML}
                 {montagesHTML}
             </div>
         );
