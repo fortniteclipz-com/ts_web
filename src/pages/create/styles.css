@@ -104,7 +104,7 @@
 }
 
 .clip__cell--select {
-    flex: 0 0 50px;
+    flex: 0 0 30px;
     padding-left: 0;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .clip__cell--order {
-    flex: 0 0 50px;
+    flex: 0 0 40px;
 }
 
 .clip__cell--time {
@@ -130,11 +130,11 @@
 }
 
 .clip__cell--buttons {
-    flex: 0 0 75px;
+    flex: 0 0 65px;
 }
 
 .clip__cell--sort {
-    flex: 0 0 75px;
+    flex: 0 0 50px;
     padding-right: 0;
 }
 
