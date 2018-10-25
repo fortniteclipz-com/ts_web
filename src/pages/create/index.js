@@ -136,9 +136,19 @@ export default class Create extends Component {
 
     clipsOnIncludeAll() {
         // console.log("Create | clipsOnIncludeAll");
-        this.state.clips.forEach((clip) => {
-            clip.include = false;
+        const isClipSelected = this.state.clips.some(function(clip) {
+            return clip.include;
         });
+        if (isClipSelected) {
+            this.state.clips.forEach((clip) => {
+                clip.include = false;
+            });
+        } else {
+            let clipCount = 0;
+            this.state.clips.forEach((clip) => {
+                return clipCount < 50 ? (clip.include = true && ++clipCount) : null
+            });
+        }
         this.setState({
             clips: this.state.clips,
         });
@@ -217,6 +227,12 @@ export default class Create extends Component {
                     montageHTML = (
                         <div className='create__montage'>
                             <Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>
+                        </div>
+                    );
+                } else if (montageInfo.clipCount === 0) {
+                    montageHTML = (
+                        <div className='create__montage'>
+                            <Button className='create__montage-button' bsStyle='warning' disabled>Add Clips to Create Montage</Button>
                         </div>
                     );
                 } else {
