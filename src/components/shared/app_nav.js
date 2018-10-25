@@ -20,4 +20,4 @@ export default function AppNav(props) {
             </Navbar.Collapse>
         </Navbar>
     );
-}
+};

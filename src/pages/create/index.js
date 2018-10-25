@@ -157,7 +157,7 @@ export default class Create extends Component {
     clipsOnSortEnd({ oldIndex, newIndex }) {
         // console.log("Create | clipsOnSortEnd");
         this.setState({
-          clips: arrayMove(this.state.clips, oldIndex, newIndex),
+            clips: arrayMove(this.state.clips, oldIndex, newIndex),
         });
     }
 
@@ -242,11 +242,9 @@ export default class Create extends Component {
                         </div>
                     );
                 }
-            }
-            else if (this.state.stream._status_analyze === 1) {
+            } else if (this.state.stream._status_analyze === 1) {
                 analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
-            }
-            else {
+            } else {
                 analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
             }
         }

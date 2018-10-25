@@ -25,7 +25,7 @@ api.getStream = function(stream_id, callback) {
             stream_moments = body.stream_moments;
         }
         callback(stream, stream_moments);
-    })
+    });
 };
 
 api.getStreams = function(callback) {
