@@ -21,14 +21,6 @@ export default class Select extends Component {
         // console.log("componentDidMount");
         api.getStreams((streams) => {
             streams = streams
-                .map(function(stream) {
-                    let user = "unknown";
-                    if (stream.playlist_url) {
-                        user = (stream.playlist_url.split("/")[3]).split("_")[1];
-                    }
-                    stream.user = user;
-                    return stream;
-                })
                 .sort(function(a, b) {
                     if (a.user > b.user) {
                         return 1;
@@ -65,7 +57,7 @@ export default class Select extends Component {
                     componentClass={Link}
                     to={`/create/${stream.stream_id}`}
                 >
-                    {stream.stream_id} ({stream.user})
+                    {stream.stream_id} ({stream.user || "unknown"})
                 </Button>
             );
         });

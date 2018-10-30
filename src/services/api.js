@@ -67,7 +67,7 @@ api.analyzeStream = function(stream_id, callback) {
     });
 };
 
-api.createMontage = function(stream_id, stream_user, clips, callback) {
+api.createMontage = function(stream_id, clips, callback) {
     const url = `${TS_URL}/montage`
     const _clips = clips
         .filter(function(clip) {
@@ -81,7 +81,6 @@ api.createMontage = function(stream_id, stream_user, clips, callback) {
         })
     const data = {
         stream_id: stream_id,
-        stream_user: stream_user,
         clips: _clips,
     };
     fetch(url, {

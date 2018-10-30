@@ -56,8 +56,7 @@ export default class Create extends Component {
         this.setState({
             disableMontage: true,
         }, () => {
-            const stream_user = (this.state.stream.playlist_url.split("/")[3]).split("_")[1];
-            api.createMontage(stream_id, stream_user, this.state.clips, (montage) => {
+            api.createMontage(stream_id, this.state.clips, (montage) => {
                 alert(`Montage created!\n\nMontageID:\n${montage.montage_id}`);
                 this.props.history.push(`/export?montageId=${montage.montage_id}`)
             });
@@ -168,7 +167,7 @@ export default class Create extends Component {
     }
 
     playerOnReady() {
-        // console.log("Create | playerOnReady");
+        console.log("Create | playerOnReady");
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
@@ -193,6 +192,10 @@ export default class Create extends Component {
     playerOnPause() {
         // console.log("Create | playerOnPause");
         clearInterval(this.playerInterval)
+    }
+
+    playerOnError() {
+        console.log("Create | playerOnError");
     }
 
     render() {
@@ -269,6 +272,7 @@ export default class Create extends Component {
                             onReady={this.playerOnReady}
                             onPlay={this.playerOnPlay}
                             onPause={this.playerOnPause}
+                            onError={this.playerOnError}
                             ref={player => this.player = player}
                         />
                     </div>
