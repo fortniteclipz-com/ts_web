@@ -80,7 +80,7 @@ api.createMontage = function(stream_id, stream_user, clips, callback) {
             };
         })
     const data = {
-        stream_id: parseInt(stream_id),
+        stream_id: stream_id,
         stream_user: stream_user,
         clips: _clips,
     };

@@ -49,7 +49,7 @@ export default class Export extends Component {
     montageOnPlay(montage) {
         // console.log("montageOnPlay");
         this.props.history.push(`/export?montageId=${montage.montage_id}`)
-        const playerUrl = `https://s3-us-west-2.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
+        const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
         this.setState({
             playerUrl: null,
         }, () => {
