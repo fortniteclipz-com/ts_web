@@ -13,8 +13,11 @@ export default function AppNav(props) {
                     <NavItem componentClass={Link} href="/create" to="/create">
                         Create
                     </NavItem>
-                    <NavItem componentClass={Link} href="/export" to="/export">
-                        Export
+                    <NavItem componentClass={Link} href="/watch" to="/watch">
+                        Watch
+                    </NavItem>
+                    <NavItem componentClass={Link} href="/account" to="/account">
+                        Account
                     </NavItem>
                 </Nav>
             </Navbar.Collapse>

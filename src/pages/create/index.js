@@ -16,6 +16,7 @@ export default class Create extends Component {
         super(props);
         autoBind(this);
         this.state = {
+            streamIsValid: false,
             stream: null,
             clips: null,
             playingClip: null,
@@ -58,7 +59,7 @@ export default class Create extends Component {
         }, () => {
             api.createMontage(stream_id, this.state.clips, (montage) => {
                 alert(`Montage created!\n\nMontageID:\n${montage.montage_id}`);
-                this.props.history.push(`/export?montageId=${montage.montage_id}`)
+                this.props.history.push(`/watch?montageId=${montage.montage_id}`)
             });
         });
 
@@ -167,10 +168,17 @@ export default class Create extends Component {
     }
 
     playerOnReady() {
-        console.log("Create | playerOnReady");
+        // console.log("Create | playerOnReady");
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
+    }
+
+    playerOnDuration() {
+        // console.log("Create | playerOnDuration");
+        this.setState({
+            streamIsValid: true,
+        });
     }
 
     playerOnPlay() {
@@ -192,10 +200,6 @@ export default class Create extends Component {
     playerOnPause() {
         // console.log("Create | playerOnPause");
         clearInterval(this.playerInterval)
-    }
-
-    playerOnError() {
-        console.log("Create | playerOnError");
     }
 
     render() {
@@ -251,11 +255,14 @@ export default class Create extends Component {
                         </div>
                     );
                 }
-            } else if (this.state.stream._status_analyze === 1) {
-                analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
-            } else {
-                analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
+            } else if (this.state.streamIsValid === true) {
+                if (this.state.stream._status_analyze === 1) {
+                    analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
+                } else {
+                    analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
+                }
             }
+
         }
 
         return (
@@ -269,10 +276,10 @@ export default class Create extends Component {
                             height={'100%'}
                             controls={true}
                             playsinline={true}
-                            onReady={this.playerOnReady}
                             onPlay={this.playerOnPlay}
                             onPause={this.playerOnPause}
-                            onError={this.playerOnError}
+                            onReady={this.playerOnReady}
+                            onDuration={this.playerOnDuration}
                             ref={player => this.player = player}
                         />
                     </div>

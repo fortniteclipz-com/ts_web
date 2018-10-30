@@ -9,7 +9,7 @@ import helper from '../../services/helper';
 
 import './styles.css'
 
-export default class Export extends Component {
+export default class Watch extends Component {
 
     constructor(props, state) {
         super(props);
@@ -48,7 +48,7 @@ export default class Export extends Component {
 
     montageOnPlay(montage) {
         // console.log("montageOnPlay");
-        this.props.history.push(`/export?montageId=${montage.montage_id}`)
+        this.props.history.push(`/watch?montageId=${montage.montage_id}`)
         const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
         this.setState({
             playerUrl: null,
@@ -127,7 +127,7 @@ export default class Export extends Component {
         }
 
         return (
-            <div className='export'>
+            <div className='watch'>
                 {playerHTML}
                 {montagesHTML}
             </div>

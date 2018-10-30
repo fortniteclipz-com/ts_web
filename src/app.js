@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/shared/app_nav'
+import Account from './pages/account'
 import Create from './pages/create'
-import Export from './pages/export'
 import Select from './pages/select'
+import Watch from './pages/watch'
 
 export default function App() {
     return (
@@ -13,9 +14,10 @@ export default function App() {
                 <Navbar />
                 <div className="app-container">
                     <Switch>
+                        <Route path='/account' component={Account} />
                         <Route path='/create/:streamId' component={Create} />
                         <Route path='/create' component={Select} />
-                        <Route path='/export' component={Export} />
+                        <Route path='/watch' component={Watch} />
                         <Redirect to='/create' />
                     </Switch>
                 </div>

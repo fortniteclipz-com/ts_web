@@ -1,4 +1,4 @@
-.export {
+.watch {
     height: calc(100vh - 50px);
     min-height: 400px;
     padding-top: 10px;
@@ -11,24 +11,24 @@
     justify-content: flex-start;
 }
 
-.export .player {
+.watch .player {
     margin: 0 auto;
     max-width: calc(.75 * 100vh);
     width: 100%;
 }
 
-.export .player__wrapper {
+.watch .player__wrapper {
     padding-top: 56.25%;
     position: relative;
 }
 
-.export .player__player {
+.watch .player__player {
     position: absolute;
     left: 0;
     top: 0;
 }
 
-.export .montages {
+.watch .montages {
     width: 100%;
 
     align-items: center;
@@ -37,25 +37,25 @@
     justify-content: flex-start;
 }
 
-.export *[data-scrollbar] {
+.watch *[data-scrollbar] {
     width: 100%;
 }
 
-.export .montages__overflow {
+.watch .montages__overflow {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
 }
 
-.export .montages__list {
+.watch .montages__list {
     width: 100%;
 }
 
-.export .montages__list .montage:nth-child(odd) {
+.watch .montages__list .montage:nth-child(odd) {
     background-color: #F5F5F5;
 }
 
-.export .montage {
+.watch .montage {
     padding: 10px 0;
     width: 100%;
 
@@ -65,12 +65,12 @@
     justify-content: space-between;
 }
 
-.export .montage--header {
+.watch .montage--header {
     margin: 10px 0 10px;
     font-weight: bold;
 }
 
-.export .montage__cell {
+.watch .montage__cell {
     flex: 0 1 auto;
     padding: 0 5px;
     text-align: left;
@@ -80,31 +80,31 @@
     white-space: nowrap;
 }
 
-.export .montage__cell--montageid {
+.watch .montage__cell--montageid {
     flex: 0 1 250px;
 }
 
-.export .montage__cell--stream {
+.watch .montage__cell--stream {
     flex: 1 0 150px;
 }
 
-.export .montage__cell--duration {
+.watch .montage__cell--duration {
     flex: 0 0 100px;
 }
 
-.export .montage__cell--play {
+.watch .montage__cell--play {
     flex: 0 0 150px;
     text-align: center;
 }
 
 @media (max-width: 700px) {
-    .export .montage {
+    .watch .montage {
         padding: 10px 10px;
     }
 }
 
 @media (max-width: 576px) {
-    .export {
+    .watch {
         padding-top: 0;
     }
 
