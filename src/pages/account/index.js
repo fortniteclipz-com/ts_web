@@ -39,7 +39,7 @@ export default class Account extends Component {
     render() {
         return (
             <div className='account'>
-                <ButtonGroup>
+                <ButtonGroup justified>
                     <Button componentClass={Link} to='/account/login'>Login</Button>
                     <Button componentClass={Link} to='/account/register'>Register</Button>
                     <Button componentClass={Link} to='/account/confirm'>Confirm</Button>
