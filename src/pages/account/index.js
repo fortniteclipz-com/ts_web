@@ -39,7 +39,6 @@ export default class Account extends Component {
     render() {
         return (
             <div className='account'>
-                <h1>Account</h1>
                 <ButtonGroup>
                     <Button componentClass={Link} to='/account/login'>Login</Button>
                     <Button componentClass={Link} to='/account/register'>Register</Button>
@@ -47,7 +46,6 @@ export default class Account extends Component {
                     <Button componentClass={Link} to='/account/forgot'>Forgot</Button>
                     <Button componentClass={Link} to='/account/logout'>Logout</Button>
                 </ButtonGroup>
-
                 <div className='account__view'>
                     <Switch>
                         <Route
