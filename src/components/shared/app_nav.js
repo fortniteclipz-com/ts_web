@@ -10,13 +10,13 @@ export default function AppNav(props) {
             </Navbar.Header>
             <Navbar.Collapse>
                 <Nav pullRight>
-                    <NavItem componentClass={Link} href="/create" to="/create">
+                    <NavItem componentClass={Link} href='/create' to='/create'>
                         Create
                     </NavItem>
-                    <NavItem componentClass={Link} href="/watch" to="/watch">
+                    <NavItem componentClass={Link} href='/watch' to='/watch'>
                         Watch
                     </NavItem>
-                    <NavItem componentClass={Link} href="/account" to="/account">
+                    <NavItem componentClass={Link} href='/account' to='/account'>
                         Account
                     </NavItem>
                 </Nav>

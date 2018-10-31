@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -64,15 +64,23 @@ export default class Select extends Component {
 
         return (
             <div className='select'>
-                <div className='select__text'>Enter Twitch VideoID:</div>
                 <form className='select__form' onSubmit={this.onSubmit}>
-                    <FormControl
-                        type='text'
-                        className='select__input'
-                        placeholder='Twitch VideoID'
-                        data-stream-id
-                    />
-                    <Button type='submit' bsStyle='primary' className='select__button'>View Stream</Button>
+                    <FormGroup controlId='select__input'>
+                        <ControlLabel>Enter Twitch VideoID</ControlLabel>
+                        <FormControl
+                            data-stream-id
+                            type='text'
+                            placeholder='Twitch VideoID'
+                            className='select__input'
+                        />
+                    </FormGroup>
+                    <Button
+                        type='submit'
+                        className='select__button'
+                        bsStyle='primary'
+                    >
+                        View Stream
+                    </Button>
                 </form>
                 <div className='select__streams'>
                     {streamsHTML}
