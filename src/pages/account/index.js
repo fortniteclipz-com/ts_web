@@ -10,6 +10,8 @@ import Login from '../../components/account/login';
 import Logout from '../../components/account/logout';
 import Register from '../../components/account/register';
 
+import config from '../../services/config';
+
 import './styles.css'
 
 export default class Account extends Component {
@@ -87,6 +89,36 @@ export default class Account extends Component {
         }
     }
 
+    onPrivate() {
+        this.callApi('private');
+    }
+
+    onPublic() {
+        this.callApi('public');
+    }
+
+    callApi(route) {
+        let token = null;
+        try {
+            token = this.state.user.signInUserSession.idToken.jwtToken;
+        } catch (e) {
+            token = null;
+        }
+
+        const url = `${config.aws.apiGateway.url}/${route}`
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+        .then(response => response.json())
+        .then(body => {
+            console.log(route, "body:", body);
+        });
+    }
+
     render() {
         return (
             <div className='account'>
@@ -122,7 +154,11 @@ export default class Account extends Component {
                         <Redirect to='/account/login' />
                     </Switch>
                 </div>
-                <div>{this.state.user && this.state.user.username}</div>
+                <div>{this.state.user ? this.state.user.username : "Unauthenticated"}</div>
+                <ButtonGroup>
+                    <Button onClick={this.onPublic}>Public</Button>
+                    <Button onClick={this.onPrivate}>Private</Button>
+                </ButtonGroup>
             </div>
         );
     }
