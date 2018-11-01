@@ -8,8 +8,8 @@ config.aws.apiGateway = {
 };
 config.aws.cognito = {
     region: "us-west-2",
-    userPoolID: "us-west-2_qahZbfDSy",
-    appClientID: "3buo4mu0d11mgj268ljr785obs"
+    userPoolID: "us-west-2_MQj7stfaV",
+    appClientID: "3v69eiv1b3ivfa4gh4dj1o92r2"
 };
 
 export default config;
