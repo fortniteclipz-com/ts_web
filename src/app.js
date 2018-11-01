@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Navbar from './components/shared/app_nav'
+import Navbar from './components/shared/appNav'
 import Account from './pages/account'
 import Create from './pages/create'
 import Select from './pages/select'

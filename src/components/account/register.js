@@ -5,25 +5,25 @@ export default function Register(props) {
     const onSubmit = function(event) {
         event.preventDefault();
         const $form = event.target;
-        const username = $form.querySelector('input[data-register--username]').value;
+        const email = $form.querySelector('input[data-register--email]').value;
         const password = $form.querySelector('input[data-register--password]').value;
         const confirmPassword = $form.querySelector('input[data-register--password-confirm]').value;
-        props.onRegister(username, password, confirmPassword);
+        props.onRegister(email, password, confirmPassword);
     };
 
     return (
         <div className='register'>
             <h2>Register</h2>
             <form onSubmit={onSubmit}>
-                <FormGroup controlId='register__username'>
-                    <ControlLabel>Username</ControlLabel>
+                <FormGroup controlId='register__email' bsSize='large'>
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
-                        data-register--username
+                        data-register--email
                         type='text'
-                        placeholder='Username'
+                        placeholder='Email'
                     />
                 </FormGroup>
-                <FormGroup controlId='register__password'>
+                <FormGroup controlId='register__password' bsSize='large'>
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
                         data-register--password
@@ -31,7 +31,7 @@ export default function Register(props) {
                         placeholder='Password'
                     />
                 </FormGroup>
-                <FormGroup controlId='register__password-confirm'>
+                <FormGroup controlId='register__password-confirm' bsSize='large'>
                     <ControlLabel>Confirm Password</ControlLabel>
                     <FormControl
                         data-register--password-confirm

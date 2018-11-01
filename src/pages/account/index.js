@@ -3,11 +3,13 @@ import autoBind from 'react-autobind';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
-import Confirm from '../../components/account/confirm'
-import Forgot from '../../components/account/forgot'
-import Login from '../../components/account/login'
-import Logout from '../../components/account/logout'
-import Register from '../../components/account/register'
+import Confirm from '../../components/account/confirm';
+import Forgot from '../../components/account/forgot';
+import Login from '../../components/account/login';
+import Logout from '../../components/account/logout';
+import Register from '../../components/account/register';
+
+import appAuth from '../../services/appAuth';
 
 import './styles.css'
 
@@ -29,11 +31,18 @@ export default class Account extends Component {
         console.log("password", password);
     }
 
-    onRegister(username, password, passwordConfirm) {
+    async onRegister(email, password, passwordConfirm) {
         console.log("Account | onRegister");
-        console.log("username", username);
+        console.log("email", email);
         console.log("password", password);
         console.log("passwordConfirm", passwordConfirm);
+
+        try {
+            await appAuth.signUp(email, password)
+        } catch (e) {
+            console.log("e", e);
+            alert(e.message);
+        }
     }
 
     render() {

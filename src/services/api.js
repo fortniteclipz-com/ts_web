@@ -1,19 +1,14 @@
-import { TS_URL_ID, TS_URL, TS_API_KEY, TS_LIMIT } from './config';
-
-console.log("TS_URL_ID", TS_URL_ID);
-console.log("TS_URL", TS_URL);
-console.log("TS_API_KEY", TS_API_KEY);
-console.log("TS_LIMIT", TS_LIMIT);
+import config from './config';
 
 const api = {};
 
 api.getStream = function(stream_id, callback) {
-    const url = `${TS_URL}/stream/${stream_id}`
+    const url = `${config.aws.apiGateway.url}/stream/${stream_id}`
     fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': TS_API_KEY,
+            'x-api-key': config.aws.apiGateway.apiKey,
         },
     })
     .then(response => response.json())
@@ -29,12 +24,12 @@ api.getStream = function(stream_id, callback) {
 };
 
 api.getStreams = function(callback) {
-    const url = `${TS_URL}/streams?limit=${TS_LIMIT}`
+    const url = `${config.aws.apiGateway.url}/streams?limit=${config.aws.apiGateway.limit}`
     fetch(url, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-api-key": TS_API_KEY,
+            "x-api-key": config.aws.apiGateway.apiKey,
         },
     })
     .then(response => response.json())
@@ -48,12 +43,12 @@ api.getStreams = function(callback) {
 };
 
 api.analyzeStream = function(stream_id, callback) {
-    const url = `${TS_URL}/stream/${stream_id}/moments`
+    const url = `${config.aws.apiGateway.url}/stream/${stream_id}/moments`
     fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "x-api-key": TS_API_KEY,
+            "x-api-key": config.aws.apiGateway.apiKey,
         },
         body: JSON.stringify({}),
     })
@@ -68,7 +63,7 @@ api.analyzeStream = function(stream_id, callback) {
 };
 
 api.createMontage = function(stream_id, clips, callback) {
-    const url = `${TS_URL}/montage`
+    const url = `${config.aws.apiGateway.url}/montage`
     const _clips = clips
         .filter(function(clip) {
             return clip.include;
@@ -87,7 +82,7 @@ api.createMontage = function(stream_id, clips, callback) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "x-api-key": TS_API_KEY,
+            "x-api-key": config.aws.apiGateway.apiKey,
         },
         body: JSON.stringify(data),
     })
@@ -102,12 +97,12 @@ api.createMontage = function(stream_id, clips, callback) {
 };
 
 api.getMontages = function(callback) {
-    const url = `${TS_URL}/montages?limit=${TS_LIMIT}`
+    const url = `${config.aws.apiGateway.url}/montages?limit=${config.aws.apiGateway.limit}`
     fetch(url, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-api-key": TS_API_KEY,
+            "x-api-key": config.aws.apiGateway.apiKey,
         },
     })
     .then(response => response.json())
