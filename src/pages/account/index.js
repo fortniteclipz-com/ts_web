@@ -17,7 +17,21 @@ export default class Account extends Component {
     constructor(props, state) {
         super(props);
         autoBind(this);
-        this.state = {};
+        this.state = {
+            user: null,
+        };
+
+        Auth
+        .currentAuthenticatedUser()
+        .then(async (user) => {
+            console.log("user", user);
+            this.setState({
+                user: user,
+            });
+        })
+        .catch(function (e) {
+            console.log("e", e);
+        });
     }
 
     componentDidMount() {
@@ -30,8 +44,24 @@ export default class Account extends Component {
         console.log("password", password);
 
         try {
-            var result = await Auth.signIn(email, password);
-            console.log("result", result);
+            var user = await Auth.signIn(email, password);
+            console.log("user", user);
+            this.setState({
+                user: user,
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    async onLogout() {
+        console.log("Account | onLogout");
+        try {
+            var user = await Auth.signOut();
+            console.log("user", user);
+            this.setState({
+                user: null,
+            });
         } catch (e) {
             alert(e.message);
         }
@@ -42,13 +72,16 @@ export default class Account extends Component {
         console.log("email", email);
         console.log("password", password);
         console.log("passwordConfirm", passwordConfirm);
-
         try {
-            var result = await Auth.signUp({
+            await Auth.signUp({
                 username: email,
                 password: password,
             });
-            console.log("result", result);
+            const user = await Auth.signIn(email, password);
+            console.log("user", user);
+            this.setState({
+                user: user,
+            });
         } catch (e) {
             alert(e.message);
         }
@@ -80,10 +113,16 @@ export default class Account extends Component {
                         />
                         <Route path='/account/confirm' component={Confirm} />
                         <Route path='/account/forgot' component={Forgot} />
-                        <Route path='/account/logout' component={Logout} />
+                        <Route
+                            path='/account/logout'
+                            render={(props) =>
+                                <Logout {...props} onLogout={this.onLogout} />
+                            }
+                        />
                         <Redirect to='/account/login' />
                     </Switch>
                 </div>
+                <div>{this.state.user && this.state.user.username}</div>
             </div>
         );
     }
