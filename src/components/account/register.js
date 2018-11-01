@@ -21,6 +21,7 @@ export default function Register(props) {
                         data-register--email
                         type='text'
                         placeholder='Email'
+                        defaultValue='sachinahj@gmail.com'
                     />
                 </FormGroup>
                 <FormGroup controlId='register__password' bsSize='large'>
@@ -29,6 +30,7 @@ export default function Register(props) {
                         data-register--password
                         type='password'
                         placeholder='Password'
+                        defaultValue='password'
                     />
                 </FormGroup>
                 <FormGroup controlId='register__password-confirm' bsSize='large'>
@@ -37,6 +39,7 @@ export default function Register(props) {
                         data-register--password-confirm
                         type='password'
                         placeholder='Confirm Password'
+                        defaultValue='password'
                     />
                 </FormGroup>
                 <Button

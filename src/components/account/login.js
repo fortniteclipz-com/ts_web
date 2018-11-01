@@ -5,21 +5,22 @@ export default function Login(props) {
     const onSubmit = function(event) {
         event.preventDefault();
         const $form = event.target;
-        const username = $form.querySelector('input[data-login--username]').value;
+        const email = $form.querySelector('input[data-login--email]').value;
         const password = $form.querySelector('input[data-login--password]').value;
-        props.onLogin(username, password);
+        props.onLogin(email, password);
     };
 
     return (
         <div className='login'>
             <h2>Login</h2>
             <form onSubmit={onSubmit}>
-                <FormGroup controlId='login__username'>
+                <FormGroup controlId='login__email'>
                     <ControlLabel>Username</ControlLabel>
                     <FormControl
-                        data-login--username
+                        data-login--email
                         type='text'
-                        placeholder='Username'
+                        placeholder='Email'
+                        defaultValue='sachinahj@gmail.com'
                     />
                 </FormGroup>
                 <FormGroup controlId='login__password'>
@@ -28,6 +29,7 @@ export default function Login(props) {
                         data-login--password
                         type='password'
                         placeholder='Password'
+                        defaultValue='password'
                     />
                 </FormGroup>
                 <Button

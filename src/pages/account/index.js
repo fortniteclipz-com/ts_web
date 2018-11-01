@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button, ButtonGroup } from 'react-bootstrap';
@@ -8,8 +9,6 @@ import Forgot from '../../components/account/forgot';
 import Login from '../../components/account/login';
 import Logout from '../../components/account/logout';
 import Register from '../../components/account/register';
-
-import appAuth from '../../services/appAuth';
 
 import './styles.css'
 
@@ -25,10 +24,17 @@ export default class Account extends Component {
         console.log("Account | componentDidMount");
     }
 
-    onLogin(username, password) {
+    async onLogin(email, password) {
         console.log("Account | onLogin");
-        console.log("username", username);
+        console.log("email", email);
         console.log("password", password);
+
+        try {
+            var result = await Auth.signIn(email, password);
+            console.log("result", result);
+        } catch (e) {
+            alert(e.message);
+        }
     }
 
     async onRegister(email, password, passwordConfirm) {
@@ -38,9 +44,12 @@ export default class Account extends Component {
         console.log("passwordConfirm", passwordConfirm);
 
         try {
-            await appAuth.signUp(email, password)
+            var result = await Auth.signUp({
+                username: email,
+                password: password,
+            });
+            console.log("result", result);
         } catch (e) {
-            console.log("e", e);
             alert(e.message);
         }
     }
