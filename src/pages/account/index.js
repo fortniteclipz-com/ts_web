@@ -102,14 +102,15 @@ export default class Account extends Component {
         }
     }
 
-    async onResetPassword(email, confirmationCode, password) {
+    async onResetPassword(email, resetCode, password, passwordConfirm) {
         console.log("Account | onResetPassword");
         console.log("email", email);
-        console.log("confirmationCode", confirmationCode);
+        console.log("resetCode", resetCode);
         console.log("password", password);
+        console.log("passwordConfirm", passwordConfirm);
 
         try {
-            await Auth.forgotPasswordSubmit(email, confirmationCode, password);
+            await Auth.forgotPasswordSubmit(email, resetCode, password);
             const user = await Auth.signIn(email, password);
             this.setState({
                 user: user,

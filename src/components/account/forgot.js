@@ -34,9 +34,10 @@ export default function Forgot(props) {
         event.preventDefault();
         const $form = event.target;
         const email = $form.querySelector('input[data-forgot--email]').value;
-        const confirmationCode = $form.querySelector('input[data-forgot--confirmation-code]').value;
+        const resetCode = $form.querySelector('input[data-forgot--reset-code]').value;
         const password = $form.querySelector('input[data-forgot--password]').value;
-        props.onResetPassword(email, confirmationCode, password);
+        const passwordConfirm = $form.querySelector('input[data-forgot--password-confirm]').value;
+        props.onResetPassword(email, resetCode, password, passwordConfirm);
     };
 
     const resetPasswordView = (
@@ -50,12 +51,12 @@ export default function Forgot(props) {
                     defaultValue='sachinahj@gmail.com'
                 />
             </FormGroup>
-            <FormGroup controlId='forgot__confirmation-code' bsSize='large'>
-                <ControlLabel>Cofirmation Code</ControlLabel>
+            <FormGroup controlId='forgot__reset-code' bsSize='large'>
+                <ControlLabel>Password Reset Code</ControlLabel>
                 <FormControl
-                    data-forgot--confirmation-code
+                    data-forgot--reset-code
                     type='text'
-                    placeholder='Confirmation Code'
+                    placeholder='Password Reset Code'
                     defaultValue=''
                 />
             </FormGroup>
@@ -68,6 +69,15 @@ export default function Forgot(props) {
                     defaultValue='password'
                 />
             </FormGroup>
+            <FormGroup controlId='forgot__password-confirm' bsSize='large'>
+                    <ControlLabel>Confirm Password</ControlLabel>
+                    <FormControl
+                        data-forgot--password-confirm
+                        type='password'
+                        placeholder='Confirm Password'
+                        defaultValue='password'
+                    />
+                </FormGroup>
             <Button
                 type='submit'
                 bsStyle='primary'
