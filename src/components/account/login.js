@@ -33,7 +33,6 @@ export default function Login(props) {
                     />
                 </FormGroup>
                 <Button
-                    data-login--button
                     type='submit'
                     bsStyle='primary'
                 >

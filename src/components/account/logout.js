@@ -12,7 +12,6 @@ export default function Logout(props) {
             <h2>Logout</h2>
             <form onSubmit={onSubmit}>
                 <Button
-                    data-login--button
                     type='submit'
                     bsStyle='primary'
                 >

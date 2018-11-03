@@ -4,7 +4,6 @@ import autoBind from 'react-autobind';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
-import Confirm from '../../components/account/confirm';
 import Forgot from '../../components/account/forgot';
 import Login from '../../components/account/login';
 import Logout from '../../components/account/logout';
@@ -21,6 +20,7 @@ export default class Account extends Component {
         autoBind(this);
         this.state = {
             user: null,
+            forgotView: 'forgot',
         };
 
         Auth
@@ -89,6 +89,36 @@ export default class Account extends Component {
         }
     }
 
+    async onForgotPassword(email) {
+        console.log("Account | onForgotPassword");
+        console.log("email", email);
+        try {
+            await Auth.forgotPassword(email);
+            this.setState({
+                forgotView: 'reset',
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    async onResetPassword(email, confirmationCode, password) {
+        console.log("Account | onResetPassword");
+        console.log("email", email);
+        console.log("confirmationCode", confirmationCode);
+        console.log("password", password);
+
+        try {
+            await Auth.forgotPasswordSubmit(email, confirmationCode, password);
+            const user = await Auth.signIn(email, password);
+            this.setState({
+                user: user,
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
     onPrivate() {
         this.callApi('private');
     }
@@ -97,7 +127,7 @@ export default class Account extends Component {
         this.callApi('public');
     }
 
-    callApi(route) {
+    async callApi(route) {
         let token = null;
         try {
             token = this.state.user.signInUserSession.idToken.jwtToken;
@@ -105,27 +135,30 @@ export default class Account extends Component {
             token = null;
         }
 
-        const url = `${config.aws.apiGateway.url}/${route}`
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-            },
-        })
-        .then(response => response.json())
-        .then(body => {
-            console.log(route, "body:", body);
-        });
+        try {
+            const url = `${config.aws.apiGateway.url}/${route}`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                },
+            })
+            const body = await response.json();
+            console.log("body", body);
+            alert(JSON.stringify(body));
+        } catch (e) {
+            alert(e);
+        }
     }
 
     render() {
+        console.log("this.state", this.state);
         return (
             <div className='account'>
                 <ButtonGroup justified>
                     <Button componentClass={Link} to='/account/login'>Login</Button>
                     <Button componentClass={Link} to='/account/register'>Register</Button>
-                    <Button componentClass={Link} to='/account/confirm'>Confirm</Button>
                     <Button componentClass={Link} to='/account/forgot'>Forgot</Button>
                     <Button componentClass={Link} to='/account/logout'>Logout</Button>
                 </ButtonGroup>
@@ -143,8 +176,12 @@ export default class Account extends Component {
                                 <Register {...props} onRegister={this.onRegister} />
                             }
                         />
-                        <Route path='/account/confirm' component={Confirm} />
-                        <Route path='/account/forgot' component={Forgot} />
+                        <Route
+                            path='/account/forgot'
+                            render={(props) =>
+                                <Forgot {...props} view={this.state.forgotView} onForgotPassword={this.onForgotPassword} onResetPassword={this.onResetPassword} />
+                            }
+                        />
                         <Route
                             path='/account/logout'
                             render={(props) =>

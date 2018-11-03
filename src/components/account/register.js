@@ -43,7 +43,6 @@ export default function Register(props) {
                     />
                 </FormGroup>
                 <Button
-                    data-register--button
                     type='submit'
                     bsStyle='primary'
                 >
