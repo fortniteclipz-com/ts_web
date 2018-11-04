@@ -34,7 +34,7 @@ export default class Watch extends Component {
     }
 
     getMontages() {
-        if (auth.isAuthenticated === null) {
+        if (auth.isAuthenticated === undefined) {
             return;
         }
 

@@ -12,7 +12,7 @@ Amplify.configure({
 });
 
 const auth = {};
-auth.isAuthenticated = null;
+auth.isAuthenticated = undefined;
 auth.user = null;
 auth.callback = null;
 
