@@ -5,6 +5,7 @@ import FilePlayer from 'react-player/lib/players/FilePlayer'
 import Scrollbar from 'react-smooth-scrollbar';
 
 import api from '../../services/api';
+import auth from '../../services/auth';
 import helper from '../../services/helper';
 
 import './styles.css'
@@ -22,7 +23,21 @@ export default class Watch extends Component {
     }
 
     componentDidMount() {
-        // console.log("componentDidMount");
+        console.log("componentDidMount");
+        this.getMontages();
+
+    }
+
+    componentDidUpdate() {
+        console.log("componentDidUpdate");
+        this.getMontages();
+    }
+
+    getMontages() {
+        if (auth.isAuthenticated === null) {
+            return;
+        }
+
         api.getMontages((montages) => {
             montages = montages.sort(function(a, b) {
                 if (a.stream_user > b.stream_user) {
