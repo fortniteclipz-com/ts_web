@@ -9,6 +9,7 @@ import Login from '../../components/account/login';
 import Logout from '../../components/account/logout';
 import Register from '../../components/account/register';
 
+import auth from '../../services/auth';
 import config from '../../services/config';
 
 import './styles.css'
@@ -19,21 +20,8 @@ export default class Account extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            user: null,
             forgotView: 'forgot',
         };
-
-        Auth
-        .currentAuthenticatedUser()
-        .then(async (user) => {
-            console.log("user", user);
-            this.setState({
-                user: user,
-            });
-        })
-        .catch(function (e) {
-            console.log("e", e);
-        });
     }
 
     componentDidMount() {
@@ -44,29 +32,12 @@ export default class Account extends Component {
         console.log("Account | onLogin");
         console.log("email", email);
         console.log("password", password);
-
-        try {
-            var user = await Auth.signIn(email, password);
-            console.log("user", user);
-            this.setState({
-                user: user,
-            });
-        } catch (e) {
-            alert(e.message);
-        }
+        auth.login(email, password);
     }
 
     async onLogout() {
         console.log("Account | onLogout");
-        try {
-            var user = await Auth.signOut();
-            console.log("user", user);
-            this.setState({
-                user: null,
-            });
-        } catch (e) {
-            alert(e.message);
-        }
+        auth.logout();
     }
 
     async onRegister(email, password, passwordConfirm) {
@@ -74,19 +45,7 @@ export default class Account extends Component {
         console.log("email", email);
         console.log("password", password);
         console.log("passwordConfirm", passwordConfirm);
-        try {
-            await Auth.signUp({
-                username: email,
-                password: password,
-            });
-            const user = await Auth.signIn(email, password);
-            console.log("user", user);
-            this.setState({
-                user: user,
-            });
-        } catch (e) {
-            alert(e.message);
-        }
+        auth.register(email, password);
     }
 
     async onForgotPassword(email) {
@@ -192,7 +151,7 @@ export default class Account extends Component {
                         <Redirect to='/account/login' />
                     </Switch>
                 </div>
-                <div>{this.state.user ? this.state.user.username : "Unauthenticated"}</div>
+                <div>{auth.user ? auth.user.username : "Unauthenticated"}</div>
                 <ButtonGroup>
                     <Button onClick={this.onPublic}>Public</Button>
                     <Button onClick={this.onPrivate}>Private</Button>

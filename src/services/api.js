@@ -1,3 +1,4 @@
+import auth from './auth';
 import config from './config';
 
 const api = {};
@@ -8,7 +9,6 @@ api.getStream = function(stream_id, callback) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': config.aws.apiGateway.apiKey,
         },
     })
     .then(response => response.json())
@@ -26,10 +26,9 @@ api.getStream = function(stream_id, callback) {
 api.getStreams = function(callback) {
     const url = `${config.aws.apiGateway.url}/streams?limit=${config.aws.apiGateway.limit}`
     fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-            "Content-Type": "application/json",
-            "x-api-key": config.aws.apiGateway.apiKey,
+            'Content-Type': 'application/json',
         },
     })
     .then(response => response.json())
@@ -45,10 +44,10 @@ api.getStreams = function(callback) {
 api.analyzeStream = function(stream_id, callback) {
     const url = `${config.aws.apiGateway.url}/stream/${stream_id}/moments`
     fetch(url, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "x-api-key": config.aws.apiGateway.apiKey,
+            'Content-Type': 'application/json',
+            'Authorization': auth.getToken(),
         },
         body: JSON.stringify({}),
     })
@@ -79,10 +78,10 @@ api.createMontage = function(stream_id, clips, callback) {
         clips: _clips,
     };
     fetch(url, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "x-api-key": config.aws.apiGateway.apiKey,
+            'Content-Type': 'application/json',
+            'Authorization': auth.getToken(),
         },
         body: JSON.stringify(data),
     })
@@ -99,10 +98,10 @@ api.createMontage = function(stream_id, clips, callback) {
 api.getMontages = function(callback) {
     const url = `${config.aws.apiGateway.url}/montages?limit=${config.aws.apiGateway.limit}`
     fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-            "Content-Type": "application/json",
-            "x-api-key": config.aws.apiGateway.apiKey,
+            'Content-Type': 'application/json',
+            'Authorization': auth.getToken(),
         },
     })
     .then(response => response.json())

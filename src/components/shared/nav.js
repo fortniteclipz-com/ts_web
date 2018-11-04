@@ -2,7 +2,10 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import auth from '../../services/auth'
+
 export default function AppNav(props) {
+    const text = auth.isAuthenticated ? "Profile" : "Log In";
     return (
         <Navbar fluid fixedTop inverse collapseOnSelect>
             <Navbar.Header>
@@ -18,6 +21,9 @@ export default function AppNav(props) {
                     </NavItem>
                     <NavItem componentClass={Link} href='/account' to='/account'>
                         Account
+                    </NavItem>
+                    <NavItem>
+                        {text}
                     </NavItem>
                 </Nav>
             </Navbar.Collapse>

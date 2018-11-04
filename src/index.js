@@ -1,21 +1,10 @@
-import Amplify from 'aws-amplify';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './app';
-import config from './services/config';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
-
-Amplify.configure({
-    Auth: {
-        mandatorySignIn: false,
-        region: config.aws.cognito.region,
-        userPoolId: config.aws.cognito.userPoolID,
-        userPoolWebClientId: config.aws.cognito.appClientID,
-    },
-});
 
 ReactDOM.render(
     <App />,
