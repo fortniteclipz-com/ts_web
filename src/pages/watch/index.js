@@ -23,21 +23,7 @@ export default class Watch extends Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
-        this.getMontages();
-
-    }
-
-    componentDidUpdate() {
-        console.log("componentDidUpdate");
-        this.getMontages();
-    }
-
-    getMontages() {
-        if (auth.isAuthenticated === undefined) {
-            return;
-        }
-
+        console.log("Watch | componentDidMount");
         api.getMontages((montages) => {
             montages = montages.sort(function(a, b) {
                 if (a.stream_user > b.stream_user) {
@@ -62,9 +48,9 @@ export default class Watch extends Component {
     }
 
     montageOnPlay(montage) {
-        // console.log("montageOnPlay");
+        // console.log("Watch | montageOnPlay");
         this.props.history.push(`/watch?montageId=${montage.montage_id}`)
-        const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-main/${montage.media_key}`;
+        const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-media-dev/${montage.media_key}`;
         this.setState({
             playerUrl: null,
         }, () => {

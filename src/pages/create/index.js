@@ -25,20 +25,33 @@ export default class Create extends Component {
     }
 
     componentDidMount() {
-        // console.log("Create | componentDidMount");
+        console.log("Create | componentDidMount");
+        this.getStream();
+    }
+
+    componentWillUnmount() {
+        console.log("Create | componentWillUnmount");
+        clearInterval(this.playerInterval)
+    }
+
+    getStream() {
+        console.log("Create | getStream");
         const stream_id = this.props.match.params.streamId;
         api.getStream(stream_id, (stream, streamMoments) => {
-            const clips = helper.createClips(stream, streamMoments);
+            let clips = null;
+            if (stream._status_analyze === 2) {
+                clips = helper.createClips(stream, streamMoments);
+            }
+            if (stream._status_analyze === 1) {
+                setTimeout(() => {
+                    this.getStream();
+                }, 5000);
+            }
             this.setState({
                 stream: stream,
                 clips: clips,
             });
         });
-    }
-
-    componentWillUnmount() {
-        // console.log("Create | componentWillUnmount");
-        clearInterval(this.playerInterval)
     }
 
     onAnalyze() {

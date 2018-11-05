@@ -31,13 +31,13 @@ export default class App extends Component {
         return (
             <BrowserRouter>
                 <div className="app">
-                    <Nav />
+                    <Nav key={new Date().getTime()} />
                     <div className="app-container">
                         <Switch>
-                            <Route path='/account' component={Account} />
-                            <Route path='/create/:streamId' component={Create} />
-                            <Route path='/create' component={Select} />
-                            <Route path='/watch' component={Watch} />
+                            <Route key={new Date().getTime()} path='/account' component={Account} />
+                            <Route key={new Date().getTime()} path='/create/:streamId' component={Create} />
+                            <Route key={new Date().getTime()} path='/create' component={Select} />
+                            <Route key={new Date().getTime()} path='/watch' component={Watch} />
                             <Redirect to='/create' />
                         </Switch>
                     </div>
