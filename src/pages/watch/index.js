@@ -5,7 +5,6 @@ import FilePlayer from 'react-player/lib/players/FilePlayer'
 import Scrollbar from 'react-smooth-scrollbar';
 
 import api from '../../services/api';
-import auth from '../../services/auth';
 import helper from '../../services/helper';
 
 import './styles.css'
