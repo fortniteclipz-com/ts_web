@@ -42,14 +42,15 @@ export default class Create extends Component {
             if (stream._status_analyze === 2) {
                 clips = helper.createClips(stream, streamMoments);
             }
-            if (stream._status_analyze === 1) {
-                setTimeout(() => {
-                    this.getStream();
-                }, 5000);
-            }
             this.setState({
                 stream: stream,
                 clips: clips,
+            }, () => {
+                if (stream._status_analyze === 1) {
+                    setTimeout(() => {
+                        this.getStream();
+                    }, 5000);
+                }
             });
         });
     }
@@ -60,6 +61,10 @@ export default class Create extends Component {
         api.analyzeStream(stream_id, (stream) => {
             this.setState({
                 stream: stream,
+            }, () => {
+                setTimeout(() => {
+                    this.getStream();
+                }, 5000);
             });
         });
     }
