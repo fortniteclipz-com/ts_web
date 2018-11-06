@@ -9,6 +9,7 @@ api.getStream = function(stream_id, callback) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': auth.getToken(),
         },
     })
     .then(response => response.json())
@@ -29,6 +30,7 @@ api.getStreams = function(callback) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': auth.getToken(),
         },
     })
     .then(response => response.json())
@@ -41,7 +43,7 @@ api.getStreams = function(callback) {
     });
 };
 
-api.analyzeStream = function(stream_id, callback) {
+api.createMoments = function(stream_id, callback) {
     const url = `${config.aws.apiGateway.url}/stream/${stream_id}/moments`
     fetch(url, {
         method: 'POST',

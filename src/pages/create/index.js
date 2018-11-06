@@ -58,7 +58,7 @@ export default class Create extends Component {
     onAnalyze() {
         // console.log("Create | onAnalyze");
         const stream_id = this.props.match.params.streamId;
-        api.analyzeStream(stream_id, (stream) => {
+        api.createMoments(stream_id, (stream) => {
             this.setState({
                 stream: stream,
             }, () => {
