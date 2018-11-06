@@ -24,13 +24,6 @@ export default class Watch extends Component {
     componentDidMount() {
         console.log("Watch | componentDidMount");
         api.getMontages((montages) => {
-            montages = montages.sort(function(a, b) {
-                if (a.stream_user > b.stream_user) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            });
             this.setState({
                 montages: montages,
             }, () => {

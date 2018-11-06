@@ -49,7 +49,7 @@ export default class Create extends Component {
                 if (stream._status_analyze === 1) {
                     setTimeout(() => {
                         this.getStream();
-                    }, 5000);
+                    }, 15000);
                 }
             });
         });
