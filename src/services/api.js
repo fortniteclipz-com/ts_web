@@ -28,7 +28,7 @@ api.getStream = async function(stream_id, callback) {
 
 api.getStreams = async function(callback) {
     try {
-        const url = `${config.aws.apiGateway.url}/streams`
+        const url = `${config.aws.apiGateway.url}/streams/recent`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -37,6 +37,7 @@ api.getStreams = async function(callback) {
             },
         });
         const body = await response.json();
+        console.log("body", body);
         let streams = [];
         if (body.streams) {
             streams = body.streams;
