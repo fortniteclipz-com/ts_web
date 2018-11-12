@@ -57,7 +57,7 @@ export default class Select extends Component {
                     componentClass={Link}
                     to={`/create/${stream.stream_id}`}
                 >
-                    {stream.stream_id} ({stream.user || "unknown"})
+                    {stream.stream_id} ({stream.streamer || "unknown"})
                 </Button>
             );
         });

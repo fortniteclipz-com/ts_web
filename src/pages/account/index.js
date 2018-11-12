@@ -8,9 +8,9 @@ import Forgot from '../../components/account/forgot';
 import Login from '../../components/account/login';
 import Logout from '../../components/account/logout';
 import Register from '../../components/account/register';
+import Reset from '../../components/account/reset';
 
 import auth from '../../services/auth';
-import config from '../../services/config';
 
 import './styles.css'
 
@@ -20,7 +20,7 @@ export default class Account extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            forgotView: 'forgot',
+            referrer: (props.location.state || {}).referrer || '/watch',
         };
     }
 
@@ -32,12 +32,21 @@ export default class Account extends Component {
         console.log("Account | onLogin");
         console.log("email", email);
         console.log("password", password);
-        auth.login(email, password);
+        try {
+            await auth.clear();
+            await auth.set(email, password);
+            window.location.replace(this.state.referrer);
+        } catch (e) {
+            console.log("Account | onLogin | e", e);
+        }
     }
 
     async onLogout() {
         console.log("Account | onLogout");
-        auth.logout();
+        try {
+            await auth.clear();
+        } catch (e) {}
+        window.location.replace('/');
     }
 
     async onRegister(email, password, passwordConfirm) {
@@ -45,24 +54,35 @@ export default class Account extends Component {
         console.log("email", email);
         console.log("password", password);
         console.log("passwordConfirm", passwordConfirm);
-        auth.register(email, password);
-    }
-
-    async onForgotPassword(email) {
-        console.log("Account | onForgotPassword");
-        console.log("email", email);
         try {
-            await Auth.forgotPassword(email);
-            this.setState({
-                forgotView: 'reset',
+            await auth.clear();
+            await Auth.signUp({
+                username: email,
+                password: password,
             });
+            await auth.set(email, password);
+            window.location.replace(this.state.referrer);
         } catch (e) {
-            alert(e.message);
+            console.log("Account | onRegister | e", e);
         }
     }
 
-    async onResetPassword(email, resetCode, password, passwordConfirm) {
-        console.log("Account | onResetPassword");
+    async onForgot(email) {
+        console.log("Account | onForgot");
+        console.log("email", email);
+        try {
+            // await Auth.forgotPassword(email);
+            this.props.history.push({
+                pathname: '/account/reset',
+                state: {email: email}
+            });
+        } catch (e) {
+            console.log("Account | onForgot | e", e);
+        }
+    }
+
+    async onReset(email, resetCode, password, passwordConfirm) {
+        console.log("Account | onReset");
         console.log("email", email);
         console.log("resetCode", resetCode);
         console.log("password", password);
@@ -70,50 +90,16 @@ export default class Account extends Component {
 
         try {
             await Auth.forgotPasswordSubmit(email, resetCode, password);
-            const user = await Auth.signIn(email, password);
-            this.setState({
-                user: user,
-            });
+            await auth.clear();
+            await auth.set(email, password);
+            window.location.replace(this.state.referrer);
         } catch (e) {
-            alert(e.message);
-        }
-    }
-
-    onPrivate() {
-        this.callApi('private');
-    }
-
-    onPublic() {
-        this.callApi('public');
-    }
-
-    async callApi(route) {
-        let token = null;
-        try {
-            token = this.state.user.signInUserSession.idToken.jwtToken;
-        } catch (e) {
-            token = null;
-        }
-
-        try {
-            const url = `${config.aws.apiGateway.url}/${route}`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token,
-                },
-            })
-            const body = await response.json();
-            console.log("body", body);
-            alert(JSON.stringify(body));
-        } catch (e) {
-            alert(e);
+            console.log("Account | onReset | e", e);
         }
     }
 
     render() {
-        console.log("this.state", this.state);
+        console.log("Account | render | this.state", this.state);
         return (
             <div className='account'>
                 <ButtonGroup justified>
@@ -139,7 +125,13 @@ export default class Account extends Component {
                         <Route
                             path='/account/forgot'
                             render={(props) =>
-                                <Forgot {...props} view={this.state.forgotView} onForgotPassword={this.onForgotPassword} onResetPassword={this.onResetPassword} />
+                                <Forgot {...props} onForgot={this.onForgot} />
+                            }
+                        />
+                        <Route
+                            path='/account/reset'
+                            render={(props) =>
+                                <Reset {...props} onReset={this.onReset} />
                             }
                         />
                         <Route
@@ -152,10 +144,6 @@ export default class Account extends Component {
                     </Switch>
                 </div>
                 <div>{auth.user ? auth.user.username : "Unauthenticated"}</div>
-                <ButtonGroup>
-                    <Button onClick={this.onPublic}>Public</Button>
-                    <Button onClick={this.onPrivate}>Private</Button>
-                </ButtonGroup>
             </div>
         );
     }

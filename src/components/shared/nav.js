@@ -1,11 +1,25 @@
 import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import auth from '../../services/auth'
 
-export default function AppNav(props) {
-    const text = auth.isAuthenticated ? "Profile" : "Log In";
+const AppNav = function(props) {
+    let item;
+    if (auth.isAuthenticated) {
+        item = (
+            <NavItem componentClass={Link} href='/account/logout' to='/account/logout'>
+                Profile
+            </NavItem>
+        )
+    } else {
+        item = (
+            <NavItem componentClass={Link} href='/account/logout' to={{pathname: '/account/register', state: {referrer: props.location.pathname}}}>
+                Log In
+            </NavItem>
+        )
+    }
+
     return (
         <Navbar fluid fixedTop inverse collapseOnSelect>
             <Navbar.Header>
@@ -19,14 +33,12 @@ export default function AppNav(props) {
                     <NavItem componentClass={Link} href='/watch' to='/watch'>
                         Watch
                     </NavItem>
-                    <NavItem componentClass={Link} href='/account' to='/account'>
-                        Account
-                    </NavItem>
-                    <NavItem>
-                        {text}
-                    </NavItem>
+                    {item}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
     );
 };
+
+
+export default withRouter(AppNav)

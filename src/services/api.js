@@ -20,7 +20,7 @@ api.getStream = async function(stream_id, callback) {
             stream = body.stream;
             stream_moments = body.stream_moments;
         }
-        callback(stream, stream_moments);
+        return [stream, stream_moments];
     } catch (e) {
         console.log("api | getStream | e", e);
     }
@@ -57,14 +57,16 @@ api.createMoments = async function(stream_id, callback) {
                 'Content-Type': 'application/json',
                 'Authorization': auth.getToken(),
             },
-            body: JSON.stringify({}),
+            body: JSON.stringify({
+                game: 'fortnite'
+            }),
         })
         const body = await response.json();
         let stream = {};
         if (body.stream) {
             stream = body.stream;
         }
-        callback(stream);
+        return stream
     } catch (e) {
         console.log("api | createMoments | e", e);
     }

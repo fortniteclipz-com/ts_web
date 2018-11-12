@@ -20,6 +20,7 @@ export default function Register(props) {
                     <FormControl
                         data-register--email
                         type='text'
+                        autoComplete='email'
                         placeholder='Email'
                         defaultValue='sachinahj@gmail.com'
                     />
@@ -29,6 +30,7 @@ export default function Register(props) {
                     <FormControl
                         data-register--password
                         type='password'
+                        autoComplete='new-password'
                         placeholder='Password'
                         defaultValue='password'
                     />
@@ -38,6 +40,7 @@ export default function Register(props) {
                     <FormControl
                         data-register--password-confirm
                         type='password'
+                        autoComplete='new-password'
                         placeholder='Confirm Password'
                         defaultValue='password'
                     />

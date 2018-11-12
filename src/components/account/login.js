@@ -19,6 +19,7 @@ export default function Login(props) {
                     <FormControl
                         data-login--email
                         type='text'
+                        autoComplete='email'
                         placeholder='Email'
                         defaultValue='sachinahj@gmail.com'
                     />
@@ -28,6 +29,7 @@ export default function Login(props) {
                     <FormControl
                         data-login--password
                         type='password'
+                        autoComplete='current-password'
                         placeholder='Password'
                         defaultValue='password'
                     />

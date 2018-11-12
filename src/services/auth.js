@@ -22,6 +22,7 @@ auth.getToken = function () {
 
 auth.check = async function (callback) {
     console.log("auth | check");
+    window.Auth = Auth;
     try {
         const user = await Auth.currentAuthenticatedUser();
         auth.isAuthenticated = true;
@@ -31,48 +32,19 @@ auth.check = async function (callback) {
         auth.isAuthenticated = false;
         auth.user = null;
     }
-    return auth.callback && auth.callback();
+    return;
 };
 
-auth.login = async function (email, password) {
-    try {
-        var user = await Auth.signIn(email, password);
-        auth.isAuthenticated = true;
-        auth.user = user;
-    } catch (e) {
-        console.log("auth | login | e", e);
-        auth.isAuthenticated = false;
-        auth.user = null;
-    }
-    return auth.callback && auth.callback();
+auth.set = async function (email, password) {
+    var user = await Auth.signIn(email, password);
+    auth.isAuthenticated = true;
+    auth.user = user;
 };
 
-auth.logout = async function () {
-    try {
-        await Auth.signOut();
-    } catch (e) {
-        console.log("auth | logout | e", e);
-    }
+auth.clear = async function () {
     auth.isAuthenticated = false;
     auth.user = null;
-    return auth.callback && auth.callback();
-};
-
-auth.register = async function (email, password) {
-    try {
-        await Auth.signUp({
-            username: email,
-            password: password,
-        });
-        const user = await Auth.signIn(email, password);
-        auth.isAuthenticated = true;
-        auth.user = user;
-    } catch (e) {
-        console.log("auth | register | e", e);
-        auth.isAuthenticated = false;
-        auth.user = null;
-    }
-    return auth.callback && auth.callback();
+    await Auth.signOut();
 };
 
 export default auth;

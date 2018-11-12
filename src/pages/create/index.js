@@ -34,38 +34,36 @@ export default class Create extends Component {
         clearInterval(this.playerInterval)
     }
 
-    getStream() {
+    async getStream() {
         console.log("Create | getStream");
         const stream_id = this.props.match.params.streamId;
-        api.getStream(stream_id, (stream, streamMoments) => {
-            let clips = null;
-            if (stream._status_analyze === 2) {
-                clips = helper.createClips(stream, streamMoments);
+        const [stream, streamMoments] = await api.getStream(stream_id);
+        let clips = null;
+        if (stream._status_analyze === 2) {
+            clips = helper.createClips(stream, streamMoments);
+        }
+        this.setState({
+            stream: stream,
+            clips: clips,
+        }, () => {
+            if (stream._status_analyze === 1) {
+                setTimeout(() => {
+                    this.getStream();
+                }, 15000);
             }
-            this.setState({
-                stream: stream,
-                clips: clips,
-            }, () => {
-                if (stream._status_analyze === 1) {
-                    setTimeout(() => {
-                        this.getStream();
-                    }, 15000);
-                }
-            });
         });
     }
 
-    onAnalyze() {
+    async onAnalyze() {
         // console.log("Create | onAnalyze");
         const stream_id = this.props.match.params.streamId;
-        api.createMoments(stream_id, (stream) => {
-            this.setState({
-                stream: stream,
-            }, () => {
-                setTimeout(() => {
-                    this.getStream();
-                }, 5000);
-            });
+        const stream = await api.createMoments(stream_id);
+        this.setState({
+            stream: stream,
+        }, () => {
+            setTimeout(() => {
+                this.getStream();
+            }, 5000);
         });
     }
 
