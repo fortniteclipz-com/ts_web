@@ -17,20 +17,18 @@ export default class Select extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // console.log("componentDidMount");
-        api.getStreams((streams) => {
-            streams = streams
-                .sort(function(a, b) {
-                    if (a.user > b.user) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                });
-            this.setState({
-                streams: streams,
-            });
+        let streams = await api.getStreams();
+        streams = streams.sort(function(a, b) {
+            if (a.user > b.user) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        this.setState({
+            streams: streams,
         });
     }
 

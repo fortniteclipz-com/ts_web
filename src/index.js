@@ -8,7 +8,7 @@ import auth from './services/auth';
 
 import './index.css';
 
-const render = async function () {
+const render = async function() {
     await auth.check();
     ReactDOM.render(
         <App />,

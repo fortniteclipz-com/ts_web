@@ -3,7 +3,7 @@ import config from './config';
 
 const api = {};
 
-api.getStream = async function(stream_id, callback) {
+api.getStream = async function(stream_id) {
     try {
         const url = `${config.aws.apiGateway.url}/stream/${stream_id}`
         const response = await fetch(url, {
@@ -26,7 +26,7 @@ api.getStream = async function(stream_id, callback) {
     }
 };
 
-api.getStreams = async function(callback) {
+api.getStreams = async function() {
     try {
         const url = `${config.aws.apiGateway.url}/streams/recent`
         const response = await fetch(url, {
@@ -42,13 +42,13 @@ api.getStreams = async function(callback) {
         if (body.streams) {
             streams = body.streams;
         }
-        callback(streams);
+        return streams;
     } catch (e) {
         console.log("api | getStreams | e", e);
     }
 };
 
-api.createMoments = async function(stream_id, callback) {
+api.createMoments = async function(stream_id) {
     try {
         const url = `${config.aws.apiGateway.url}/stream/${stream_id}/moments`
         const response = await fetch(url, {

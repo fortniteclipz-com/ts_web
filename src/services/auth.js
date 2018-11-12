@@ -14,13 +14,12 @@ Amplify.configure({
 const auth = {};
 auth.isAuthenticated = undefined;
 auth.user = null;
-auth.callback = null;
 
-auth.getToken = function () {
+auth.getToken = function() {
     return ((((auth.user || {}).signInUserSession || {}).idToken || {}).jwtToken) || null
 };
 
-auth.check = async function (callback) {
+auth.check = async function() {
     console.log("auth | check");
     window.Auth = Auth;
     try {
@@ -35,13 +34,13 @@ auth.check = async function (callback) {
     return;
 };
 
-auth.set = async function (email, password) {
+auth.set = async function(email, password) {
     var user = await Auth.signIn(email, password);
     auth.isAuthenticated = true;
     auth.user = user;
 };
 
-auth.clear = async function () {
+auth.clear = async function() {
     auth.isAuthenticated = false;
     auth.user = null;
     await Auth.signOut();
