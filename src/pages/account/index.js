@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { withLastLocation } from 'react-router-last-location';
 
 import Forgot from '../../components/account/forgot';
 import Login from '../../components/account/login';
@@ -14,13 +15,13 @@ import auth from '../../services/auth';
 
 import './styles.css'
 
-export default class Account extends Component {
+class Account extends Component {
 
     constructor(props, state) {
         super(props);
         autoBind(this);
         this.state = {
-            referrer: (props.location.state || {}).referrer || '/watch',
+            referrer: (props.lastLocation || {}).pathname || '/watch',
         };
     }
 
@@ -148,3 +149,5 @@ export default class Account extends Component {
         );
     }
 };
+
+export default withLastLocation(Account);

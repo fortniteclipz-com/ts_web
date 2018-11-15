@@ -32,7 +32,7 @@ api.getStream = async function(stream_id) {
 api.getStreams = async function() {
     let streams = [];
     try {
-        const url = `${config.aws.apiGateway.url}/streams/recents`
+        const url = `${config.aws.apiGateway.url}/streams/recent`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -41,7 +41,6 @@ api.getStreams = async function() {
             },
         });
         const body = await response.json();
-        let streams = [];
         if (body.streams) {
             streams = body.streams;
         }
@@ -53,6 +52,7 @@ api.getStreams = async function() {
 };
 
 api.createMoments = async function(stream_id) {
+    let stream = {};
     try {
         const url = `${config.aws.apiGateway.url}/stream/${stream_id}/moments`
         const response = await fetch(url, {
@@ -66,18 +66,18 @@ api.createMoments = async function(stream_id) {
             }),
         })
         const body = await response.json();
-        let stream = {};
         if (body.stream) {
             stream = body.stream;
         }
-        return stream
     } catch (e) {
         console.log("api | createMoments | e", e);
         NotificationManager.error(e.message, "Critical Error");
     }
+    return stream
 };
 
 api.createMontage = async function(stream_id, clips, callback) {
+    let montage = null;
     try {
         const url = `${config.aws.apiGateway.url}/montage`
         const _clips = clips
@@ -103,15 +103,14 @@ api.createMontage = async function(stream_id, clips, callback) {
             body: JSON.stringify(data),
         });
         const body = await response.json();
-        let montage = {};
         if (body.montage) {
             montage = body.montage;
         }
-        callback(montage);
     } catch (e) {
         console.log("api | createMontage | e", e);
         NotificationManager.error(e.message, "Critical Error");
     }
+    return montage;
 };
 
 api.getMontages = async function(callback) {

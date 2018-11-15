@@ -76,11 +76,12 @@ export default class Create extends Component {
         const stream_id = this.props.match.params.streamId;
         this.setState({
             creatingMontage: true,
-        }, () => {
-            api.createMontage(stream_id, this.state.clips, (montage) => {
+        }, async () => {
+            const montage = await api.createMontage(stream_id, this.state.clips);
+            if (montage) {
                 NotificationManager.success(montage.montage_id, "Montage Created", 5000);
                 this.props.history.push(`/watch?montageId=${montage.montage_id}`);
-            });
+            }
         });
 
     }

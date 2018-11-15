@@ -14,8 +14,8 @@ const AppNav = function(props) {
         )
     } else {
         item = (
-            <NavItem componentClass={Link} href='/account/logout' to={{pathname: '/account/register', state: {referrer: props.location.pathname}}}>
-                Log In
+            <NavItem componentClass={Link} href='/account/logout' to='/account'>
+                Sign Up
             </NavItem>
         )
     }
