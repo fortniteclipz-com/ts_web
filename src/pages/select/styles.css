@@ -1,13 +1,17 @@
 .select {
     height: calc(100vh - 50px);
-    padding: 25px 25px;
-}
-
-.select__subheading {
+    padding: 25px;
+    margin: 0 auto;
+    max-width: 576px;
 }
 
 .select__form {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.select__form button, .select__form input {
+    width: 100%;
 }
 
 .select .select__streams {

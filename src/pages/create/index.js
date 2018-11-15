@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
+import { NotificationManager } from 'react-notifications';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
+import { Link } from 'react-router-dom';
 import { arrayMove } from 'react-sortable-hoc';
 
 import Clips from '../../components/create/clips';
 import api from '../../services/api';
+import auth from '../../services/auth';
 import helper from '../../services/helper';
 
 import './styles.css'
@@ -16,26 +19,27 @@ export default class Create extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            streamIsValid: false,
+            validStream: undefined,
             stream: null,
             clips: null,
             playingClip: null,
-            disableMontage: false,
+            creatingMontage: false,
         };
     }
 
     componentDidMount() {
-        console.log("Create | componentDidMount");
+        // console.log("Create | componentDidMount");
         this.getStream();
     }
 
     componentWillUnmount() {
-        console.log("Create | componentWillUnmount");
+        // console.log("Create | componentWillUnmount");
+        clearTimeout(this.validStreamTimeout)
         clearInterval(this.playerInterval)
     }
 
     async getStream() {
-        console.log("Create | getStream");
+        // console.log("Create | getStream");
         const stream_id = this.props.match.params.streamId;
         const [stream, streamMoments] = await api.getStream(stream_id);
         let clips = null;
@@ -71,11 +75,11 @@ export default class Create extends Component {
         // console.log("Create | onMontage");
         const stream_id = this.props.match.params.streamId;
         this.setState({
-            disableMontage: true,
+            creatingMontage: true,
         }, () => {
             api.createMontage(stream_id, this.state.clips, (montage) => {
-                alert(`Montage created!\n\nMontageID:\n${montage.montage_id}`);
-                this.props.history.push(`/watch?montageId=${montage.montage_id}`)
+                NotificationManager.success(montage.montage_id, "Montage Created", 5000);
+                this.props.history.push(`/watch?montageId=${montage.montage_id}`);
             });
         });
 
@@ -188,12 +192,20 @@ export default class Create extends Component {
         const player = this.player.getInternalPlayer();
         player.play();
         player.pause();
+
+        this.validStreamTimeout = setTimeout(() => {
+            NotificationManager.error("Twitch took too long to respond. This usually means the stream has been removed", "Invalid Twitch Stream");
+            this.setState({
+                validStream: false,
+            });
+        }, 5000);
     }
 
     playerOnDuration() {
         // console.log("Create | playerOnDuration");
+        clearTimeout(this.validStreamTimeout);
         this.setState({
-            streamIsValid: true,
+            validStream: true,
         });
     }
 
@@ -224,61 +236,63 @@ export default class Create extends Component {
         let clipsHTML = null;
         let montageHTML = null;
 
-        if (this.state.stream) {
-            if (this.state.stream._status_analyze === 2) {
-                let clipOrder = 0;
-                const montageInfo = this.state.clips.reduce(function(acc, clip) {
-                    clip.order = null;
-                    if (clip.include) {
-                        clip.order = ++clipOrder;
-                        acc.clipCount += 1;
-                        acc.duration += clip.time_out - clip.time_in;
-                    }
-                    return acc;
-                }, {
-                    clipCount: 0,
-                    duration: 0,
-                });
-                clipsHTML = (
-                    <Clips
-                        onSortEnd={this.clipsOnSortEnd}
-                        useDragHandle={true}
-                        clips={this.state.clips}
-                        clipsOnIncludeAll={this.clipsOnIncludeAll}
-                        clipOnInclude={this.clipOnInclude}
-                        clipOnPlay={this.clipOnPlay}
-                        clipOnEdit={this.clipOnEdit}
-                        clipOnChange={this.clipOnChange}
-                        clipOnAfterChange={this.clipOnAfterChange}
-                    />
-                );
-                if (this.state.disableMontage === true) {
-                    montageHTML = (
-                        <div className='create__montage'>
-                            <Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>
-                        </div>
-                    );
-                } else if (montageInfo.clipCount === 0) {
-                    montageHTML = (
-                        <div className='create__montage'>
-                            <Button className='create__montage-button' bsStyle='warning' disabled>Add Clips to Create Montage</Button>
-                        </div>
-                    );
-                } else {
-                    montageHTML = (
-                        <div className='create__montage'>
-                            <Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>
-                        </div>
-                    );
-                }
-            } else if (this.state.streamIsValid === true) {
-                if (this.state.stream._status_analyze === 1) {
-                    analyzeHTML = (<Button className='create__analyze create__analyze--analyzing' bsStyle='danger' disabled>Analyzing ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
-                } else {
-                    analyzeHTML = (<Button className='create__analyze create__analyze--analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze</Button>);
+        if (this.state.stream == null || !this.state.stream._status_analyze) {
+            if (!auth.isAuthenticated) {
+                analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Stream</Button>);
+            } else {
+                if (this.state.validStream === true) {
+                    analyzeHTML = (<Button className='create__analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze Stream for Clips</Button>);
+                } else if (this.state.validStream === false) {
+                    analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/create'>Go Back and Select New Stream</Button>);
                 }
             }
+        } else if (this.state.stream._status_analyze === 1) {
+            analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
+        }
 
+        if (this.state.clips !== null) {
+            let clipOrder = 0;
+            const montageInfo = this.state.clips.reduce(function(info, clip) {
+                clip.order = null;
+                if (clip.include) {
+                    clip.order = ++clipOrder;
+                    info.clipCount += 1;
+                    info.duration += clip.time_out - clip.time_in;
+                }
+                return info;
+            }, {
+                clipCount: 0,
+                duration: 0,
+            });
+            clipsHTML = (
+                <Clips
+                    onSortEnd={this.clipsOnSortEnd}
+                    useDragHandle={true}
+                    clips={this.state.clips}
+                    clipsOnIncludeAll={this.clipsOnIncludeAll}
+                    clipOnInclude={this.clipOnInclude}
+                    clipOnPlay={this.clipOnPlay}
+                    clipOnEdit={this.clipOnEdit}
+                    clipOnChange={this.clipOnChange}
+                    clipOnAfterChange={this.clipOnAfterChange}
+                />
+            );
+
+            let montageButton = null;
+            if (!auth.isAuthenticated) {
+                montageButton = (<Button className='create__montage-button' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Montage</Button>);
+            } else if (this.state.creatingMontage === true) {
+                montageButton = (<Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>);
+            } else if (montageInfo.clipCount === 0) {
+                montageButton = (<Button className='create__montage-button' bsStyle='warning' disabled>Add Clips to Create Montage</Button>);
+            } else {
+                montageButton = (<Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>);
+            }
+            montageHTML = (
+                <div className='create__montage'>
+                    {montageButton}
+                </div>
+            );
         }
 
         return (

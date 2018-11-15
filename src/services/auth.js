@@ -20,8 +20,6 @@ auth.getToken = function() {
 };
 
 auth.check = async function() {
-    console.log("auth | check");
-    window.Auth = Auth;
     try {
         const user = await Auth.currentAuthenticatedUser();
         auth.isAuthenticated = true;

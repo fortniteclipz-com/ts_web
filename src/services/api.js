@@ -1,9 +1,13 @@
+import { NotificationManager } from 'react-notifications';
+
 import auth from './auth';
 import config from './config';
 
 const api = {};
 
 api.getStream = async function(stream_id) {
+    let stream = {};
+    let stream_moments = [];
     try {
         const url = `${config.aws.apiGateway.url}/stream/${stream_id}`
         const response = await fetch(url, {
@@ -14,21 +18,21 @@ api.getStream = async function(stream_id) {
             },
         });
         const body = await response.json();
-        let stream = {};
-        let stream_moments = [];
         if (body.stream) {
             stream = body.stream;
             stream_moments = body.stream_moments;
         }
-        return [stream, stream_moments];
     } catch (e) {
         console.log("api | getStream | e", e);
+        NotificationManager.error(e.message, "Critical Error");
     }
+    return [stream, stream_moments];
 };
 
 api.getStreams = async function() {
+    let streams = [];
     try {
-        const url = `${config.aws.apiGateway.url}/streams/recent`
+        const url = `${config.aws.apiGateway.url}/streams/recents`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -37,15 +41,15 @@ api.getStreams = async function() {
             },
         });
         const body = await response.json();
-        console.log("body", body);
         let streams = [];
         if (body.streams) {
             streams = body.streams;
         }
-        return streams;
     } catch (e) {
         console.log("api | getStreams | e", e);
+        NotificationManager.error(e.message, "Critical Error");
     }
+    return streams;
 };
 
 api.createMoments = async function(stream_id) {
@@ -69,6 +73,7 @@ api.createMoments = async function(stream_id) {
         return stream
     } catch (e) {
         console.log("api | createMoments | e", e);
+        NotificationManager.error(e.message, "Critical Error");
     }
 };
 
@@ -105,6 +110,7 @@ api.createMontage = async function(stream_id, clips, callback) {
         callback(montage);
     } catch (e) {
         console.log("api | createMontage | e", e);
+        NotificationManager.error(e.message, "Critical Error");
     }
 };
 
@@ -129,6 +135,7 @@ api.getMontages = async function(callback) {
         callback(montages);
     } catch (e) {
         console.log("api | getMontages | e", e);
+        NotificationManager.error(e.message, "Critical Error");
     }
 };
 

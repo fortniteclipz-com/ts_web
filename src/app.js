@@ -1,4 +1,5 @@
 import React from 'react';
+import { NotificationContainer } from 'react-notifications';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Nav from './components/shared/nav'
@@ -7,6 +8,8 @@ import Account from './pages/account'
 import Create from './pages/create'
 import Select from './pages/select'
 import Watch from './pages/watch'
+
+import 'react-notifications/lib/notifications.css';
 
 export default function App() {
     return (
@@ -22,6 +25,7 @@ export default function App() {
                         <Redirect to='/watch' />
                     </Switch>
                 </div>
+                <NotificationContainer/>
             </div>
         </BrowserRouter>
     ) ;

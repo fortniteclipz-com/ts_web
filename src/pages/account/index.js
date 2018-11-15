@@ -140,7 +140,7 @@ export default class Account extends Component {
                                 <Logout {...props} onLogout={this.onLogout} />
                             }
                         />
-                        <Redirect to='/account/login' />
+                        <Redirect to='/account/register' />
                     </Switch>
                 </div>
                 <div>{auth.user ? auth.user.username : "Unauthenticated"}</div>

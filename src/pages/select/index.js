@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Button, FormControl, FormGroup } from 'react-bootstrap';
+import { NotificationManager } from 'react-notifications';
+
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -18,7 +20,7 @@ export default class Select extends Component {
     }
 
     async componentDidMount() {
-        // console.log("componentDidMount");
+        // console.log("Select | componentDidMount");
         let streams = await api.getStreams();
         streams = streams.sort(function(a, b) {
             if (a.user > b.user) {
@@ -33,10 +35,19 @@ export default class Select extends Component {
     }
 
     onSubmit(event) {
-        console.log("onSubmit");
+        // console.log("Select | onSubmit");
         event.preventDefault();
-        const stream_id = event.target.querySelector('input[data-stream-id]').value;
-        this.props.history.push(`/create/${stream_id}`)
+        const streamId = event.target.querySelector('input[data-stream-id]').value;
+        if (this.validateStreamId(streamId)) {
+            this.props.history.push(`/create/${streamId}`);
+        } else {
+            NotificationManager.error("Consists of only numbers", "Invalid Twitch VideoID");
+        }
+    }
+
+    validateStreamId(streamId) {
+        const isNum = /^\d+$/.test(streamId);
+        return isNum;
     }
 
     render() {
@@ -62,7 +73,7 @@ export default class Select extends Component {
 
         return (
             <div className='select'>
-                <h4>Find Twitch stream by manually entering Twitch VideoID...</h4>
+                <h5>Find Twitch stream by entering VideoID...</h5>
                 <form className='select__form' onSubmit={this.onSubmit}>
                     <FormGroup controlId='select__input'>
                         <FormControl
@@ -75,10 +86,10 @@ export default class Select extends Component {
                         type='submit'
                         bsStyle='primary'
                     >
-                        Find Stream with Twitch VideoID
+                        Find Stream
                     </Button>
                 </form>
-                <h4>Create with Twitch streams already analyzed...</h4>
+                <h5>Create with Twitch streams already analyzed...</h5>
                 <div className='select__streams'>
                     {streamsHTML}
                 </div>
