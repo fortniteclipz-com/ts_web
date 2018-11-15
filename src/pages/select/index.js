@@ -62,24 +62,23 @@ export default class Select extends Component {
 
         return (
             <div className='select'>
+                <h4>Find Twitch stream by manually entering Twitch VideoID...</h4>
                 <form className='select__form' onSubmit={this.onSubmit}>
                     <FormGroup controlId='select__input'>
-                        <ControlLabel>Enter Twitch VideoID</ControlLabel>
                         <FormControl
                             data-stream-id
                             type='text'
                             placeholder='Twitch VideoID'
-                            className='select__input'
                         />
                     </FormGroup>
                     <Button
                         type='submit'
-                        className='select__button'
                         bsStyle='primary'
                     >
-                        View Stream
+                        Find Stream with Twitch VideoID
                     </Button>
                 </form>
+                <h4>Create with Twitch streams already analyzed...</h4>
                 <div className='select__streams'>
                     {streamsHTML}
                 </div>

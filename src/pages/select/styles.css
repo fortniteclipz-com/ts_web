@@ -1,28 +1,16 @@
 .select {
     height: calc(100vh - 50px);
-    padding: 50px 25px;
-    text-align: center;
+    padding: 25px 25px;
 }
 
-.select .select__form {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.select__subheading {
 }
 
-.select .select__input {
-    max-width: 250px;
-    text-align: center;
-}
-
-.select .select__button {
-    margin-top: 20px;
+.select__form {
+    margin-bottom: 100px;
 }
 
 .select .select__streams {
-    margin-top: 100px;
-
     align-items: center;
     display: flex;
     flex-direction: row;
