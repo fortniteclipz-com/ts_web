@@ -30,7 +30,7 @@ class Account extends Component {
     }
 
     async onLogin(email, password) {
-        console.log("Account | onLogin");
+        // console.log("Account | onLogin");
         try {
             await auth.clear();
             await auth.set(email, password);
@@ -43,7 +43,7 @@ class Account extends Component {
     }
 
     async onLogout() {
-        console.log("Account | onLogout");
+        // console.log("Account | onLogout");
         try {
             await auth.clear();
             window.location.replace('/');
@@ -55,7 +55,7 @@ class Account extends Component {
     }
 
     async onRegister(email, password, passwordConfirm) {
-        console.log("Account | onRegister");
+        // console.log("Account | onRegister");
         if (password !== passwordConfirm) {
             NotificationManager.error("Passwords do not match", "Create Account Error");
             return;
@@ -76,7 +76,7 @@ class Account extends Component {
     }
 
     async onForgot(email) {
-        console.log("Account | onForgot");
+        // console.log("Account | onForgot");
         try {
             await Auth.forgotPassword(email);
             this.props.history.push({
@@ -91,7 +91,7 @@ class Account extends Component {
     }
 
     async onReset(email, resetCode, password, passwordConfirm) {
-        console.log("Account | onReset");
+        // console.log("Account | onReset");
         try {
             await Auth.forgotPasswordSubmit(email, resetCode, password);
             await auth.clear();
