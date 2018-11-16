@@ -195,7 +195,7 @@ export default class Create extends Component {
         player.pause();
 
         this.validStreamTimeout = setTimeout(() => {
-            NotificationManager.error("Twitch took too long to respond. This usually means the stream has been removed", "Invalid Twitch Stream");
+            NotificationManager.error("Twitch took too long to respond. This usually means the stream has been removed from Twitch.com", "Invalid Twitch Stream");
             this.setState({
                 validStream: false,
             });
