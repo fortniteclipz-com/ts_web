@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Login(props) {
     const onSubmit = function(event) {
@@ -15,7 +16,7 @@ export default function Login(props) {
             <h2>Login</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='login__email' bsSize='large'>
-                    <ControlLabel>Username</ControlLabel>
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
                         data-login--email
                         type='text'
@@ -24,7 +25,7 @@ export default function Login(props) {
                         defaultValue='sachinahj@gmail.com'
                     />
                 </FormGroup>
-                <FormGroup controlId='login__password' bsSize='large'>
+                <FormGroup controlId='login__password' bsSize='large' className='login__password'>
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
                         data-login--password
@@ -34,11 +35,24 @@ export default function Login(props) {
                         defaultValue='password'
                     />
                 </FormGroup>
+                <Link to='/account/forgot' className='login__forgot'>Forgot Password</Link>
                 <Button
                     type='submit'
                     bsStyle='primary'
+                    bsSize='large'
+                    block
                 >
                     Login
+                </Button>
+                <Button
+                    type='submit'
+                    bsStyle='default'
+                    bsSize='large'
+                    block
+                    componentClass={Link}
+                    to='/account/register'
+                >
+                    Create Account
                 </Button>
             </form>
         </div>

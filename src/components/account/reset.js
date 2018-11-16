@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Reset(props) {
     const email = (props.location.state || {}).email;
@@ -15,10 +16,10 @@ export default function Reset(props) {
 
     return (
         <div className='reset'>
-            <h2>Reset</h2>
+            <h2>Reset Password</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='reset__email' bsSize='large'>
-                    <ControlLabel>Username</ControlLabel>
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
                         data-reset--email
                         type='text'
@@ -36,7 +37,7 @@ export default function Reset(props) {
                     />
                 </FormGroup>
                 <FormGroup controlId='reset__password' bsSize='large'>
-                    <ControlLabel>Password</ControlLabel>
+                    <ControlLabel>New Password</ControlLabel>
                     <FormControl
                         data-reset--password
                         type='password'
@@ -45,7 +46,7 @@ export default function Reset(props) {
                     />
                 </FormGroup>
                 <FormGroup controlId='reset__password-confirm' bsSize='large'>
-                    <ControlLabel>Confirm Password</ControlLabel>
+                    <ControlLabel>Confirm New Password</ControlLabel>
                     <FormControl
                         data-reset--password-confirm
                         type='password'
@@ -56,8 +57,20 @@ export default function Reset(props) {
                 <Button
                     type='submit'
                     bsStyle='primary'
+                    bsSize='large'
+                    block
                 >
                     Reset Password
+                </Button>
+                <Button
+                    type='submit'
+                    bsStyle='default'
+                    bsSize='large'
+                    block
+                    componentClass={Link}
+                    to='/account/login'
+                >
+                    Login
                 </Button>
             </form>
         </div>

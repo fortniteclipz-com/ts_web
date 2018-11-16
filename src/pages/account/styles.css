@@ -1,2 +1,25 @@
 .account {
+    padding: 0 25px;
+}
+
+.account h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.account .form-group:last-of-type {
+    margin-bottom: 30px;
+}
+
+.account .btn-block {
+    margin-top: 15px !important;
+}
+
+.account .login__password {
+    margin-bottom: 0 !important;
+}
+
+.account .login__forgot {
+    float: right;
+    margin-bottom: 30px;
 }

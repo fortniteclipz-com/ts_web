@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Forgot(props) {
     const onSubmit = function(event) {
@@ -11,10 +12,10 @@ export default function Forgot(props) {
 
     return (
         <div className='forgot'>
-            <h2>Forgot</h2>
+            <h2>Recover Password</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='forgot__email' bsSize='large'>
-                    <ControlLabel>Username</ControlLabel>
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
                         data-forgot--email
                         type='text'
@@ -26,8 +27,20 @@ export default function Forgot(props) {
                 <Button
                     type='submit'
                     bsStyle='primary'
+                    bsSize='large'
+                    block
                 >
-                    Forgot
+                    Recover
+                </Button>
+                <Button
+                    type='submit'
+                    bsStyle='default'
+                    bsSize='large'
+                    block
+                    componentClass={Link}
+                    to='/account/login'
+                >
+                    Login
                 </Button>
             </form>
         </div>

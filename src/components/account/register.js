@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Register(props) {
     const onSubmit = function(event) {
@@ -13,7 +14,7 @@ export default function Register(props) {
 
     return (
         <div className='register'>
-            <h2>Register</h2>
+            <h2>Create Account</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='register__email' bsSize='large'>
                     <ControlLabel>Email</ControlLabel>
@@ -48,8 +49,20 @@ export default function Register(props) {
                 <Button
                     type='submit'
                     bsStyle='primary'
+                    bsSize='large'
+                    block
                 >
-                    Register
+                    Create Account
+                </Button>
+                <Button
+                    type='submit'
+                    bsStyle='default'
+                    bsSize='large'
+                    block
+                    componentClass={Link}
+                    to='/account/login'
+                >
+                    Login
                 </Button>
             </form>
         </div>

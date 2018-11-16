@@ -1,8 +1,7 @@
 import { Auth } from 'aws-amplify';
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Button, ButtonGroup } from 'react-bootstrap';
-import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { withLastLocation } from 'react-router-last-location';
 
 import Forgot from '../../components/account/forgot';
@@ -103,48 +102,39 @@ class Account extends Component {
         console.log("Account | render | this.state", this.state);
         return (
             <div className='account'>
-                <ButtonGroup justified>
-                    <Button componentClass={Link} to='/account/login'>Login</Button>
-                    <Button componentClass={Link} to='/account/register'>Register</Button>
-                    <Button componentClass={Link} to='/account/forgot'>Forgot</Button>
-                    <Button componentClass={Link} to='/account/logout'>Logout</Button>
-                </ButtonGroup>
-                <div className='account__view'>
-                    <Switch>
-                        <Route
-                            path='/account/login'
-                            render={(props) =>
-                                <Login {...props} onLogin={this.onLogin} />
-                            }
-                        />
-                        <Route
-                            path='/account/register'
-                            render={(props) =>
-                                <Register {...props} onRegister={this.onRegister} />
-                            }
-                        />
-                        <Route
-                            path='/account/forgot'
-                            render={(props) =>
-                                <Forgot {...props} onForgot={this.onForgot} />
-                            }
-                        />
-                        <Route
-                            path='/account/reset'
-                            render={(props) =>
-                                <Reset {...props} onReset={this.onReset} />
-                            }
-                        />
-                        <Route
-                            path='/account/logout'
-                            render={(props) =>
-                                <Logout {...props} onLogout={this.onLogout} />
-                            }
-                        />
-                        <Redirect to='/account/register' />
-                    </Switch>
-                </div>
-                <div>{auth.user ? auth.user.username : "Unauthenticated"}</div>
+                <Switch>
+                    <Route
+                        path='/account/login'
+                        render={(props) =>
+                            <Login {...props} onLogin={this.onLogin} />
+                        }
+                    />
+                    <Route
+                        path='/account/register'
+                        render={(props) =>
+                            <Register {...props} onRegister={this.onRegister} />
+                        }
+                    />
+                    <Route
+                        path='/account/forgot'
+                        render={(props) =>
+                            <Forgot {...props} onForgot={this.onForgot} />
+                        }
+                    />
+                    <Route
+                        path='/account/reset'
+                        render={(props) =>
+                            <Reset {...props} onReset={this.onReset} />
+                        }
+                    />
+                    <Route
+                        path='/account/logout'
+                        render={(props) =>
+                            <Logout {...props} onLogout={this.onLogout} />
+                        }
+                    />
+                    <Redirect to='/account/register' />
+                </Switch>
             </div>
         );
     }

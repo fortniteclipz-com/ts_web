@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -85,6 +84,7 @@ export default class Select extends Component {
                     <Button
                         type='submit'
                         bsStyle='primary'
+                        block
                     >
                         Find Stream
                     </Button>

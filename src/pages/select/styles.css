@@ -10,7 +10,7 @@
     text-align: center;
 }
 
-.select__form button, .select__form input {
+.select__form input {
     width: 100%;
 }
 
