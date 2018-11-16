@@ -1,6 +1,7 @@
 import { Auth } from 'aws-amplify';
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { NotificationManager } from 'react-notifications';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withLastLocation } from 'react-router-last-location';
 
@@ -30,14 +31,14 @@ class Account extends Component {
 
     async onLogin(email, password) {
         console.log("Account | onLogin");
-        console.log("email", email);
-        console.log("password", password);
         try {
             await auth.clear();
             await auth.set(email, password);
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onLogin | e", e);
+            const eStr = typeof(e) === 'object' ? e.message : e;
+            NotificationManager.error(eStr, "Login Error");
         }
     }
 
@@ -45,15 +46,20 @@ class Account extends Component {
         console.log("Account | onLogout");
         try {
             await auth.clear();
-        } catch (e) {}
-        window.location.replace('/');
+            window.location.replace('/');
+        } catch (e) {
+            console.log("Account | onLogout | e", e);
+            const eStr = typeof(e) === 'object' ? e.message : e;
+            NotificationManager.error(eStr, "Logout Error");
+        }
     }
 
     async onRegister(email, password, passwordConfirm) {
         console.log("Account | onRegister");
-        console.log("email", email);
-        console.log("password", password);
-        console.log("passwordConfirm", passwordConfirm);
+        if (password !== passwordConfirm) {
+            NotificationManager.error("Passwords do not match", "Create Account Error");
+            return;
+        }
         try {
             await auth.clear();
             await Auth.signUp({
@@ -64,30 +70,28 @@ class Account extends Component {
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onRegister | e", e);
+            const eStr = typeof(e) === 'object' ? e.message : e;
+            NotificationManager.error(eStr, "Create Account Error");
         }
     }
 
     async onForgot(email) {
         console.log("Account | onForgot");
-        console.log("email", email);
         try {
-            // await Auth.forgotPassword(email);
+            await Auth.forgotPassword(email);
             this.props.history.push({
                 pathname: '/account/reset',
                 state: {email: email}
             });
         } catch (e) {
             console.log("Account | onForgot | e", e);
+            const eStr = typeof(e) === 'object' ? e.message : e;
+            NotificationManager.error(eStr, "Recover Password Error");
         }
     }
 
     async onReset(email, resetCode, password, passwordConfirm) {
         console.log("Account | onReset");
-        console.log("email", email);
-        console.log("resetCode", resetCode);
-        console.log("password", password);
-        console.log("passwordConfirm", passwordConfirm);
-
         try {
             await Auth.forgotPasswordSubmit(email, resetCode, password);
             await auth.clear();
@@ -95,6 +99,8 @@ class Account extends Component {
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onReset | e", e);
+            const eStr = typeof(e) === 'object' ? e.message : e;
+            NotificationManager.error(eStr, "Reset Password Error");
         }
     }
 
