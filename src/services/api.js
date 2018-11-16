@@ -24,7 +24,8 @@ api.getStream = async function(stream_id) {
         }
     } catch (e) {
         console.log("api | getStream | e", e);
-        NotificationManager.error(e.message, "Critical Error");
+        const eStr = typeof(e) === 'object' ? e.message : e;
+        NotificationManager.error(eStr, "Critical Error");
     }
     return [stream, stream_moments];
 };
@@ -46,7 +47,8 @@ api.getStreams = async function() {
         }
     } catch (e) {
         console.log("api | getStreams | e", e);
-        NotificationManager.error(e.message, "Critical Error");
+        const eStr = typeof(e) === 'object' ? e.message : e;
+        NotificationManager.error(eStr, "Critical Error");
     }
     return streams;
 };
@@ -71,7 +73,8 @@ api.createMoments = async function(stream_id) {
         }
     } catch (e) {
         console.log("api | createMoments | e", e);
-        NotificationManager.error(e.message, "Critical Error");
+        const eStr = typeof(e) === 'object' ? e.message : e;
+        NotificationManager.error(eStr, "Critical Error");
     }
     return stream
 };
@@ -108,7 +111,8 @@ api.createMontage = async function(stream_id, clips, callback) {
         }
     } catch (e) {
         console.log("api | createMontage | e", e);
-        NotificationManager.error(e.message, "Critical Error");
+        const eStr = typeof(e) === 'object' ? e.message : e;
+        NotificationManager.error(eStr, "Critical Error");
     }
     return montage;
 };
@@ -134,7 +138,8 @@ api.getMontages = async function(callback) {
         callback(montages);
     } catch (e) {
         console.log("api | getMontages | e", e);
-        NotificationManager.error(e.message, "Critical Error");
+        const eStr = typeof(e) === 'object' ? e.message : e;
+        NotificationManager.error(eStr, "Critical Error");
     }
 };
 
