@@ -8,13 +8,13 @@ const AppNav = function(props) {
     let item;
     if (auth.isAuthenticated) {
         item = (
-            <NavItem componentClass={Link} href='/account/logout' to='/account/logout'>
+            <NavItem componentClass={Link} href='/account/profile' to='/account/profile'>
                 Profile
             </NavItem>
         )
     } else {
         item = (
-            <NavItem componentClass={Link} href='/account/logout' to='/account'>
+            <NavItem componentClass={Link} href='/account' to='/account'>
                 Sign Up
             </NavItem>
         )

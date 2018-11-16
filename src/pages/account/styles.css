@@ -15,11 +15,21 @@
     margin-top: 15px !important;
 }
 
-.account .login__password {
+.account__login-password {
     margin-bottom: 0 !important;
 }
 
-.account .login__forgot {
+.account__login-forgot {
     float: right;
     margin-bottom: 30px;
+}
+
+.account__profile-email {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.account__logout {
+    margin-top: 25px;
+    text-align: center;
 }

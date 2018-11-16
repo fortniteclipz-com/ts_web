@@ -13,7 +13,7 @@ export default function Register(props) {
     };
 
     return (
-        <div className='register'>
+        <div>
             <h2>Create Account</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='register__email' bsSize='large'>

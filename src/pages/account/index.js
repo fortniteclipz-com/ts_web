@@ -6,7 +6,7 @@ import { withLastLocation } from 'react-router-last-location';
 
 import Forgot from '../../components/account/forgot';
 import Login from '../../components/account/login';
-import Logout from '../../components/account/logout';
+import Profile from '../../components/account/profile';
 import Register from '../../components/account/register';
 import Reset from '../../components/account/reset';
 
@@ -99,7 +99,6 @@ class Account extends Component {
     }
 
     render() {
-        console.log("Account | render | this.state", this.state);
         return (
             <div className='account'>
                 <Switch>
@@ -128,9 +127,9 @@ class Account extends Component {
                         }
                     />
                     <Route
-                        path='/account/logout'
+                        path='/account/profile'
                         render={(props) =>
-                            <Logout {...props} onLogout={this.onLogout} />
+                            <Profile {...props} onLogout={this.onLogout} />
                         }
                     />
                     <Redirect to='/account/register' />

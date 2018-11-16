@@ -15,7 +15,7 @@ export default function Reset(props) {
     };
 
     return (
-        <div className='reset'>
+        <div>
             <h2>Reset Password</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='reset__email' bsSize='large'>

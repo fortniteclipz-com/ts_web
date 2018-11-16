@@ -12,7 +12,7 @@ export default function Login(props) {
     };
 
     return (
-        <div className='login'>
+        <div>
             <h2>Login</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='login__email' bsSize='large'>
@@ -25,7 +25,7 @@ export default function Login(props) {
                         defaultValue='sachinahj@gmail.com'
                     />
                 </FormGroup>
-                <FormGroup controlId='login__password' bsSize='large' className='login__password'>
+                <FormGroup controlId='login__password' bsSize='large' className='account__login-password'>
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
                         data-login--password
@@ -35,7 +35,7 @@ export default function Login(props) {
                         defaultValue='password'
                     />
                 </FormGroup>
-                <Link to='/account/forgot' className='login__forgot'>Forgot Password</Link>
+                <Link to='/account/forgot' className='account__login-forgot'>Forgot Password</Link>
                 <Button
                     type='submit'
                     bsStyle='primary'

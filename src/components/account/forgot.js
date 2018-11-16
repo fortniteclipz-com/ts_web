@@ -11,7 +11,7 @@ export default function Forgot(props) {
     };
 
     return (
-        <div className='forgot'>
+        <div>
             <h2>Recover Password</h2>
             <form onSubmit={onSubmit}>
                 <FormGroup controlId='forgot__email' bsSize='large'>
@@ -30,7 +30,7 @@ export default function Forgot(props) {
                     bsSize='large'
                     block
                 >
-                    Recover
+                    Recover Password
                 </Button>
                 <Button
                     type='submit'
