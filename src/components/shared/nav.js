@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import auth from '../../services/auth'
 
-const AppNav = function(props) {
+export default function AppNav(props) {
     let item;
     if (auth.isAuthenticated) {
         item = (
@@ -39,6 +39,3 @@ const AppNav = function(props) {
         </Navbar>
     );
 };
-
-
-export default withRouter(AppNav)

@@ -14,7 +14,7 @@ export default function Profile(props) {
     return (
         <div>
             <h2>Profile</h2>
-            <h4 class='account__profile-email'>{auth.user.attributes.email}</h4>
+            <h4 className='account__profile-email'>{auth.user.attributes.email}</h4>
             <form className='account__logout' onSubmit={onSubmit}>
                 <Button
                     type='submit'
