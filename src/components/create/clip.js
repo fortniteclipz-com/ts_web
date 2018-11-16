@@ -23,7 +23,7 @@ export default function Clip(props) {
 
     if (props.clip.edit) {
         sliderHTML = (
-            <div className='clip__cell clip__cell--range'>
+            <div className='create__clip-cell create__clip-cell--range'>
                 <Range
                     min={props.clip.time_min}
                     max={props.clip.time_max}
@@ -40,24 +40,24 @@ export default function Clip(props) {
     }
 
     return (
-        <div className='clip'>
-            <div className='clip__cell clip__cell--select'>
+        <div className='create__clip'>
+            <div className='create__clip-cell create__clip-cell--select'>
                 <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
             </div>
-            <div className='clip__cell clip__cell--order'>{props.clip.order || 'N/A'}</div>
-            <div className='clip__cell clip__cell--time'>
+            <div className='create__clip-cell create__clip-cell--order'>{props.clip.order || 'N/A'}</div>
+            <div className='create__clip-cell create__clip-cell--time'>
                 <div>{helper.toHHMMSS(props.clip.time_in)}</div>
                 <hr />
                 <div>{helper.toHHMMSS(props.clip.time_out)}</div>
             </div>
-            <div className='clip__cell clip__cell--duration'>{helper.toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
-            <div className='clip__cell clip__cell--buttons'>
+            <div className='create__clip-cell create__clip-cell--duration'>{helper.toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
+            <div className='create__clip-cell create__clip-cell--buttons'>
                 <Button bsStyle='default' onClick={(e) => props.onEdit(props.clip)}>Edit</Button>
             </div>
-            <div className='clip__cell clip__cell--buttons'>
+            <div className='create__clip-cell create__clip-cell--buttons'>
                 <Button bsStyle='primary' onClick={(e) => props.onPlay(props.clip)}>Play</Button>
             </div>
-            <div className='clip__cell clip__cell--sort'>
+            <div className='create__clip-cell create__clip-cell--sort'>
                 <DragHandle />
             </div>
             {sliderHTML}

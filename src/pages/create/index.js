@@ -298,10 +298,10 @@ export default class Create extends Component {
 
         return (
             <div className='create'>
-                <div className='player'>
-                    <div className='player__wrapper'>
+                <div className='create__player'>
+                    <div className='create__player-wrapper'>
                         <TwitchPlayer
-                            className='player__twitch-player'
+                            className='create__twitch-player'
                             url={twitchUrl}
                             width={'100%'}
                             height={'100%'}

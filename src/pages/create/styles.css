@@ -11,39 +11,39 @@
     justify-content: flex-start;
 }
 
-.create .player {
+.create__player {
     margin: 0 auto;
     max-width: calc(.75 * 100vh);
     width: 100%;
 }
 
-.create .player__wrapper {
+.create__player-wrapper {
     padding-top: 56.25%;
     position: relative;
 }
 
-.create .player__twitch-player {
+.create__twitch-player {
     position: absolute;
     left: 0;
     top: 0;
 }
 
-.create .create__analyze {
+.create__analyze {
     margin-top: 50px;
 }
 
-.create .create__montage {
+.create__montage {
     bottom: 10px;
     left: 0;
     position: fixed;
     width: 100%;
 }
 
-.create .create__montage-button {
+.create__montage-button {
     margin: 0 auto;
 }
 
-.create .clips {
+.create__clips {
     width: 100%;
 
     align-items: center;
@@ -56,23 +56,23 @@
     width: 100%;
 }
 
-.create .clips__overflow {
+.create__clips-overflow {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
 }
 
-.create .clips__list {
+.create__clips-list {
     padding-bottom: 55px;
     width: 100%;
 }
 
-.create .clips__list .clip:nth-child(odd) {
+.create__clips-list .create__clip:nth-child(odd) {
     background-color: #F5F5F5;
 }
 
-.clip {
-    padding: 10px 0;
+.create__clip {
+    padding: 10px 10px;
     width: 100%;
 
     align-items: center;
@@ -82,74 +82,70 @@
     justify-content: space-between;
 }
 
-.clip--header {
+.create__clip--header {
     margin: 10px 0 10px;
     font-size: 12px;
     font-weight: bold;
 }
 
-.clip--header .clip__cell--select {
+.create__clip--header .create__clip-cell--select {
     cursor: pointer;
 }
 
-.clip__cell {
+.create__clip-cell {
     flex: 0 1 auto;
     padding: 0 5px;
     text-align: center;
 }
 
-.clip__cell--range {
+.create__clip-cell--range {
     flex: 0 0 100%;
     padding: 25px 50px;
 }
 
-.clip__cell--select {
+.create__clip-cell--select {
     flex: 0 0 30px;
     padding-left: 0;
 }
 
-.clip__cell--select input {
+.create__clip-cell--select input {
     cursor: pointer;
 }
 
-.clip__cell--order {
+.create__clip-cell--order {
     flex: 0 0 40px;
 }
 
-.clip__cell--time {
+.create__clip-cell--time {
     flex: 0 0 75px;
 }
 
-.clip__cell--time hr {
+.create__clip-cell--time hr {
     border-color: #000000;
     margin: 5px 0;
 }
 
-.clip__cell--duration {
+.create__clip-cell--duration {
     flex: 0 0 75px;
 }
 
-.clip__cell--buttons {
+.create__clip-cell--buttons {
     flex: 0 0 65px;
 }
 
-.clip__cell--sort {
+.create__clip-cell--sort {
     flex: 0 0 50px;
     padding-right: 0;
 }
 
 @media (max-width: 700px) {
-    .clip {
-        padding: 10px 10px;
+    .create {
+        padding-top: 0;
     }
 }
 
 @media (max-width: 576px) {
-    .create {
-        padding-top: 0;
-    }
-
-    .clip__cell--duration {
+    .create__clip-cell--duration {
         display: none;
     }
 }

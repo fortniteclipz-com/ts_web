@@ -1,7 +1,6 @@
 .watch {
     height: calc(100vh - 50px);
     min-height: 400px;
-    padding-top: 10px;
     text-align: center;
     width: 100%;
 
@@ -11,24 +10,28 @@
     justify-content: flex-start;
 }
 
-.watch .player {
-    margin: 0 auto;
+.watch__signup {
+    margin: 15px 0;
+}
+
+.watch__player-container {
+    margin: 10px auto 0;
     max-width: calc(.75 * 100vh);
     width: 100%;
 }
 
-.watch .player__wrapper {
+.watch__player-wrapper {
     padding-top: 56.25%;
     position: relative;
 }
 
-.watch .player__player {
+.watch__player {
     position: absolute;
     left: 0;
     top: 0;
 }
 
-.watch .montages {
+.watch__montages {
     width: 100%;
 
     align-items: center;
@@ -41,21 +44,21 @@
     width: 100%;
 }
 
-.watch .montages__overflow {
+.watch__montages-overflow {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
 }
 
-.watch .montages__list {
+.watch__montages-list {
     width: 100%;
 }
 
-.watch .montages__list .montage:nth-child(odd) {
+.watch__montages-list .watch__montage:nth-child(odd) {
     background-color: #F5F5F5;
 }
 
-.watch .montage {
+.watch__montage {
     padding: 10px 0;
     width: 100%;
 
@@ -65,12 +68,12 @@
     justify-content: space-between;
 }
 
-.watch .montage--header {
+.watch__montage--header {
     margin: 10px 0 10px;
     font-weight: bold;
 }
 
-.watch .montage__cell {
+.watch__montage-cell {
     flex: 0 1 auto;
     padding: 0 5px;
     text-align: left;
@@ -80,35 +83,28 @@
     white-space: nowrap;
 }
 
-.watch .montage__cell--montageid {
-    flex: 0 1 250px;
+.watch__montage-cell--montageid {
+    flex: 0 1 350px;
 }
 
-.watch .montage__cell--stream {
-    flex: 1 0 150px;
+.watch__montage-cell--duration {
+    flex: 0 0 75px;
 }
 
-.watch .montage__cell--duration {
-    flex: 0 0 100px;
-}
-
-.watch .montage__cell--play {
+.watch__montage-cell--play {
     flex: 0 0 150px;
     text-align: center;
 }
 
 @media (max-width: 700px) {
-    .watch .montage {
+    .watch__player-container {
+        margin-top: 0;
+    }
+
+    .watch__montage {
         padding: 10px 10px;
     }
 }
 
 @media (max-width: 576px) {
-    .watch {
-        padding-top: 0;
-    }
-
-    .montage__cell--montageid {
-        display: none;
-    }
 }

@@ -22,19 +22,19 @@ const Clips = SortableContainer(function(props) {
     });
 
     return (
-        <div className='clips'>
-            <div className='clip clip--header'>
-                <div className='clip__cell clip__cell--select' onClick={props.clipsOnIncludeAll}>&#10004;</div>
-                <div className='clip__cell clip__cell--order'>#</div>
-                <div className='clip__cell clip__cell--time'>Time In/Out</div>
-                <div className='clip__cell clip__cell--duration'>Duration</div>
-                <div className='clip__cell clip__cell--buttons'>Edit</div>
-                <div className='clip__cell clip__cell--buttons'>Play</div>
-                <div className='clip__cell clip__cell--sort'>Sort</div>
+        <div className='create__clips'>
+            <div className='create__clip create__clip--header'>
+                <div className='create__clip-cell create__clip-cell--select' onClick={props.clipsOnIncludeAll}>&#10004;</div>
+                <div className='create__clip-cell create__clip-cell--order'>#</div>
+                <div className='create__clip-cell create__clip-cell--time'>Time In/Out</div>
+                <div className='create__clip-cell create__clip-cell--duration'>Duration</div>
+                <div className='create__clip-cell create__clip-cell--buttons'>Edit</div>
+                <div className='create__clip-cell create__clip-cell--buttons'>Play</div>
+                <div className='create__clip-cell create__clip-cell--sort'>Sort</div>
             </div>
             <Scrollbar>
-                <div className='clips__overflow'>
-                    <div className='clips__list'>
+                <div className='create__clips-overflow'>
+                    <div className='create__clips-list'>
                         {clips}
                     </div>
                 </div>

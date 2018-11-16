@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
 import FilePlayer from 'react-player/lib/players/FilePlayer'
+import { Link } from 'react-router-dom';
 import Scrollbar from 'react-smooth-scrollbar';
 
 import api from '../../services/api';
+import auth from '../../services/auth';
 import helper from '../../services/helper';
 
 import './styles.css'
@@ -22,7 +24,7 @@ export default class Watch extends Component {
     }
 
     componentDidMount() {
-        console.log("Watch | componentDidMount");
+        // console.log("Watch | componentDidMount");
         api.getMontages((montages) => {
             this.setState({
                 montages: montages,
@@ -57,15 +59,20 @@ export default class Watch extends Component {
 
 
     render() {
+        let signUpHTML = null;
         let playerHTML = null;
         let montagesHTML = null;
 
+        if (!auth.isAuthenticated) {
+            signUpHTML = (<Button className='watch__signup' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Your Own Montage</Button>);
+        }
+
         if (this.state.playerUrl) {
             playerHTML = (
-                <div className='player'>
-                    <div className='player__wrapper'>
+                <div className='watch__player-container'>
+                    <div className='watch__player-wrapper'>
                         <FilePlayer
-                            className='player__player'
+                            className='watch__player'
                             url={this.state.playerUrl}
                             width={'100%'}
                             height={'100%'}
@@ -85,32 +92,31 @@ export default class Watch extends Component {
                     button = (<Button bsStyle='primary' onClick={(e) => this.montageOnPlay(montage)}>Play</Button>);
                 }
                 return (
-                    <div key={montage.montage_id} className='montage'>
-                        <div className='montage__cell montage__cell--stream'>
-                            <div>{montage.stream_user}</div>
+                    <div key={montage.montage_id} className='watch__montage'>
+                        <div className='watch__montage-cell watch__montage-cell--montageid'>
+                            <div>{montage.montage_id}</div>
                             <div>{montage.stream_id}</div>
+                            <div>{montage.streamer}</div>
                         </div>
-                        <div className='montage__cell montage__cell--montageid'>{montage.montage_id}</div>
-                        <div className='montage__cell montage__cell--duration'>
+                        <div className='watch__montage-cell watch__montage-cell--duration'>
                             <div>{helper.toHHMMSS(montage.duration)}</div>
                             <div>({montage.clip_ids.length} clips)</div>
                         </div>
-                        <div className='montage__cell montage__cell--play'>{button}</div>
+                        <div className='watch__montage-cell watch__montage-cell--play'>{button}</div>
                     </div>
                 );
             });
 
             montagesHTML = (
-                <div className='montages'>
-                    <div className='montage montage--header'>
-                        <div className='montage__cell montage__cell--stream'>Stream</div>
-                        <div className='montage__cell montage__cell--montageid'>MontageID</div>
-                        <div className='montage__cell montage__cell--duration'>Duration</div>
-                        <div className='montage__cell montage__cell--play'>Play</div>
+                <div className='watch__montages'>
+                    <div className='watch__montage watch__montage--header'>
+                        <div className='watch__montage-cell watch__montage-cell--montageid'>MontageID<br/>Stream<br/>Streamer</div>
+                        <div className='watch__montage-cell watch__montage-cell--duration'>Duration</div>
+                        <div className='watch__montage-cell watch__montage-cell--play'>Play</div>
                     </div>
                     <Scrollbar>
-                        <div className='montages__overflow'>
-                            <div className='montages__list'>
+                        <div className='watch__montages-overflow'>
+                            <div className='watch__montages-list'>
                                 {montages}
                             </div>
                         </div>
@@ -122,6 +128,7 @@ export default class Watch extends Component {
         return (
             <div className='watch'>
                 {playerHTML}
+                {signUpHTML}
                 {montagesHTML}
             </div>
         );
