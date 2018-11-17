@@ -22,8 +22,7 @@ export default function Profile(props) {
                     bsSize='large'
                     data-ga={window.gaData({
                         category: 'Account',
-                        action: 'click',
-                        label: 'Logout',
+                        action: 'Logout',
                     })}
                 >
                     Logout

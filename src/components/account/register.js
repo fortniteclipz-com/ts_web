@@ -53,8 +53,7 @@ export default function Register(props) {
                     block
                     data-ga={window.gaData({
                         category: 'Account',
-                        action: 'click',
-                        label: 'Create Account',
+                        action: 'Create Account',
                     })}
                 >
                     Create Account

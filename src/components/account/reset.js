@@ -61,8 +61,7 @@ export default function Reset(props) {
                     block
                     data-ga={window.gaData({
                         category: 'Account',
-                        action: 'click',
-                        label: 'Reset Password',
+                        action: 'Reset Password',
                     })}
                 >
                     Reset Password

@@ -43,8 +43,7 @@ export default function Login(props) {
                     block
                     data-ga={window.gaData({
                         category: 'Account',
-                        action: 'click',
-                        label: 'Login',
+                        action: 'Login',
                     })}
                 >
                     Login

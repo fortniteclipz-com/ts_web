@@ -48,8 +48,7 @@ export default function Clip(props) {
                     onChange={(e) => props.onInclude(props.clip)}
                     data-ga={window.gaData({
                         category: 'Clip',
-                        action: 'click',
-                        label: 'Select',
+                        action: 'Select',
                     })}
                 />
             </div>
@@ -66,8 +65,7 @@ export default function Clip(props) {
                     onClick={(e) => props.onEdit(props.clip)}
                     data-ga={window.gaData({
                         category: 'Clip',
-                        action: 'click',
-                        label: 'Edit',
+                        action: 'Edit',
                     })}
                 >
                     Edit
@@ -79,8 +77,7 @@ export default function Clip(props) {
                     onClick={(e) => props.onPlay(props.clip)}
                     data-ga={window.gaData({
                         category: 'Clip',
-                        action: 'click',
-                        label: 'Play',
+                        action: 'Play',
                     })}
                 >
                     Play

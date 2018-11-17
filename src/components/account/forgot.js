@@ -31,8 +31,7 @@ export default function Forgot(props) {
                     block
                     data-ga={window.gaData({
                         category: 'Account',
-                        action: 'click',
-                        label: 'Recover Password',
+                        action: 'Recover Password',
                     })}
                 >
                     Recover Password

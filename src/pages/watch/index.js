@@ -95,8 +95,7 @@ export default class Watch extends Component {
                             onClick={(e) => this.montageOnPlay(montage)}
                             data-ga={window.gaData({
                                 category: 'Montage',
-                                action: 'click',
-                                label: 'Play'
+                                action: 'Play',
                             })}
                         >
                             Play

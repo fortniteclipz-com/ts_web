@@ -129,8 +129,7 @@ export default class Create extends Component {
         });
         window.gaEvent({
             category: 'Clip',
-            action: 'slide',
-            label: 'Edit',
+            action: 'Edit',
         });
     }
 
@@ -193,8 +192,7 @@ export default class Create extends Component {
         });
         window.gaEvent({
             category: 'Clip',
-            action: 'drag',
-            label: 'Sort',
+            action: 'Sort',
         });
     }
 
@@ -304,8 +302,7 @@ export default class Create extends Component {
                         onClick={this.onMontage}
                         data-ga={window.gaData({
                             category: 'Montage',
-                            action: 'click',
-                            label: 'Create',
+                            action: 'Create',
                         })}
                     >
                             Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)
