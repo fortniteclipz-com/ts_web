@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
+import ReactGA from 'react-ga';
 import { NotificationManager } from 'react-notifications';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
 import { Link } from 'react-router-dom';
@@ -127,6 +128,11 @@ export default class Create extends Component {
             clips: this.state.clips,
             playingClip: clip,
         });
+        ReactGA.event({
+            category: 'Clip',
+            action: 'slide',
+            label: 'Edit',
+        });
     }
 
     clipOnPlay(clip) {
@@ -185,6 +191,11 @@ export default class Create extends Component {
         // console.log("Create | clipsOnSortEnd");
         this.setState({
             clips: arrayMove(this.state.clips, oldIndex, newIndex),
+        });
+        ReactGA.event({
+            category: 'Clip',
+            action: 'drag',
+            label: 'Sort',
         });
     }
 
@@ -287,7 +298,20 @@ export default class Create extends Component {
             } else if (montageInfo.clipCount === 0) {
                 montageButton = (<Button className='create__montage-button' bsStyle='warning' disabled>Add Clips to Create Montage</Button>);
             } else {
-                montageButton = (<Button className='create__montage-button' bsStyle='success' onClick={this.onMontage}>Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)</Button>);
+                montageButton = (
+                    <Button
+                        className='create__montage-button'
+                        bsStyle='success'
+                        onClick={this.onMontage}
+                        data-ga={window.gaData({
+                            category: 'Montage',
+                            action: 'click',
+                            label: 'Create',
+                        })}
+                    >
+                            Create Montage ({montageInfo.clipCount} clips) ({montageInfo.duration} seconds)
+                    </Button>
+                );
             }
             montageHTML = (
                 <div className='create__montage'>

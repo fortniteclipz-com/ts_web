@@ -51,6 +51,11 @@ export default function Register(props) {
                     bsStyle='primary'
                     bsSize='large'
                     block
+                    data-ga={window.gaData({
+                        category: 'Account',
+                        action: 'click',
+                        label: 'Create Account',
+                    })}
                 >
                     Create Account
                 </Button>

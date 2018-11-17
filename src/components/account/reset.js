@@ -59,6 +59,11 @@ export default function Reset(props) {
                     bsStyle='primary'
                     bsSize='large'
                     block
+                    data-ga={window.gaData({
+                        category: 'Account',
+                        action: 'click',
+                        label: 'Reset Password',
+                    })}
                 >
                     Reset Password
                 </Button>

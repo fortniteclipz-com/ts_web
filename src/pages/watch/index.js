@@ -89,7 +89,19 @@ export default class Watch extends Component {
             const montages = this.state.montages.map((montage) => {
                 let button = (<Button bsStyle='default' onClick={(e) => this.montageOnPlay(montage)} disabled>Processing</Button>);
                 if (montage._status === 2) {
-                    button = (<Button bsStyle='primary' onClick={(e) => this.montageOnPlay(montage)}>Play</Button>);
+                    button = (
+                        <Button
+                            bsStyle='primary'
+                            onClick={(e) => this.montageOnPlay(montage)}
+                            data-ga={window.gaData({
+                                category: 'Montage',
+                                action: 'click',
+                                label: 'Play'
+                            })}
+                        >
+                            Play
+                        </Button>
+                    );
                 }
                 return (
                     <div key={montage.montage_id} className='watch__montage'>

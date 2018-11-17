@@ -29,6 +29,11 @@ export default function Forgot(props) {
                     bsStyle='primary'
                     bsSize='large'
                     block
+                    data-ga={window.gaData({
+                        category: 'Account',
+                        action: 'click',
+                        label: 'Recover Password',
+                    })}
                 >
                     Recover Password
                 </Button>

@@ -42,7 +42,16 @@ export default function Clip(props) {
     return (
         <div className='create__clip'>
             <div className='create__clip-cell create__clip-cell--select'>
-                <input type='checkbox' checked={props.clip.include} onChange={(e) => props.onInclude(props.clip)} />
+                <input
+                    type='checkbox'
+                    checked={props.clip.include}
+                    onChange={(e) => props.onInclude(props.clip)}
+                    data-ga={window.gaData({
+                        category: 'Clip',
+                        action: 'click',
+                        label: 'Select',
+                    })}
+                />
             </div>
             <div className='create__clip-cell create__clip-cell--order'>{props.clip.order || 'N/A'}</div>
             <div className='create__clip-cell create__clip-cell--time'>
@@ -52,10 +61,30 @@ export default function Clip(props) {
             </div>
             <div className='create__clip-cell create__clip-cell--duration'>{helper.toHHMMSS(props.clip.time_out - props.clip.time_in)}</div>
             <div className='create__clip-cell create__clip-cell--buttons'>
-                <Button bsStyle='default' onClick={(e) => props.onEdit(props.clip)}>Edit</Button>
+                <Button
+                    bsStyle='default'
+                    onClick={(e) => props.onEdit(props.clip)}
+                    data-ga={window.gaData({
+                        category: 'Clip',
+                        action: 'click',
+                        label: 'Edit',
+                    })}
+                >
+                    Edit
+                </Button>
             </div>
             <div className='create__clip-cell create__clip-cell--buttons'>
-                <Button bsStyle='primary' onClick={(e) => props.onPlay(props.clip)}>Play</Button>
+                <Button
+                    bsStyle='primary'
+                    onClick={(e) => props.onPlay(props.clip)}
+                    data-ga={window.gaData({
+                        category: 'Clip',
+                        action: 'click',
+                        label: 'Play',
+                    })}
+                >
+                    Play
+                </Button>
             </div>
             <div className='create__clip-cell create__clip-cell--sort'>
                 <DragHandle />

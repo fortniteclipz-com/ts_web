@@ -25,10 +25,6 @@ class Account extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("Account | componentDidMount");
-    }
-
     async onLogin(email, password) {
         // console.log("Account | onLogin");
         try {

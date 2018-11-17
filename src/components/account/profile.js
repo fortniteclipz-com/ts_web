@@ -20,6 +20,11 @@ export default function Profile(props) {
                     type='submit'
                     bsStyle='primary'
                     bsSize='large'
+                    data-ga={window.gaData({
+                        category: 'Account',
+                        action: 'click',
+                        label: 'Logout',
+                    })}
                 >
                     Logout
                 </Button>
