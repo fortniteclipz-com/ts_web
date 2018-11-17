@@ -4,7 +4,7 @@ import autoBind from 'react-autobind';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-129317052-1');
-window.gaData = function (obj) {
+window.gaData = function(obj) {
     return Buffer.from(JSON.stringify(obj)).toString('base64');
 };
 
@@ -24,6 +24,9 @@ export default class GAListener extends Component {
         // console.log("GAListener | componentDidMount");
         this.sendPageView(this.context.router.history.location);
         this.context.router.history.listen(this.sendPageView);
+        window.gaEvent = (event) => {
+            this.sendEvent(event);
+        };
         document.onclick = (event) => {
             if (event.target.dataset.ga) {
                 const gaEvent = JSON.parse(Buffer.from(event.target.dataset.ga, 'base64').toString());

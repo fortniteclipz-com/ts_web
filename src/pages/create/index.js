@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
-import ReactGA from 'react-ga';
 import { NotificationManager } from 'react-notifications';
 import TwitchPlayer from 'react-player/lib/players/Twitch'
 import { Link } from 'react-router-dom';
@@ -128,7 +127,7 @@ export default class Create extends Component {
             clips: this.state.clips,
             playingClip: clip,
         });
-        ReactGA.event({
+        window.gaEvent({
             category: 'Clip',
             action: 'slide',
             label: 'Edit',
@@ -192,7 +191,7 @@ export default class Create extends Component {
         this.setState({
             clips: arrayMove(this.state.clips, oldIndex, newIndex),
         });
-        ReactGA.event({
+        window.gaEvent({
             category: 'Clip',
             action: 'drag',
             label: 'Sort',
