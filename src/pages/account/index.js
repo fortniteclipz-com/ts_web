@@ -30,7 +30,7 @@ class Account extends Component {
         try {
             await auth.clear();
             var user = await Auth.signIn(email, password);
-            await auth.set(user);
+            auth.set(user);
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onLogin | e", e);
@@ -64,7 +64,7 @@ class Account extends Component {
                 password: password,
             });
             var user = await Auth.signIn(email, password);
-            await auth.set(user);
+            auth.set(user);
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onRegister | e", e);
@@ -94,7 +94,7 @@ class Account extends Component {
             await Auth.forgotPasswordSubmit(email, resetCode, password);
             await auth.clear();
             var user = await Auth.signIn(email, password);
-            await auth.set(user);
+            auth.set(user);
             window.location.replace(this.state.referrer);
         } catch (e) {
             console.log("Account | onReset | e", e);

@@ -33,11 +33,11 @@ auth.check = async function() {
     return;
 };
 
-auth.set = async function(user) {
+auth.set = function(user) {
     auth.isAuthenticated = true;
     auth.user = user;
     ReactGA.set({
-        userId: user.attributes.sub,
+        userId: user.username,
     });
 };
 
