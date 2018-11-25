@@ -111,7 +111,7 @@ export default class Watch extends Component {
                         </div>
                         <div className='watch__montage-cell watch__montage-cell--duration'>
                             <div>{helper.toHHMMSS(montage.duration)}</div>
-                            <div>({montage.clip_ids.length} clips)</div>
+                            <div>({montage.clips} clips)</div>
                         </div>
                         <div className='watch__montage-cell watch__montage-cell--play'>{button}</div>
                     </div>
