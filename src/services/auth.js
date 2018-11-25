@@ -25,6 +25,9 @@ auth.check = async function() {
     try {
         const user = await Auth.currentAuthenticatedUser();
         auth.set(user);
+        ReactGA.set({
+            userId: user.attributes.sub,
+        });
     } catch (e) {
         console.log("auth | check | e", e);
         auth.isAuthenticated = false;
@@ -36,9 +39,6 @@ auth.check = async function() {
 auth.set = function(user) {
     auth.isAuthenticated = true;
     auth.user = user;
-    ReactGA.set({
-        userId: user.username,
-    });
 };
 
 auth.clear = async function() {
