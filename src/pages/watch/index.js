@@ -43,7 +43,7 @@ export default class Watch extends Component {
             if (montage && montage._status === 2) {
                 this.montageOnPlay(montage);
             }
-            if (montages.some(m => m._status == 1)) {
+            if (montages.some(m => m._status === 1)) {
                 console.log("gotta call again");
                 setTimeout(() => {
                     this.getMontages();
