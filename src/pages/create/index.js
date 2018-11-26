@@ -67,7 +67,7 @@ export default class Create extends Component {
         }, () => {
             setTimeout(() => {
                 this.getStream();
-            }, 5000);
+            }, 15000);
         });
     }
 
