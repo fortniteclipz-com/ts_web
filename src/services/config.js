@@ -2,12 +2,12 @@ const config = {};
 
 config.aws = {};
 config.aws.apiGateway = {
-    url: "https://v2uxgnhge7.execute-api.us-west-2.amazonaws.com/dev",
+    url: "https://hglh6y4yc0.execute-api.us-west-2.amazonaws.com/dev",
 };
 config.aws.cognito = {
     region: "us-west-2",
-    userPoolID: "us-west-2_FdQiY1UDH",
-    appClientID: "6ceg7mr24737fmc30k426v0c71"
+    userPoolID: "us-west-2_H9IIkxWl0",
+    appClientID: "4is3vpfq9gt5kt1ng9fnhu4vnt"
 };
 
 export default config;

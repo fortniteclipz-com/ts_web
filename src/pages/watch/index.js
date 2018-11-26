@@ -25,19 +25,30 @@ export default class Watch extends Component {
 
     componentDidMount() {
         // console.log("Watch | componentDidMount");
-        api.getMontages((montages) => {
-            this.setState({
-                montages: montages,
-            }, () => {
-                const params = new URLSearchParams(this.props.location.search);
-                const montageId = params.get('montageId');
-                const montage = this.state.montages.find(function(montage) {
-                    return montage.montage_id === montageId;
-                });
-                if (montage && montage._status === 2) {
-                    this.montageOnPlay(montage);
-                }
+        this.getMontages();
+    }
+
+    async getMontages() {
+        // console.log("Watch | getMontages");
+        const montages = await api.getMontages();
+        console.log("montages", montages);
+        this.setState({
+            montages: montages,
+        }, () => {
+            const params = new URLSearchParams(this.props.location.search);
+            const montageId = params.get('montageId');
+            const montage = this.state.montages.find(function(montage) {
+                return montage.montage_id === montageId;
             });
+            if (montage && montage._status === 2) {
+                this.montageOnPlay(montage);
+            }
+            if (montages.some(m => m._status == 1)) {
+                console.log("gotta call again");
+                setTimeout(() => {
+                    this.getMontages();
+                }, 15000);
+            }
         });
     }
 

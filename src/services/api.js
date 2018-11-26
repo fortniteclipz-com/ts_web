@@ -79,7 +79,7 @@ api.createMoments = async function(stream_id) {
     return stream
 };
 
-api.createMontage = async function(stream_id, clips, callback) {
+api.createMontage = async function(stream_id, clips) {
     let montage = null;
     try {
         const url = `${config.aws.apiGateway.url}/montage`
@@ -117,7 +117,8 @@ api.createMontage = async function(stream_id, clips, callback) {
     return montage;
 };
 
-api.getMontages = async function(callback) {
+api.getMontages = async function() {
+    let montages = [];
     try {
         let url = `${config.aws.apiGateway.url}/montages/recent`
         if (auth.getToken()) {
@@ -131,16 +132,15 @@ api.getMontages = async function(callback) {
             },
         });
         const body = await response.json();
-        let montages = [];
         if (body.montages) {
             montages = body.montages;
         }
-        callback(montages);
     } catch (e) {
         console.log("api | getMontages | e", e);
         const eStr = typeof(e) === 'object' ? e.message : e;
         NotificationManager.error(eStr, "Critical Error");
     }
+    return montages
 };
 
 export default api;
