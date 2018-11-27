@@ -10,6 +10,7 @@ let config = {
         },
         s3: {
             bucket: "twitch-stitch-media-dev",
+            region: "us-east-1",
         },
     },
     ga: {
@@ -29,6 +30,7 @@ const prodConfig = {
         },
         s3: {
             bucket: "twitch-stitch-media-prod",
+            region: "us-west-2",
         },
     },
     ga: {
