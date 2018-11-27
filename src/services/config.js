@@ -6,7 +6,7 @@ let config = {
         cognito: {
             region: "us-east-1",
             userPoolID: "us-east-1_Hg3i3V7Gd",
-            appClientID: "2mr7ing3kqal8ajcpnddgq9i7v",
+            appClientID: "5588p1miro9u33i84omqof0npp",
         },
         s3: {
             bucket: "twitch-stitch-media-dev",
@@ -25,7 +25,7 @@ const prodConfig = {
         cognito: {
             region: "us-west-2",
             userPoolID: "us-west-2_eowfgVCk9",
-            appClientID: "4kuqa0k0dna98ao6tt57bmbcck",
+            appClientID: "4kfjgpl47kq4s93aonp6t5r5on",
         },
         s3: {
             bucket: "twitch-stitch-media-prod",
