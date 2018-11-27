@@ -3,7 +3,9 @@ import { Component } from 'react';
 import autoBind from 'react-autobind';
 import ReactGA from 'react-ga';
 
-ReactGA.initialize('UA-129317052-1');
+import config from '../../services/config';
+
+ReactGA.initialize(config.ga.trackingID);
 window.gaData = function(obj) {
     return Buffer.from(JSON.stringify(obj)).toString('base64');
 };

@@ -9,12 +9,15 @@ let config = {
             appClientID: "2mr7ing3kqal8ajcpnddgq9i7v",
         },
     },
+    ga: {
+        trackingID:'UA-129317052-1',
+    }
 };
 
 const prodConfig = {
     aws: {
         apiGateway: {
-            url: "sachin was here",
+            url: "to_do",
         },
         cognito: {
             region: "us-west-2",
@@ -22,6 +25,9 @@ const prodConfig = {
             appClientID: "4kuqa0k0dna98ao6tt57bmbcck",
         },
     },
+    ga: {
+        trackingID:'UA-129317052-1',
+    }
 };
 
 if (window.location.hostname.search("www.fortniteclipz.com") > -1) {
