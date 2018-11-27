@@ -8,6 +8,9 @@ let config = {
             userPoolID: "us-east-1_BaQUjvUy8",
             appClientID: "2mr7ing3kqal8ajcpnddgq9i7v",
         },
+        s3: {
+            bucket: "twitch-stitch-media-dev",
+        },
     },
     ga: {
         trackingID:'UA-129317052-1',
@@ -23,6 +26,9 @@ const prodConfig = {
             region: "us-west-2",
             userPoolID: "us-west-2_bPZtQtQVv",
             appClientID: "4kuqa0k0dna98ao6tt57bmbcck",
+        },
+        s3: {
+            bucket: "twitch-stitch-media-prod",
         },
     },
     ga: {

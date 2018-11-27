@@ -7,6 +7,7 @@ import Scrollbar from 'react-smooth-scrollbar';
 
 import api from '../../services/api';
 import auth from '../../services/auth';
+import config from '../../services/config';
 import helper from '../../services/helper';
 
 import './styles.css'
@@ -55,7 +56,7 @@ export default class Watch extends Component {
     montageOnPlay(montage) {
         // console.log("Watch | montageOnPlay");
         this.props.history.push(`/watch?montageId=${montage.montage_id}`)
-        const playerUrl = `https://s3-us-west-1.amazonaws.com/twitch-stitch-media-dev/${montage.media_key}`;
+        const playerUrl = `https://s3.amazonaws.com/${config.aws.s3.bucket}/montages/m-pF65NM2SjJAwfBDziUxkTS/montage.mp4`
         this.setState({
             playerUrl: null,
         }, () => {
