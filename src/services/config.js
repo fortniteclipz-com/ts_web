@@ -1,11 +1,11 @@
 let config = {
     aws: {
         apiGateway: {
-            url: "https://rzqepv0qad.execute-api.us-east-1.amazonaws.com/dev",
+            url: "https://4d9um63tva.execute-api.us-east-1.amazonaws.com/dev",
         },
         cognito: {
             region: "us-east-1",
-            userPoolID: "us-east-1_BaQUjvUy8",
+            userPoolID: "us-east-1_Hg3i3V7Gd",
             appClientID: "2mr7ing3kqal8ajcpnddgq9i7v",
         },
         s3: {
@@ -20,11 +20,11 @@ let config = {
 const prodConfig = {
     aws: {
         apiGateway: {
-            url: "to_do",
+            url: "https://w5px4kjqwd.execute-api.us-west-2.amazonaws.com/prod",
         },
         cognito: {
             region: "us-west-2",
-            userPoolID: "us-west-2_bPZtQtQVv",
+            userPoolID: "us-west-2_eowfgVCk9",
             appClientID: "4kuqa0k0dna98ao6tt57bmbcck",
         },
         s3: {
