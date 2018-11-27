@@ -24,7 +24,7 @@ const prodConfig = {
     },
 };
 
-if (window.location.hostname.search("www.fortniteclipz.com")) {
+if (window.location.hostname.search("www.fortniteclipz.com") > -1) {
     config = prodConfig
 }
 
