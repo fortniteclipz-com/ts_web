@@ -56,7 +56,7 @@ export default class Watch extends Component {
     montageOnPlay(montage) {
         // console.log("Watch | montageOnPlay");
         this.props.history.push(`/watch?montageId=${montage.montage_id}`)
-        const playerUrl = `https://${config.aws.s3.bucket}.s3-${config.aws.s3.region}.amazonaws.com/montages/m-pF65NM2SjJAwfBDziUxkTS/montage.mp4`
+        const playerUrl = `https://s3.${config.aws.s3.region}.amazonaws.com/${config.aws.s3.bucket}/${montage.media_key}`
         console.log("playerUrl", playerUrl);
         this.setState({
             playerUrl: null,

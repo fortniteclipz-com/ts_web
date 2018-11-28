@@ -1,16 +1,16 @@
 let config = {
     aws: {
         apiGateway: {
-            url: "https://4d9um63tva.execute-api.us-east-1.amazonaws.com/dev",
+            url: "https://g2girs6pi7.execute-api.us-east-2.amazonaws.com/dev",
         },
         cognito: {
-            region: "us-east-1",
-            userPoolID: "us-east-1_Hg3i3V7Gd",
-            appClientID: "5588p1miro9u33i84omqof0npp",
+            region: "us-east-2",
+            userPoolID: "us-east-2_fyMog88g5",
+            appClientID: "2inkittc5hciivbbh2nqf6tktb",
         },
         s3: {
             bucket: "twitch-stitch-media-dev",
-            region: "us-east-1",
+            region: "us-east-2",
         },
     },
     ga: {
