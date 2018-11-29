@@ -14,7 +14,7 @@ export default class Select extends Component {
         super(props);
         autoBind(this);
         this.state = {
-            streams: [],
+            streams: null,
         };
     }
 
@@ -50,25 +50,36 @@ export default class Select extends Component {
     }
 
     render() {
-        const streamsHTML = this.state.streams.map(function(stream) {
-            let bsStyle = 'default';
-            if (stream._status_analyze === 2) {
-                bsStyle = 'success';
-            } else if (stream._status_analyze === 1) {
-                bsStyle = 'danger';
-            }
+        let streamsHTML = null;
 
-            return (
-                <Button
-                    key={stream.stream_id}
-                    bsStyle={bsStyle}
-                    componentClass={Link}
-                    to={`/create/${stream.stream_id}`}
-                >
-                    {stream.stream_id} ({stream.streamer || "unknown"})
-                </Button>
+        if (this.state.streams && this.state.streams.length) {
+            const streams = this.state.streams.map(function(stream) {
+                let bsStyle = 'default';
+                if (stream._status_analyze === 2) {
+                    bsStyle = 'success';
+                } else if (stream._status_analyze === 1) {
+                    bsStyle = 'danger';
+                }
+                return (
+                    <Button
+                        key={stream.stream_id}
+                        bsStyle={bsStyle}
+                        componentClass={Link}
+                        to={`/create/${stream.stream_id}`}
+                    >
+                        {stream.stream_id} ({stream.streamer || "unknown"})
+                    </Button>
+                );
+            });
+            streamsHTML = (
+                <div>
+                    <h5>Create with Twitch streams already analyzed...</h5>
+                    <div className='select__streams'>
+                        {streams}
+                    </div>
+                </div>
             );
-        });
+        }
 
         return (
             <div className='select'>
@@ -89,10 +100,7 @@ export default class Select extends Component {
                         Find Stream
                     </Button>
                 </form>
-                <h5>Create with Twitch streams already analyzed...</h5>
-                <div className='select__streams'>
-                    {streamsHTML}
-                </div>
+                {streamsHTML}
             </div>
         );
     }

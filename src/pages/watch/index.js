@@ -73,11 +73,21 @@ export default class Watch extends Component {
 
     render() {
         let signUpHTML = null;
+        let noMontagesHTML = null;
         let playerHTML = null;
         let montagesHTML = null;
 
         if (!auth.isAuthenticated) {
             signUpHTML = (<Button className='watch__signup' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Your Own Montage</Button>);
+        }
+
+        if (auth.isAuthenticated && this.state.montages && !this.state.montages.length) {
+            noMontagesHTML = (
+                <div className='watch__no-montages'>
+                    <h4>No montages found. Go create your own!</h4>
+                    <Button className='watch__create' bsStyle='primary' componentClass={Link} to='/create'>Create Montage</Button>
+                </div>
+            );
         }
 
         if (this.state.playerUrl) {
@@ -98,7 +108,7 @@ export default class Watch extends Component {
             );
         }
 
-        if (this.state.montages) {
+        if (this.state.montages && this.state.montages.length) {
             const montages = this.state.montages.map((montage) => {
                 let button = (<Button bsStyle='default' onClick={(e) => this.montageOnPlay(montage)} disabled>Processing</Button>);
                 if (montage._status === 2) {
@@ -151,8 +161,9 @@ export default class Watch extends Component {
 
         return (
             <div className='watch'>
-                {playerHTML}
                 {signUpHTML}
+                {noMontagesHTML}
+                {playerHTML}
                 {montagesHTML}
             </div>
         );

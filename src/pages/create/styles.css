@@ -43,6 +43,10 @@
     margin: 0 auto;
 }
 
+.create__no-clips {
+    margin-top: 50px;
+}
+
 .create__clips {
     width: 100%;
 

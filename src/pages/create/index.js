@@ -23,6 +23,7 @@ export default class Create extends Component {
             stream: null,
             clips: null,
             playingClip: null,
+            analyzingStream: false,
             creatingMontage: false,
         };
     }
@@ -40,8 +41,7 @@ export default class Create extends Component {
 
     async getStream() {
         // console.log("Create | getStream");
-        const stream_id = this.props.match.params.streamId;
-        const [stream, streamMoments] = await api.getStream(stream_id);
+        const [stream, streamMoments] = await api.getStream(this.props.match.params.streamId);
         let clips = null;
         if (stream._status_analyze === 2) {
             clips = helper.createClips(stream, streamMoments);
@@ -58,26 +58,28 @@ export default class Create extends Component {
         });
     }
 
-    async onAnalyze() {
+    onAnalyze() {
         // console.log("Create | onAnalyze");
-        const stream_id = this.props.match.params.streamId;
-        const stream = await api.createMoments(stream_id);
         this.setState({
-            stream: stream,
-        }, () => {
-            setTimeout(() => {
-                this.getStream();
-            }, 15000);
+            analyzingStream: true,
+        }, async () => {
+            const stream = await api.createMoments(this.props.match.params.streamId);
+            this.setState({
+                stream: stream,
+            }, () => {
+                setTimeout(() => {
+                    this.getStream();
+                }, 15000);
+            });
         });
     }
 
     onMontage() {
         // console.log("Create | onMontage");
-        const stream_id = this.props.match.params.streamId;
         this.setState({
             creatingMontage: true,
         }, async () => {
-            const montage = await api.createMontage(stream_id, this.state.clips);
+            const montage = await api.createMontage(this.props.match.params.streamId, this.state.clips);
             if (montage) {
                 NotificationManager.success(montage.montage_id, "Montage Created", 5000);
                 this.props.history.push(`/watch?montageId=${montage.montage_id}`);
@@ -242,24 +244,34 @@ export default class Create extends Component {
     render() {
         const twitchUrl = `https://www.twitch.tv/videos/${this.props.match.params.streamId}`;
         let analyzeHTML = null;
+        let noClipsHTML = null;
         let clipsHTML = null;
         let montageHTML = null;
 
-        if (this.state.stream == null || !this.state.stream._status_analyze) {
-            if (!auth.isAuthenticated) {
-                analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Stream</Button>);
-            } else {
-                if (this.state.validStream === true) {
-                    analyzeHTML = (<Button className='create__analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze Stream for Clips</Button>);
-                } else if (this.state.validStream === false) {
-                    analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/create'>Go Back and Select New Stream</Button>);
-                }
-            }
-        } else if (this.state.stream._status_analyze === 1) {
+        const _status_analyze = (this.state.stream || {})._status_analyze || 0
+
+        if (!_status_analyze && !auth.isAuthenticated) {
+            analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Streams</Button>);
+        } else if (!_status_analyze && this.state.analyzingStream) {
+            analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream</Button>);
+        } else if (!_status_analyze && this.state.validStream === true) {
+            analyzeHTML = (<Button className='create__analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze Stream for Fortnite Clips</Button>);
+        } else if (!_status_analyze && this.state.validStream === false) {
+            analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/create'>Go Back and Select New Stream</Button>);
+        } else if (_status_analyze === 1) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream ({parseInt(this.state.stream._status_analyze_percentage || 0)}%)</Button>);
         }
 
-        if (this.state.clips !== null) {
+        if (_status_analyze === 2 && this.state.clips && !this.state.clips.length) {
+            noClipsHTML = (
+                <div className='create__no-clips'>
+                    <h4>Sorry we couldn't find any clips for this stream.</h4>
+                    <Button bsStyle='primary' componentClass={Link} to='/create'>Go Back and Select New Stream</Button>
+                </div>
+            )
+        }
+
+        if (_status_analyze === 2 && this.state.clips && this.state.clips.length) {
             let clipOrder = 0;
             const montageInfo = this.state.clips.reduce(function(info, clip) {
                 clip.order = null;
@@ -289,8 +301,8 @@ export default class Create extends Component {
 
             let montageButton = null;
             if (!auth.isAuthenticated) {
-                montageButton = (<Button className='create__montage-button' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Montage</Button>);
-            } else if (this.state.creatingMontage === true) {
+                montageButton = (<Button className='create__montage-button' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Montages</Button>);
+            } else if (this.state.creatingMontage) {
                 montageButton = (<Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>);
             } else if (montageInfo.clipCount === 0) {
                 montageButton = (<Button className='create__montage-button' bsStyle='warning' disabled>Add Clips to Create Montage</Button>);
@@ -336,6 +348,7 @@ export default class Create extends Component {
                     </div>
                 </div>
                 {analyzeHTML}
+                {noClipsHTML}
                 {clipsHTML}
                 {montageHTML}
             </div>

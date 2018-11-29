@@ -11,7 +11,15 @@
 }
 
 .watch__signup {
-    margin: 15px 0;
+    margin: 50px;
+}
+
+.watch__no-montages {
+    margin-top: 50px;
+}
+
+.watch__create {
+    margin-top: 15px;
 }
 
 .watch__player-container {
