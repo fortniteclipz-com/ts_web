@@ -1,3 +1,4 @@
+echo "building to ${1:-dev}"
 yarn build
 
 if [ $1 == 'prod' ]; then

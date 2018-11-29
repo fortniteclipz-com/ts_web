@@ -254,7 +254,7 @@ export default class Create extends Component {
             analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Streams</Button>);
         } else if (!_status_analyze && this.state.analyzingStream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream</Button>);
-        } else if (!_status_analyze && this.state.validStream === true) {
+        } else if (!_status_analyze && this.state.validStream === true && this.state.stream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='primary' onClick={this.onAnalyze}>Analyze Stream for Fortnite Clips</Button>);
         } else if (!_status_analyze && this.state.validStream === false) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/create'>Go Back and Select New Stream</Button>);

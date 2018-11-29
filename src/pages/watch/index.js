@@ -85,7 +85,7 @@ export default class Watch extends Component {
             noMontagesHTML = (
                 <div className='watch__no-montages'>
                     <h4>No montages found. Go create your own!</h4>
-                    <Button className='watch__create' bsStyle='primary' componentClass={Link} to='/create'>Create Montage</Button>
+                    <Button className='watch__create' bsStyle='primary' componentClass={Link} to='/create'>Create Montages</Button>
                 </div>
             );
         }
