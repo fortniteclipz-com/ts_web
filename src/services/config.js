@@ -1,7 +1,7 @@
 let config = {
     aws: {
         apiGateway: {
-            url: "https://kt1zau9yaf.execute-api.us-east-2.amazonaws.com/dev",
+            url: "https://bpegtv22ak.execute-api.us-east-2.amazonaws.com/dev",
         },
         cognito: {
             region: "us-east-2",
