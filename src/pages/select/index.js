@@ -21,13 +21,6 @@ export default class Select extends Component {
     async componentDidMount() {
         // console.log("Select | componentDidMount");
         let streams = await api.getStreams();
-        streams = streams.sort(function(a, b) {
-            if (a.user > b.user) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
         this.setState({
             streams: streams,
         });
