@@ -41,7 +41,7 @@ export default class Watch extends Component {
             const montage = this.state.montages.find(function(montage) {
                 return montage.montage_id === montageId;
             });
-            if (montage && montage._status === 2) {
+            if (!this.state.playerUrl && montage && montage._status === 2) {
                 this.montageOnPlay(montage);
             }
             if (montages.some(m => m._status === 1)) {
@@ -161,9 +161,9 @@ export default class Watch extends Component {
 
         return (
             <div className='watch'>
-                {signUpHTML}
                 {noMontagesHTML}
                 {playerHTML}
+                {signUpHTML}
                 {montagesHTML}
             </div>
         );
