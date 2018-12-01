@@ -21,7 +21,7 @@ helper.createClips = function(stream, streamMoments) {
     streamMoments.forEach(function(stream_moment, index) {
         if (!clipMoments.length || stream_moment.time - clipMoments[clipMoments.length - 1].time <= 5) {
             clipMoments.push(stream_moment);
-            if (index != streamMoments.length - 1) {
+            if (index !== streamMoments.length - 1) {
                 return
             }
         }
