@@ -32,7 +32,6 @@ export default class Watch extends Component {
     async getMontages() {
         // console.log("Watch | getMontages");
         const montages = await api.getMontages();
-        console.log("montages", montages);
         this.setState({
             montages: montages,
         }, () => {
@@ -45,7 +44,6 @@ export default class Watch extends Component {
                 this.montageOnPlay(montage);
             }
             if (montages.some(m => m._status === 1)) {
-                console.log("gotta call again");
                 setTimeout(() => {
                     this.getMontages();
                 }, 15000);
@@ -57,7 +55,6 @@ export default class Watch extends Component {
         // console.log("Watch | montageOnPlay");
         this.props.history.push(`/watch?montageId=${montage.montage_id}`)
         const playerUrl = `https://s3.${config.aws.s3.region}.amazonaws.com/${config.aws.s3.bucket}/${montage.media_key}`
-        console.log("playerUrl", playerUrl);
         this.setState({
             playerUrl: null,
         }, () => {
