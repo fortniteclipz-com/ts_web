@@ -250,7 +250,7 @@ export default class Create extends Component {
 
         const _status_analyze = (this.state.stream || {})._status_analyze || 0
 
-        if (!_status_analyze && !auth.isAuthenticated) {
+        if (!_status_analyze && !auth.isAuthenticated && this.state.stream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Streams</Button>);
         } else if (!_status_analyze && this.state.analyzingStream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream</Button>);
