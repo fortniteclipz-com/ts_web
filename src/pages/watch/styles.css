@@ -41,6 +41,11 @@
 
 .watch__montages {
     width: 100%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .watch *[data-scrollbar] {
@@ -67,6 +72,7 @@
 
     align-items: center;
     display: flex;
+    flex: 1 0 auto;
     flex-direction: row;
     justify-content: space-between;
 }
