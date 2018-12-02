@@ -141,9 +141,17 @@ export default class Watch extends Component {
             montagesHTML = (
                 <div className='watch__montages'>
                     <div className='watch__montage watch__montage--header'>
-                        <div className='watch__montage-cell watch__montage-cell--montageid'>MontageID<br/>Stream<br/>Streamer</div>
-                        <div className='watch__montage-cell watch__montage-cell--duration'>Duration</div>
-                        <div className='watch__montage-cell watch__montage-cell--play'>Play</div>
+                        <div className='watch__montage-cell watch__montage-cell--montageid'>
+                            <div>MontageID</div>
+                            <div>Stream</div>
+                            <div>Streamer</div>
+                        </div>
+                        <div className='watch__montage-cell watch__montage-cell--duration'>
+                            <div>Duration</div>
+                        </div>
+                        <div className='watch__montage-cell watch__montage-cell--play'>
+                            <div>Play</div>
+                        </div>
                     </div>
                     <Scrollbar>
                         <div className='watch__montages-overflow'>

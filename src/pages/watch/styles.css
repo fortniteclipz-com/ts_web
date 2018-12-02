@@ -11,7 +11,7 @@
 }
 
 .watch__signup {
-    margin-top: 5px;
+    margin: 5px 0;
 }
 
 .watch__no-montages {
@@ -41,11 +41,6 @@
 
 .watch__montages {
     width: 100%;
-
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
 }
 
 .watch *[data-scrollbar] {
@@ -107,11 +102,6 @@
     .watch__player-container {
         margin-top: 0;
     }
-
-    .watch__montage {
-        padding: 10px 10px;
-    }
 }
 
-@media (max-width: 576px) {
-}
+@media (max-width: 576px) {}
