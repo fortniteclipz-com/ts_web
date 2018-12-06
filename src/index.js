@@ -14,7 +14,7 @@ const tawkTo = function () {
     const Tawk_API = window.Tawk_API || {};
     // eslint-disable-next-line
     const Tawk_LoadStart = new Date();
-    (function(){
+    (function() {
         const s1 = document.createElement("script");
         const s0 = document.getElementsByTagName("script")[0];
         s1.async = true;
