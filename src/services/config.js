@@ -15,18 +15,21 @@ let config = {
     },
     ga: {
         trackingID:'UA-129317052-1',
-    }
+    },
+    tawk: {
+        siteId: '5c08c694fd65052a5c93ffa4',
+    },
 };
 
 const prodConfig = {
     aws: {
         apiGateway: {
-            url: "https://w5px4kjqwd.execute-api.us-west-2.amazonaws.com/prod",
+            url: "",
         },
         cognito: {
-            region: "us-west-2",
-            userPoolID: "us-west-2_eowfgVCk9",
-            appClientID: "4kfjgpl47kq4s93aonp6t5r5on",
+            region: "",
+            userPoolID: "",
+            appClientID: "",
         },
         s3: {
             bucket: "twitch-stitch-media-prod",
@@ -34,8 +37,11 @@ const prodConfig = {
         },
     },
     ga: {
-        trackingID:'UA-129317052-1',
-    }
+        trackingID:'UA-129317052-2',
+    },
+    tawk: {
+        siteId: '5c08c859fd65052a5c93ffd9',
+    },
 };
 
 if (window.location.hostname.search("www.fortniteclipz.com") > -1) {
