@@ -27,9 +27,9 @@ const prodConfig = {
             url: "",
         },
         cognito: {
-            region: "",
-            userPoolID: "",
-            appClientID: "",
+            region: "us-west-2",
+            userPoolID: "us-west-2_0qakh8atg",
+            appClientID: "5a0jnlfso72tts2r7osmqif51o",
         },
         s3: {
             bucket: "twitch-stitch-media-prod",
