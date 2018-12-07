@@ -24,7 +24,7 @@ let config = {
 const prodConfig = {
     aws: {
         apiGateway: {
-            url: "",
+            url: "https://0z12xtz6yc.execute-api.us-west-2.amazonaws.com/prod",
         },
         cognito: {
             region: "us-west-2",
