@@ -44,7 +44,7 @@ helper.createClips = function(stream, streamMoments) {
 
         clips.push({
             uuid: uuidv4(),
-            include: include++ < 5,
+            include: include++ < 50,
             time_in: parseInt(time_in),
             time_out: parseInt(time_out),
             time_min: parseInt(time_min),

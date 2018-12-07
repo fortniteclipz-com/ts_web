@@ -95,6 +95,7 @@ export default class Create extends Component {
                 return clip.include ? ++acc : acc;
             }, 0);
             if (clipCount >= 50) {
+                NotificationManager.warning("Sorry, you can only select up to 50 clips. Please de-select a clip before selecting this one.", "Clip Limit Reached");
                 return
             }
         }
