@@ -23,6 +23,9 @@ export default function AppNav(props) {
     return (
         <Navbar fluid fixedTop inverse collapseOnSelect>
             <Navbar.Header>
+                <Navbar.Brand>
+                    <Link to='/'>FortniteClipz</Link>
+                </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
