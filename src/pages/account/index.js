@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import React, { Component } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import { NotificationManager } from 'react-notifications';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -15,7 +15,7 @@ import auth from '../../services/auth';
 
 import './styles.css'
 
-class Account extends Component {
+class Account extends React.Component {
 
     constructor(props, state) {
         super(props);

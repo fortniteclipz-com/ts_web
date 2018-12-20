@@ -3,13 +3,16 @@ import { NotificationContainer } from 'react-notifications';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
 
-import Nav from './components/shared/nav'
 import GAListener from './components/shared/ga-listener'
+import Modal from './components/shared/modal'
+import Nav from './components/shared/nav'
 
 import Account from './pages/account'
 import Create from './pages/create'
 import Select from './pages/select'
 import Watch from './pages/watch'
+
+import modal from './services/modal'
 
 import 'react-notifications/lib/notifications.css';
 
@@ -29,7 +32,8 @@ export default function App() {
                                 <Redirect to='/watch' />
                             </Switch>
                         </div>
-                        <NotificationContainer/>
+                        <Modal ref={m => modal.init(m)} />
+                        <NotificationContainer />
                     </div>
                 </GAListener>
             </LastLocationProvider>

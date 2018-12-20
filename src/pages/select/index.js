@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
@@ -8,7 +8,7 @@ import api from '../../services/api';
 
 import './styles.css'
 
-export default class Select extends Component {
+export default class Select extends React.Component {
 
     constructor(props, state) {
         super(props);

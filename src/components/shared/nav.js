@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import auth from '../../services/auth'
+import modal from '../../services/modal'
 
 export default function AppNav(props) {
     let item;
@@ -30,6 +31,9 @@ export default function AppNav(props) {
             </Navbar.Header>
             <Navbar.Collapse>
                 <Nav pullRight>
+                    <NavItem href='#' onClick={(e) => modal.show()}>
+                        Help
+                    </NavItem>
                     <NavItem componentClass={Link} href='/create' to='/create'>
                         Create
                     </NavItem>

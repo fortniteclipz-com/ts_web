@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { Component } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import ReactGA from 'react-ga';
 
@@ -10,7 +10,7 @@ window.gaData = function(obj) {
     return Buffer.from(JSON.stringify(obj)).toString('base64');
 };
 
-export default class GAListener extends Component {
+export default class GAListener extends React.Component {
 
     static contextTypes = {
         router: PropTypes.object

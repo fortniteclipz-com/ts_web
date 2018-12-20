@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
 import FilePlayer from 'react-player/lib/players/FilePlayer'
@@ -12,7 +12,7 @@ import helper from '../../services/helper';
 
 import './styles.css'
 
-export default class Watch extends Component {
+export default class Watch extends React.Component {
 
     constructor(props, state) {
         super(props);
@@ -98,7 +98,7 @@ export default class Watch extends Component {
                             height={'100%'}
                             controls={true}
                             playsinline={true}
-                            ref={player => this.player = player}
+                            ref={p => this.player = p}
                         />
                     </div>
                 </div>

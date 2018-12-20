@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
@@ -13,7 +13,7 @@ import helper from '../../services/helper';
 
 import './styles.css'
 
-export default class Create extends Component {
+export default class Create extends React.Component {
 
     constructor(props, state) {
         super(props);
@@ -344,7 +344,7 @@ export default class Create extends Component {
                             onPause={this.playerOnPause}
                             onReady={this.playerOnReady}
                             onDuration={this.playerOnDuration}
-                            ref={player => this.player = player}
+                            ref={p => this.player = p}
                         />
                     </div>
                 </div>
