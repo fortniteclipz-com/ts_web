@@ -16,8 +16,10 @@
         "react-router-dom": "^4.3.1",
         "react-router-last-location": "^1.1.0",
         "react-scripts": "2.0.5",
+        "react-slick": "^0.23.2",
         "react-smooth-scrollbar": "^8.0.6",
         "react-sortable-hoc": "^0.8.3",
+        "slick-carousel": "^1.8.1",
         "smooth-scrollbar": "^8.3.1",
         "uuid": "^3.3.2"
     },

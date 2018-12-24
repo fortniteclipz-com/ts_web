@@ -7,33 +7,30 @@ export default class AppModal extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      show: false
+      show: false,
+      content: false,
     };
   }
 
   close() {
     this.setState({
-      show: false
+      show: false,
+      content: false,
     });
   }
 
-  show() {
+  show(Component) {
     this.setState({
-      show: true
+      show: true,
+      content: <Component />,
     });
   }
 
   render() {
     return (
-        <Modal show={this.state.show} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal Title</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            sachin was here
-            {this.children}
-          </Modal.Body>
-        </Modal>
+      <Modal show={this.state.show} onHide={this.close}>
+        {this.state.content}
+      </Modal>
     );
   }
 }
