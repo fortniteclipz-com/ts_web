@@ -5,21 +5,22 @@ import WalkThruModal from '../components/modal/walkThru'
 const modal = {};
 let instance = null;
 
-modal.init = function (_instance) {
+modal.init = function(_instance) {
   instance = _instance;
 
   const walkThru = helper.getCookie("walkThru");
-  if (walkThru !== "47H0FgUK6xdX") {
+  const walkThruValue = "V7e8V48HTQWj";
+  if (walkThru !== walkThruValue) {
     instance.show(WalkThruModal)
-    helper.setCookie("walkThru", "47H0FgUK6xdX", 20 * 365);
+    helper.setCookie("walkThru", walkThruValue, 20 * 365);
   }
 };
 
-modal.show = function (component) {
+modal.show = function(component) {
   instance.show(component);
 };
 
-modal.close = function () {
+modal.close = function() {
   instance.close();
 };
 

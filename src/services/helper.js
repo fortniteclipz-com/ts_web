@@ -57,7 +57,7 @@ helper.createClips = function(stream, streamMoments) {
     return clips;
 };
 
-helper.setCookie = function (cname, cvalue, exdays) {
+helper.setCookie = function(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
   var expires = "expires="+ d.toUTCString();

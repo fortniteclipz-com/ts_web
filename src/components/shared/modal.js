@@ -7,28 +7,27 @@ export default class AppModal extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      show: false,
-      content: false,
+      content: undefined,
     };
   }
 
   close() {
+    document.querySelector('#tawkchat-container').style.display = 'block';
     this.setState({
-      show: false,
-      content: false,
+      content: undefined,
     });
   }
 
   show(Component) {
+    document.querySelector('#tawkchat-container').style.display = 'none';
     this.setState({
-      show: true,
       content: <Component />,
     });
   }
 
   render() {
     return (
-      <Modal show={this.state.show} onHide={this.close}>
+      <Modal show={this.state.content !== undefined} onHide={this.close}>
         {this.state.content}
       </Modal>
     );

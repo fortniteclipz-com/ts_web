@@ -9,7 +9,7 @@ import config from './services/config';
 
 import './index.css';
 
-const tawkTo = function () {
+(async function() {
     // eslint-disable-next-line
     const Tawk_API = window.Tawk_API || {};
     // eslint-disable-next-line
@@ -23,18 +23,14 @@ const tawkTo = function () {
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
     })();
-}
 
-const render = async function() {
     await auth.check();
+
     ReactDOM.render(
         <App />,
         document.getElementById('root'),
     );
-}
-
-tawkTo();
-render();
+})();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
