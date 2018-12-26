@@ -33,12 +33,11 @@ code {
 }
 
 .modal-help img {
-    margin: 0 auto 15px auto;
+    margin: 30px auto 0 auto;
     max-height: 300px;
     max-width: 100%;
 }
 
 .modal-help p {
     margin: 0;
-    white-space: pre-wrap;
 }

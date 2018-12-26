@@ -7,10 +7,11 @@ let instance = null;
 
 modal.init = function (_instance) {
   instance = _instance;
+
   const walkThru = helper.getCookie("walkThru");
-  if (walkThru !== "71wsiENt3Iyd") {
+  if (walkThru !== "47H0FgUK6xdX") {
     instance.show(WalkThruModal)
-    helper.setCookie("walkThru", "71wsiENt3Iyd");
+    helper.setCookie("walkThru", "47H0FgUK6xdX", 20 * 365);
   }
 };
 
