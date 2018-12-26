@@ -74,9 +74,10 @@ export default class WalkThruModal extends React.Component {
           <div className="modal-help">
             <Slider
               adaptiveHeight={true}
+              beforeChange={(current, next) => this.setState({slideIndex: next})}
               dots={true}
               infinite={false}
-              beforeChange={(current, next) => this.setState({slideIndex: next})}
+              swipe={false}
               ref={s => this.slider = s}
             >
             {
