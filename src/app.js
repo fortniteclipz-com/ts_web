@@ -29,7 +29,9 @@ export default class App extends React.Component {
 
     componentDidMount() {
         // console.log("App | componentDidMount");
-        modal.init(this.modal);
+        setTimeout(() => {
+            modal.init(this.modal);
+        }, 1000);
     }
 
     render() {
