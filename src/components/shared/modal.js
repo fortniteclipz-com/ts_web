@@ -14,7 +14,7 @@ export default class AppModal extends React.Component {
   close() {
     this.setState({
       content: undefined,
-    }, function () {
+    }, function() {
       document.querySelectorAll('#tawkchat-container').forEach(n => n.style.display = 'block');
     });
   }
@@ -22,7 +22,7 @@ export default class AppModal extends React.Component {
   show(Component) {
     this.setState({
       content: <Component />,
-    }, function () {
+    }, function() {
       document.querySelectorAll('#tawkchat-container').forEach(n => n.style.display = 'none');
     });
   }
