@@ -1,6 +1,6 @@
 import helper from './helper';
 
-import WalkThruModal from '../components/modal/walkThru'
+import TutorialModal from '../components/modal/tutorial'
 
 const modal = {};
 let instance = null;
@@ -8,11 +8,11 @@ let instance = null;
 modal.init = function(_instance) {
   instance = _instance;
 
-  const walkThru = helper.getCookie("walkThru");
-  const walkThruValue = "0s68r4qHgAc1";
-  if (walkThru !== walkThruValue) {
-    instance.show(WalkThruModal)
-    helper.setCookie("walkThru", walkThruValue, 20 * 365);
+  const tutorial = helper.getCookie("tutorial");
+  const tutorialValue = "0s68r4qHgAc1";
+  if (tutorial !== tutorialValue) {
+    instance.show(TutorialModal)
+    helper.setCookie("tutorial", tutorialValue, 20 * 365);
   }
 };
 

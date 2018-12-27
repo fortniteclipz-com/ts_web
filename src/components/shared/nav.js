@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import WalkThruModal from '../modal/walkThru'
+import TutorialModal from '../modal/tutorial'
 
 import auth from '../../services/auth'
 import modal from '../../services/modal'
@@ -33,8 +33,8 @@ export default function AppNav(props) {
             </Navbar.Header>
             <Navbar.Collapse>
                 <Nav pullRight>
-                    <NavItem href='#' onClick={(e) => modal.show(WalkThruModal)}>
-                        Walk Thru
+                    <NavItem href='#' onClick={(e) => modal.show(TutorialModal)}>
+                        Tutorial
                     </NavItem>
                     <NavItem componentClass={Link} href='/create' to='/create'>
                         Create
