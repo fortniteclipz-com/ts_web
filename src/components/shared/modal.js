@@ -12,16 +12,18 @@ export default class AppModal extends React.Component {
   }
 
   close() {
-    document.querySelector('#tawkchat-container').style.display = 'block';
     this.setState({
       content: undefined,
+    }, function () {
+      document.querySelectorAll('#tawkchat-container').forEach(n => n.style.display = 'block');
     });
   }
 
   show(Component) {
-    document.querySelector('#tawkchat-container').style.display = 'none';
     this.setState({
       content: <Component />,
+    }, function () {
+      document.querySelectorAll('#tawkchat-container').forEach(n => n.style.display = 'none');
     });
   }
 
