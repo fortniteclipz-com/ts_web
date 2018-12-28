@@ -1,4 +1,4 @@
-echo "building to ${1:-dev}"
+echo "environment: ${1:-dev}"
 
 if [ $1 == 'prod' ]; then
     echo "deloying to prod"
