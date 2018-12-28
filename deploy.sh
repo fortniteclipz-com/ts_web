@@ -1,4 +1,8 @@
-git diff-index --quiet HEAD -- || echo "untracked";
+if git diff-index --quiet HEAD; then
+    echo 'tracked'
+else
+    echo 'UNtracked'
+fi
 
 
 # echo "building to ${1:-dev}"
