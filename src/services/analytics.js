@@ -2,7 +2,7 @@ import ReactGA from 'react-ga';
 
 import config from './config';
 
-ReactGA.initialize(config.ga.trackingID);
+ReactGA.initialize(config.ga.trackingID, {debug: config.isDev()});
 window.gaData = function(obj) {
     return Buffer.from(JSON.stringify(obj)).toString('base64');
 };
@@ -22,12 +22,14 @@ analytics.setUserId = function(userId) {
     });
 };
 
-analytics.sendPageView = function(location) {
-    // console.log("analytics | sendPageView | location", location);
-    ReactGA.set({
-        page: location.pathname,
-    });
-    ReactGA.pageview(location.pathname);
+analytics.sendPageview = function(location) {
+    // console.log("analytics | sendPageview | location", location);
+    ReactGA.pageview(`${location.pathname}${location.search}`);
+};
+
+analytics.sendModalview = function(modal) {
+    // console.log("analytics | sendModalview | modal", modal);
+    ReactGA.modalview(modal);
 };
 
 analytics.sendEvent = function(event) {

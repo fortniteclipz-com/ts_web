@@ -21,7 +21,7 @@ code {
 }
 
 .modal-dialog {
-    height: calc(100vh + 1px);
+    height: calc(100% - 19px);
 }
 
 .modal-help {

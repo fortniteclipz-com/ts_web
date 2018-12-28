@@ -1,4 +1,5 @@
 let config = {
+    env: 'dev',
     aws: {
         apiGateway: {
             url: "https://ygamo6kug0.execute-api.us-east-2.amazonaws.com/dev",
@@ -22,6 +23,7 @@ let config = {
 };
 
 const prodConfig = {
+    env: 'prod',
     aws: {
         apiGateway: {
             url: "https://zfns2yas58.execute-api.us-west-2.amazonaws.com/prod",
@@ -44,12 +46,14 @@ const prodConfig = {
     },
 };
 
-if (
-    window.location.hostname.search("www.fortniteclipz.com") > -1 ||
-    window.location.hostname.search("localhost") > -1
-) {
+config.aws = prodConfig.aws
+if (window.location.hostname.search("www.fortniteclipz.com") > -1) {
     config = prodConfig
 }
+
+config.isDev = function () {
+    return config.env === 'dev';
+};
 
 console.log("config", config);
 export default config;

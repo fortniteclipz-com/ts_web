@@ -18,8 +18,8 @@ export default class Analytics extends React.Component {
 
     componentDidMount() {
         // console.log("Analytics | componentDidMount");
-        analytics.sendPageView(this.context.router.history.location);
-        this.context.router.history.listen(analytics.sendPageView);
+        analytics.sendPageview(this.context.router.history.location);
+        this.context.router.history.listen(analytics.sendPageview);
     }
 
     render() {
