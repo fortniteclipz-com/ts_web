@@ -8,6 +8,7 @@ import { arrayMove } from 'react-sortable-hoc';
 
 import Clips from '../../components/create/clips';
 import api from '../../services/api';
+import analytics from '../../services/analytics';
 import auth from '../../services/auth';
 import helper from '../../services/helper';
 
@@ -130,9 +131,9 @@ export default class Create extends React.Component {
             clips: this.state.clips,
             playingClip: clip,
         });
-        window.gaEvent({
+        analytics.sendEvent({
             category: 'Clip',
-            action: 'Edit',
+            action: 'Edit:Time',
         });
     }
 
@@ -166,6 +167,10 @@ export default class Create extends React.Component {
         this.setState({
             clips: this.state.clips,
         });
+        analytics.sendEvent({
+            category: 'Clip',
+            action: 'Edit:Clip',
+        });
     }
 
     clipsOnIncludeAll() {
@@ -193,7 +198,7 @@ export default class Create extends React.Component {
         this.setState({
             clips: arrayMove(this.state.clips, oldIndex, newIndex),
         });
-        window.gaEvent({
+        analytics.sendEvent({
             category: 'Clip',
             action: 'Sort',
         });

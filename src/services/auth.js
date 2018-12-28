@@ -1,6 +1,6 @@
 import Amplify, { Auth } from 'aws-amplify';
-import ReactGA from 'react-ga';
 
+import analytics from './analytics';
 import config from './config';
 
 Amplify.configure({
@@ -17,7 +17,7 @@ const auth = {
 };
 
 auth.isAuthenticated = function () {
-    return user !== null;
+    return auth.user !== null;
 };
 
 auth.getToken = function() {
@@ -28,9 +28,7 @@ auth.check = async function() {
     try {
         const user = await Auth.currentAuthenticatedUser();
         auth.set(user);
-        ReactGA.set({
-            userId: user.attributes.sub,
-        });
+        analytics.setUserId(user.attributes.sub);
     } catch (e) {
         console.log("auth | check | e", e);
         auth.user = null;

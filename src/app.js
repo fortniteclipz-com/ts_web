@@ -4,7 +4,7 @@ import { NotificationContainer } from 'react-notifications';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
 
-import GAListener from './components/shared/ga-listener'
+import Anayltics from './components/shared/analytics'
 import Modal from './components/shared/modal'
 import Nav from './components/shared/nav'
 
@@ -38,7 +38,7 @@ export default class App extends React.Component {
         return (
             <BrowserRouter>
                 <LastLocationProvider>
-                    <GAListener>
+                    <Anayltics>
                         <div className="app">
                             <Nav />
                             <div className="app-container">
@@ -53,7 +53,7 @@ export default class App extends React.Component {
                             <Modal ref={m => this.modal = m} />
                             <NotificationContainer />
                         </div>
-                    </GAListener>
+                    </Anayltics>
                 </LastLocationProvider>
             </BrowserRouter>
         );
