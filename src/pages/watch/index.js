@@ -74,11 +74,11 @@ export default class Watch extends React.Component {
         let playerHTML = null;
         let montagesHTML = null;
 
-        if (!auth.isAuthenticated) {
+        if (!auth.isAuthenticated()) {
             signUpHTML = (<Button className='watch__signup' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Your Own Montage</Button>);
         }
 
-        if (auth.isAuthenticated && this.state.montages && !this.state.montages.length) {
+        if (auth.isAuthenticated() && this.state.montages && !this.state.montages.length) {
             noMontagesHTML = (
                 <div className='watch__no-montages'>
                     <h4>No montages found. Go create your own!</h4>

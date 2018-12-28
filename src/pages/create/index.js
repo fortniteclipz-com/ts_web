@@ -251,7 +251,7 @@ export default class Create extends React.Component {
 
         const _status_analyze = (this.state.stream || {})._status_analyze || 0
 
-        if (!_status_analyze && !auth.isAuthenticated && this.state.stream) {
+        if (!_status_analyze && !auth.isAuthenticated() && this.state.stream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Analyze Streams</Button>);
         } else if (!_status_analyze && this.state.analyzingStream) {
             analyzeHTML = (<Button className='create__analyze' bsStyle='danger' disabled>Analyzing Stream</Button>);
@@ -301,7 +301,7 @@ export default class Create extends React.Component {
             );
 
             let montageButton = null;
-            if (!auth.isAuthenticated) {
+            if (!auth.isAuthenticated()) {
                 montageButton = (<Button className='create__montage-button' bsStyle='primary' componentClass={Link} to='/account'>Sign Up to Create Montages</Button>);
             } else if (this.state.creatingMontage) {
                 montageButton = (<Button className='create__montage-button' bsStyle='danger' disabled>Creating Montage</Button>);

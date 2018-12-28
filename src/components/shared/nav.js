@@ -9,7 +9,7 @@ import modal from '../../services/modal'
 
 export default function AppNav(props) {
     let item;
-    if (auth.isAuthenticated) {
+    if (auth.isAuthenticated()) {
         item = (
             <NavItem componentClass={Link} href='/account/profile' to='/account/profile'>
                 Profile

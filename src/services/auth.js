@@ -13,8 +13,11 @@ Amplify.configure({
 });
 
 const auth = {
-    'isAuthenticated': undefined,
     'user': null,
+};
+
+auth.isAuthenticated = function () {
+    return user !== null;
 };
 
 auth.getToken = function() {
@@ -30,19 +33,16 @@ auth.check = async function() {
         });
     } catch (e) {
         console.log("auth | check | e", e);
-        auth.isAuthenticated = false;
         auth.user = null;
     }
     return;
 };
 
 auth.set = function(user) {
-    auth.isAuthenticated = true;
     auth.user = user;
 };
 
 auth.clear = async function() {
-    auth.isAuthenticated = false;
     auth.user = null;
     await Auth.signOut();
 };
