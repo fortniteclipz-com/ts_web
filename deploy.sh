@@ -1,8 +1,8 @@
 echo "building to ${1:-dev}"
 
 if [ $1 == 'prod' ]; then
+    echo "deloying to prod"
     if git diff-index --quiet HEAD; then
-        echo "deloying to prod"
         yarn build
         aws s3 sync ./build s3://www.fortniteclipz.com
 
