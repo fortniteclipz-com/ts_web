@@ -2,12 +2,12 @@ let config = {
     env: 'dev',
     aws: {
         apiGateway: {
-            url: "https://ygamo6kug0.execute-api.us-east-2.amazonaws.com/dev",
+            url: "https://7ifsaabp13.execute-api.us-east-2.amazonaws.com/dev",
         },
         cognito: {
             region: "us-east-2",
-            userPoolID: "us-east-2_N2uwzTRn4",
-            appClientID: "2tavh6mqc8vu64b51367uq36hu",
+            userPoolID: "us-east-2_N7L6Esmi1",
+            appClientID: "1s3mi530stnvsl025b13otru8s",
         },
         s3: {
             bucket: "twitch-stitch-media-dev",
@@ -46,7 +46,7 @@ const prodConfig = {
     },
 };
 
-config.aws = prodConfig.aws
+// config.aws = prodConfig.aws
 if (window.location.hostname.search("www.fortniteclipz.com") > -1) {
     config = prodConfig
 }
