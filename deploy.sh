@@ -1,6 +1,6 @@
 echo "environment: ${1:-dev}"
 
-if [ $1 == 'prod' ]; then
+if [[ $1 == 'prod' ]]; then
     echo "deloying to prod"
     if git diff-index --quiet HEAD; then
         yarn build
