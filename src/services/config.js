@@ -2,12 +2,12 @@ let config = {
     env: 'dev',
     aws: {
         apiGateway: {
-            url: "https://o0qtrfpsv5.execute-api.us-east-2.amazonaws.com/dev",
+            url: "https://kcr9kv1cce.execute-api.us-east-2.amazonaws.com/dev",
         },
         cognito: {
             region: "us-east-2",
-            userPoolID: "us-east-2_Xu6DXV7F9",
-            appClientID: "5b11sutisbn02bk3n1o16k01b7",
+            userPoolID: "us-east-2_QNEirxcV8",
+            appClientID: "7cshtlgsflt8lc8da1289bvv77",
         },
         s3: {
             bucket: "twitch-stitch-media-dev",
