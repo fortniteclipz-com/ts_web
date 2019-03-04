@@ -26,12 +26,12 @@ const prodConfig = {
     env: 'prod',
     aws: {
         apiGateway: {
-            url: "https://zfns2yas58.execute-api.us-west-2.amazonaws.com/prod",
+            url: "https://lyicyo2sfj.execute-api.us-west-2.amazonaws.com/prod",
         },
         cognito: {
             region: "us-west-2",
-            userPoolID: "us-west-2_0qakh8atg",
-            appClientID: "5a0jnlfso72tts2r7osmqif51o",
+            userPoolID: "us-west-2_U6fSa589W",
+            appClientID: "71qtjojrgski9lp8l18ql9oo3b",
         },
         s3: {
             bucket: "twitch-stitch-media-prod",
