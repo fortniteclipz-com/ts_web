@@ -10,7 +10,7 @@ let config = {
             appClientID: "5b8ssgbp2vgrkjonl1nvpa3vm4",
         },
         s3: {
-            bucket: "twitch-stitch-media-dev",
+            bucket: "ts-media-dev",
             region: "us-east-2",
         },
     },
@@ -34,7 +34,7 @@ const prodConfig = {
             appClientID: "71qtjojrgski9lp8l18ql9oo3b",
         },
         s3: {
-            bucket: "twitch-stitch-media-prod",
+            bucket: "ts-media-prod",
             region: "us-west-2",
         },
     },
