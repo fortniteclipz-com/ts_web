@@ -2,16 +2,16 @@ let config = {
     env: 'dev',
     aws: {
         apiGateway: {
-            url: "https://1g6q6qcqfd.execute-api.us-east-2.amazonaws.com/dev",
+            url: "https://1zaiprccsj.execute-api.us-east-1.amazonaws.com/dev",
         },
         cognito: {
-            region: "us-east-2",
-            userPoolID: "us-east-2_98bISljpi",
-            appClientID: "5b8ssgbp2vgrkjonl1nvpa3vm4",
+            region: "us-east-1",
+            userPoolID: "us-east-1_1hB4gnuAA",
+            appClientID: "6t5oe04099tcbm8i4kl6337gl7",
         },
         s3: {
             bucket: "ts-media-dev",
-            region: "us-east-2",
+            region: "us-east-1",
         },
     },
     ga: {
@@ -26,12 +26,12 @@ const prodConfig = {
     env: 'prod',
     aws: {
         apiGateway: {
-            url: "https://lyicyo2sfj.execute-api.us-west-2.amazonaws.com/prod",
+            url: "https://0vla0vstsk.execute-api.us-west-2.amazonaws.com/prod",
         },
         cognito: {
             region: "us-west-2",
-            userPoolID: "us-west-2_U6fSa589W",
-            appClientID: "71qtjojrgski9lp8l18ql9oo3b",
+            userPoolID: "us-west-2_g8hYiwjjQ",
+            appClientID: "78meifcuuv4omm0bbo8g6lfgob",
         },
         s3: {
             bucket: "ts-media-prod",
