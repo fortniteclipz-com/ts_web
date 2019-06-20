@@ -26,12 +26,12 @@ const prodConfig = {
     env: 'prod',
     aws: {
         apiGateway: {
-            url: "https://0vla0vstsk.execute-api.us-west-2.amazonaws.com/prod",
+            url: "https://4d5pq1t931.execute-api.us-west-2.amazonaws.com/prod",
         },
         cognito: {
             region: "us-west-2",
-            userPoolID: "us-west-2_g8hYiwjjQ",
-            appClientID: "78meifcuuv4omm0bbo8g6lfgob",
+            userPoolID: "us-west-2_2qb6HVjKD",
+            appClientID: "ljfgh18rdud249mh28r7bob51",
         },
         s3: {
             bucket: "ts-media-prod",
