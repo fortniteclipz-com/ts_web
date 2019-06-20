@@ -1,3 +1,4 @@
+# deploy
 ts_env=${1:-'dev'}
 echo "deploy | start | ts_env=$ts_env"
 
