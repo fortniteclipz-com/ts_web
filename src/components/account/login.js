@@ -22,7 +22,6 @@ export default function Login(props) {
                         type='text'
                         autoComplete='email'
                         placeholder='Email'
-                        defaultValue={window.placeholders.email}
                     />
                 </FormGroup>
                 <FormGroup controlId='login__password' bsSize='large' className='account__login-password'>
@@ -32,7 +31,6 @@ export default function Login(props) {
                         type='password'
                         autoComplete='current-password'
                         placeholder='Password'
-                        defaultValue={window.placeholders.password}
                     />
                 </FormGroup>
                 <Link to='/account/forgot' className='account__login-forgot'>Forgot Password</Link>

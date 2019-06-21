@@ -21,7 +21,6 @@ export default function Forgot(props) {
                         type='text'
                         autoComplete='email'
                         placeholder='Email'
-                        defaultValue={window.placeholders.email}
                     />
                 </FormGroup>
                 <Button

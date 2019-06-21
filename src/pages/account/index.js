@@ -145,11 +145,3 @@ class Account extends React.Component {
 };
 
 export default withLastLocation(Account);
-
-window.placeholders = {};
-if (window.location.hostname.search("localhost") > -1) {
-    window.placeholders = {
-        email: "sachinahj@gmail.com",
-        password: "password",
-    };
-}

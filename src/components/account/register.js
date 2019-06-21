@@ -23,7 +23,6 @@ export default function Register(props) {
                         type='text'
                         autoComplete='email'
                         placeholder='Email'
-                        defaultValue={window.placeholders.email}
                     />
                 </FormGroup>
                 <FormGroup controlId='register__password' bsSize='large'>
@@ -33,7 +32,6 @@ export default function Register(props) {
                         type='password'
                         autoComplete='new-password'
                         placeholder='Password'
-                        defaultValue={window.placeholders.password}
                     />
                 </FormGroup>
                 <FormGroup controlId='register__password-confirm' bsSize='large'>
@@ -43,7 +41,6 @@ export default function Register(props) {
                         type='password'
                         autoComplete='new-password'
                         placeholder='Confirm Password'
-                        defaultValue={window.placeholders.password}
                     />
                 </FormGroup>
                 <Button
